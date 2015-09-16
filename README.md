@@ -1,2 +1,2 @@
 # bam-qt
-BuildAMation Qt package repository
+[BuildAMation](https://github.com/markfinal/BuildAMation) Qt package repository
