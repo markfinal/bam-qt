@@ -29,7 +29,7 @@
 #endregion // License
 using Bam.Core;
 using QtCommon.MocExtension;
-namespace Test13
+namespace Qt4Test1
 {
     sealed class QtApplication :
         C.ConsoleApplication
