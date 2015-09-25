@@ -1,0 +1,4 @@
+tests/*/build
+tests/Logs
+*.pyc
+.DS_Store
