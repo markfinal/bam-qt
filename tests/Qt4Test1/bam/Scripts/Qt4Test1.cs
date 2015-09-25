@@ -32,7 +32,7 @@ using QtCommon.MocExtension;
 namespace Qt4Test1
 {
     sealed class QtApplication :
-        C.ConsoleApplication
+        C.Cxx.ConsoleApplication
     {
         public QtApplication()
         {
