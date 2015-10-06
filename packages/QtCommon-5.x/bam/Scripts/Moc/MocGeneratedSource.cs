@@ -40,7 +40,6 @@ namespace QtCommon
             Bam.Core.Module parent)
         {
             base.Init(parent);
-            this.RegisterGeneratedFile(Key, Bam.Core.TokenizedString.Create("$(encapsulatingbuilddir)/$(config)/@basename($(mocheaderpath))_moc.cpp", this));
             this.Compiler = Bam.Core.Graph.Instance.FindReferencedModule<MocTool>();
             this.Requires(this.Compiler);
         }
@@ -54,7 +53,7 @@ namespace QtCommon
             set
             {
                 this.SourceHeaderModule = value;
-                this.Macros.Add("mocheaderpath", value.InputPath);
+                this.GeneratedPaths[Key].Assign(this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@basename($(0))_moc.cpp", value.GeneratedPaths[C.HeaderFile.Key]));
             }
         }
 
