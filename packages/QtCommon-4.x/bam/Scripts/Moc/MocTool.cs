@@ -43,7 +43,7 @@ namespace QtCommon
         {
             get
             {
-                return Bam.Core.TokenizedString.Create(System.IO.Path.Combine(new [] {QtCommon.Configure.InstallPath.Parse(), "bin", "moc"}), null);
+                return Bam.Core.TokenizedString.Create("$(0)/bin/moc", null, new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath));
             }
         }
 

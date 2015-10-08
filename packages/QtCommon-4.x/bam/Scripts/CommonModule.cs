@@ -46,19 +46,19 @@ namespace QtCommon
             Bam.Core.Module parent)
         {
             base.Init(parent);
-            this.Macros.Add("QtIncludePath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/include", this));
-            this.Macros.Add("QtLibraryPath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/lib", this));
-            this.Macros.Add("QtBinaryPath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/bin", this));
-            this.Macros.Add("QtConfig", Bam.Core.TokenizedString.Create((this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ? "d" : string.Empty, null));
+            this.Macros.Add("QtIncludePath", this.CreateTokenizedString("$(QtInstallPath)/include"));
+            this.Macros.Add("QtLibraryPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
+            this.Macros.Add("QtBinaryPath", this.CreateTokenizedString("$(QtInstallPath)/bin"));
+            this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim((this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ? "d" : string.Empty));
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.GeneratedPaths[Key] = Bam.Core.TokenizedString.Create("$(QtBinaryPath)/$(dynamicprefix)Qt$(QtModuleName)$(QtConfig)4$(dynamicext)", this);
-                this.GeneratedPaths[ImportLibraryKey] = Bam.Core.TokenizedString.Create("$(QtLibraryPath)/$(libprefix)Qt$(QtModuleName)$(QtConfig)4$(libext)", this);
+                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtBinaryPath)/$(dynamicprefix)Qt$(QtModuleName)$(QtConfig)4$(dynamicext)");
+                this.GeneratedPaths[ImportLibraryKey] = this.CreateTokenizedString("$(QtLibraryPath)/$(libprefix)Qt$(QtModuleName)$(QtConfig)4$(libext)");
             }
             else
             {
-                this.GeneratedPaths[Key] = Bam.Core.TokenizedString.Create("$(QtLibraryPath)/$(dynamicprefix)Qt$(QtModuleName)$(dynamicext)", this);
+                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)Qt$(QtModuleName)$(dynamicext)");
             }
 
             this.PublicPatch((settings, appliedTo) =>

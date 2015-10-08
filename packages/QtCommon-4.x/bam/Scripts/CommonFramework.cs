@@ -45,7 +45,7 @@ namespace QtCommon
             Bam.Core.Module parent)
         {
             base.Init(parent);
-            this.Macros.Add("QtFrameworkPath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/lib", this));
+            this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
 
             this.PublicPatch((settings, appliedTo) =>
             {
@@ -58,7 +58,7 @@ namespace QtCommon
                 var osxLinker = settings as C.ILinkerSettingsOSX;
                 if (null != osxLinker)
                 {
-                    osxLinker.Frameworks.AddUnique(Bam.Core.TokenizedString.Create("$(QtFrameworkPath)/Qt$(QtModuleName).framework", this));
+                    osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/Qt$(QtModuleName).framework"));
                     osxLinker.FrameworkSearchDirectories.AddUnique(this.Macros["QtFrameworkPath"]);
                 }
             });

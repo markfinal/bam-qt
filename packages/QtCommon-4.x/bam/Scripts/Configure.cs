@@ -42,7 +42,7 @@ namespace QtCommon
             {
                 throw new Bam.Core.Exception("Qt install dir, {0}, does not exist", qtInstallDir);
             }
-            InstallPath = Bam.Core.TokenizedString.Create(qtInstallDir, null);
+            InstallPath = Bam.Core.TokenizedString.CreateVerbatim(qtInstallDir);
         }
 
         public static Bam.Core.TokenizedString InstallPath
