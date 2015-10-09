@@ -43,7 +43,14 @@ namespace QtCommon
         {
             get
             {
-                return Bam.Core.TokenizedString.Create("$(0)/bin/moc", null, new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath));
+                if (Bam.Core.OSUtilities.IsOSXHosting)
+                {
+                    return Bam.Core.TokenizedString.Create("$(0)/moc", null, new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath));
+                }
+                else
+                {
+                    return Bam.Core.TokenizedString.Create("$(0)/bin/moc", null, new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath));
+                }
             }
         }
 
