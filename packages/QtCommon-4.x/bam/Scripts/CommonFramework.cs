@@ -27,6 +27,7 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
+using Bam.Core;
 namespace QtCommon
 {
     public abstract class CommonFramework :
@@ -38,6 +39,7 @@ namespace QtCommon
         {
             this.Macros.Add("QtModuleName", moduleName);
             this.Macros.Add("QtInstallPath", Configure.InstallPath);
+            this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
         }
 
         protected override void
@@ -45,7 +47,14 @@ namespace QtCommon
             Bam.Core.Module parent)
         {
             base.Init(parent);
-            this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
+            if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
+            {
+                this.Macros.Add("QtFrameworkPath", Bam.Core.TokenizedString.CreateVerbatim("/Library/Frameworks"));
+            }
+            else
+            {
+                this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
+            }
 
             this.PublicPatch((settings, appliedTo) =>
             {
@@ -58,7 +67,7 @@ namespace QtCommon
                 var osxLinker = settings as C.ILinkerSettingsOSX;
                 if (null != osxLinker)
                 {
-                    osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/Qt$(QtModuleName).framework"));
+                    osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/$(QtFramework)"));
                     osxLinker.FrameworkSearchDirectories.AddUnique(this.Macros["QtFrameworkPath"]);
                 }
             });
@@ -82,6 +91,43 @@ namespace QtCommon
             string mode)
         {
             // prebuilt - no execution policy
+        }
+
+        public override Bam.Core.TokenizedString FrameworkPath
+        {
+            get
+            {
+                return this.Macros["QtFrameworkPath"];
+            }
+        }
+
+        public override Bam.Core.TokenizedStringArray DirectoriesToPublish
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public override Bam.Core.TokenizedStringArray FilesToPublish
+        {
+            get
+            {
+                var toPublish = new Bam.Core.TokenizedStringArray();
+                toPublish.Add(this.CreateTokenizedString("$(QtFramework)/Versions/4/Qt$(QtModuleName)"));
+                return toPublish;
+            }
+        }
+
+        public override Bam.Core.TokenizedStringArray SymlinksToPublish
+        {
+            get
+            {
+                var toPublish = new Bam.Core.TokenizedStringArray();
+                toPublish.Add(this.CreateTokenizedString("$(QtFramework)/Versions/Current"));
+                toPublish.Add(this.CreateTokenizedString("$(QtFramework)/Qt$(QtModuleName)"));
+                return toPublish;
+            }
         }
     }
 }

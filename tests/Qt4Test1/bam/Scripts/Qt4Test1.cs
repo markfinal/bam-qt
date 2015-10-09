@@ -36,7 +36,10 @@ namespace Qt4Test1
     {
         public QtApplication()
         {
-            this.BitDepth = C.EBit.ThirtyTwo;
+            if (!this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
+            {
+                this.BitDepth = C.EBit.ThirtyTwo;
+            }
         }
 
         protected override void
@@ -107,6 +110,8 @@ namespace Qt4Test1
             var app = this.Include<QtApplication>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
+                this.IncludeFramework<Qt.CoreFramework>("../Frameworks", app);
+                this.IncludeFramework<Qt.GuiFramework>("../Frameworks", app);
             }
             else
             {
