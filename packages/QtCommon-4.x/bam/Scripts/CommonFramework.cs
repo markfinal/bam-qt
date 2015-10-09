@@ -39,14 +39,6 @@ namespace QtCommon
         {
             this.Macros.Add("QtModuleName", moduleName);
             this.Macros.Add("QtInstallPath", Configure.InstallPath);
-            this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
-        }
-
-        protected override void
-        Init(
-            Bam.Core.Module parent)
-        {
-            base.Init(parent);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
                 this.Macros.Add("QtFrameworkPath", Bam.Core.TokenizedString.CreateVerbatim("/Library/Frameworks"));
@@ -55,6 +47,16 @@ namespace QtCommon
             {
                 this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             }
+
+            // required for C.ExternalFramework
+            this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
+        }
+
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
 
             this.PublicPatch((settings, appliedTo) =>
             {
@@ -114,7 +116,7 @@ namespace QtCommon
             get
             {
                 var toPublish = new Bam.Core.TokenizedStringArray();
-                toPublish.Add(this.CreateTokenizedString("$(QtFramework)/Versions/4/Qt$(QtModuleName)"));
+                toPublish.Add(this.Macros["FrameworkLibraryPath"]);
                 return toPublish;
             }
         }
