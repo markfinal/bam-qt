@@ -38,6 +38,7 @@ namespace QtCommon
         {
             this.Macros.Add("QtModuleName", moduleName);
             this.Macros.Add("QtInstallPath", Configure.InstallPath);
+            this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
         }
 
         protected override void
@@ -58,7 +59,7 @@ namespace QtCommon
                 var osxLinker = settings as C.ILinkerSettingsOSX;
                 if (null != osxLinker)
                 {
-                    osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/Qt$(QtModuleName).framework"));
+                    osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/$(QtFramework)"));
                     osxLinker.FrameworkSearchDirectories.AddUnique(this.Macros["QtFrameworkPath"]);
                 }
             });
@@ -82,6 +83,43 @@ namespace QtCommon
             string mode)
         {
             // prebuilt - no execution policy
+        }
+
+        public override Bam.Core.TokenizedString FrameworkPath
+        {
+            get
+            {
+                return this.Macros["QtFrameworkPath"];
+            }
+        }
+
+        public override Bam.Core.TokenizedStringArray DirectoriesToPublish
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public override Bam.Core.TokenizedStringArray FilesToPublish
+        {
+            get
+            {
+                var toPublish = new Bam.Core.TokenizedStringArray();
+                toPublish.Add(this.CreateTokenizedString("$(QtFramework)/Versions/5/Qt$(QtModuleName)"));
+                return toPublish;
+            }
+        }
+
+        public override Bam.Core.TokenizedStringArray SymlinksToPublish
+        {
+            get
+            {
+                var toPublish = new Bam.Core.TokenizedStringArray();
+                toPublish.Add(this.CreateTokenizedString("$(QtFramework)/Versions/Current"));
+                toPublish.Add(this.CreateTokenizedString("$(QtFramework)/Qt$(QtModuleName)"));
+                return toPublish;
+            }
         }
     }
 }

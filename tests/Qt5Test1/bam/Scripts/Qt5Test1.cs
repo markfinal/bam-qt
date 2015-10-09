@@ -115,6 +115,9 @@ namespace Qt5Test1
             var app = this.Include<Qt5Application>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
+                this.IncludeFramework<Qt.CoreFramework>("../Frameworks", app);
+                this.IncludeFramework<Qt.WidgetsFramework>("../Frameworks", app);
+                this.IncludeFramework<Qt.GuiFramework>("../Frameworks", app);
             }
             else
             {
