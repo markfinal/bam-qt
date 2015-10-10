@@ -120,4 +120,17 @@ namespace Qt4Test1
             }
         }
     }
+
+    sealed class TarBallInstaller :
+        Installer.TarBall
+    {
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
+
+            this.SourceFolder<RuntimePackage>(Publisher.Collation.PublishingRoot);
+        }
+    }
 }
