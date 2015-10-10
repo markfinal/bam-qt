@@ -121,10 +121,7 @@ namespace Qt5Test1
                 this.IncludeFramework<Qt.PrintSupportFramework>("../Frameworks", app);
 
                 this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "../Plugins/qtplugins/platforms", app);
-
-                this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/osx/qt.conf"),
-                                 "../Resources",
-                                 app);
+                this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/osx/qt.conf"), "../Resources", app);
             }
             else
             {
