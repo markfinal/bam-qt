@@ -47,9 +47,10 @@ namespace QtCommon
             {
                 this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             }
+            this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
 
             // required for C.ExternalFramework
-            this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
+            this.Macros["FrameworkLibraryPath"].Assign(this.CreateTokenizedString("$(QtFramework)/Versions/4/Qt$(QtModuleName)"));
         }
 
         protected override void
