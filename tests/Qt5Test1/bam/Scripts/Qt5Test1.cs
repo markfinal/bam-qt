@@ -120,10 +120,15 @@ namespace Qt5Test1
                 this.IncludeFramework<Qt.GuiFramework>("../Frameworks", app);
                 this.IncludeFramework<Qt.PrintSupportFramework>("../Frameworks", app);
 
+                // TODO: get the path from the Qt package for the platform plugin
                 this.IncludeFile("/Users/mark/Qt5.3.2/5.3/clang_64/plugins/platforms/libqcocoa.dylib",
-                                 "platforms",
+                                 "../Plugins/qtplugins/platforms",
                                  app,
                                  isExecutable: true);
+
+                this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/osx/qt.conf"),
+                                 "../Resources",
+                                 app);
             }
             else
             {
