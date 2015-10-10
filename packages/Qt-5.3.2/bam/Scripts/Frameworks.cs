@@ -73,6 +73,10 @@ namespace Qt
         QtCommon.PhononFramework
     { }
 
+    public sealed class PrintSupportFramework :
+        QtCommon.PrintSupportFramework
+    { }
+
     public sealed class ScriptFramework :
         QtCommon.ScriptFramework
     { }
