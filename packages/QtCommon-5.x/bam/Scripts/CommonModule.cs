@@ -31,7 +31,7 @@ using Bam.Core;
 namespace QtCommon
 {
     public abstract class CommonModule :
-        C.DynamicLibrary
+        C.Cxx.DynamicLibrary
     {
         protected CommonModule(
             string moduleName) :
