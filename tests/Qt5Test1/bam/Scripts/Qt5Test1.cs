@@ -144,7 +144,7 @@ namespace Qt5Test1
         {
             base.Init(parent);
 
-            this.SourceFolder<RuntimePackage>(Publisher.Collation.PackageRoot);
+            this.SourceFolder<RuntimePackage>(Publisher.Collation.PublishingRoot);
         }
     }
 }
