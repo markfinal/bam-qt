@@ -104,7 +104,7 @@ namespace QtCommon
             }
         }
 
-        public override Bam.Core.TokenizedStringArray DirectoriesToPublish
+        public override Bam.Core.Array<Path> DirectoriesToPublish
         {
             get
             {
@@ -112,23 +112,23 @@ namespace QtCommon
             }
         }
 
-        public override Bam.Core.TokenizedStringArray FilesToPublish
+        public override Bam.Core.Array<Path> FilesToPublish
         {
             get
             {
-                var toPublish = new Bam.Core.TokenizedStringArray();
-                toPublish.Add(this.Macros["FrameworkLibraryPath"]);
+                var toPublish = new Bam.Core.Array<Path>();
+                toPublish.Add(new Path(this.Macros["FrameworkLibraryPath"]));
                 return toPublish;
             }
         }
 
-        public override Bam.Core.TokenizedStringArray SymlinksToPublish
+        public override Bam.Core.Array<Path> SymlinksToPublish
         {
             get
             {
-                var toPublish = new Bam.Core.TokenizedStringArray();
-                toPublish.Add(this.CreateTokenizedString("$(QtFramework)/Versions/Current"));
-                toPublish.Add(this.CreateTokenizedString("$(QtFramework)/Qt$(QtModuleName)"));
+                var toPublish = new Bam.Core.Array<Path>();
+                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/Current")));
+                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Qt$(QtModuleName)")));
                 return toPublish;
             }
         }
