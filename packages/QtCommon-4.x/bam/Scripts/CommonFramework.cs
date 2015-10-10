@@ -118,6 +118,8 @@ namespace QtCommon
             {
                 var toPublish = new Bam.Core.Array<Path>();
                 toPublish.Add(new Path(this.Macros["FrameworkLibraryPath"]));
+                // Info.plist is in the wrong location for codesigning
+                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Contents/Info.plist"), this.CreateTokenizedString("$(QtFramework)/Versions/4/Resources/Info.plist")));
                 return toPublish;
             }
         }
@@ -129,6 +131,8 @@ namespace QtCommon
                 var toPublish = new Bam.Core.Array<Path>();
                 toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/Current")));
                 toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Qt$(QtModuleName)")));
+                // Resources symlink does not exist in the SDK frameworks
+                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Resources"), Bam.Core.TokenizedString.CreateVerbatim("Versions/4/Resources")));
                 return toPublish;
             }
         }
