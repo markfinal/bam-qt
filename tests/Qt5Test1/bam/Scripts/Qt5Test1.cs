@@ -132,11 +132,8 @@ namespace Qt5Test1
                 this.Include<ICU.ICUUC>(C.DynamicLibrary.Key, ".", app);
                 this.Include<ICU.ICUDT>(C.DynamicLibrary.Key, ".", app);
 
-                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
-                {
-                    this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "qtplugins/platforms", app);
-                    this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/qt.conf"), ".", app);
-                }
+                this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "qtplugins/platforms", app);
+                this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/qt.conf"), ".", app);
             }
         }
     }
