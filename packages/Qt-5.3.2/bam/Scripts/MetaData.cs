@@ -27,33 +27,39 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using System.Linq;
-namespace QtCommon
+namespace Qt
 {
-    public static class Configure
+    public class MetaData :
+        Bam.Core.IPackageMetaData,
+        QtCommon.IICUMeta
     {
-        static Configure()
-        {
-            var graph = Bam.Core.Graph.Instance;
-            var qtPackage = graph.Packages.Where(item => item.Name == "Qt").FirstOrDefault();
-            if (null == qtPackage)
-            {
-                throw new Bam.Core.Exception("Unable to locate Qt package for this build");
-            }
-            var qtVersion = qtPackage.Version;
+        private System.Collections.Generic.Dictionary<string, object> Meta = new System.Collections.Generic.Dictionary<string,object>();
 
-            var qtInstallDir = Bam.Core.CommandLineProcessor.Evaluate(new QtInstallPath());
-            if (!System.IO.Directory.Exists(qtInstallDir))
-            {
-                throw new Bam.Core.Exception("Qt install dir, {0}, does not exist", qtInstallDir);
-            }
-            InstallPath = Bam.Core.TokenizedString.CreateVerbatim(qtInstallDir);
+        public MetaData()
+        {
+            this.Meta.Add("ICUVersion", "52");
         }
 
-        public static Bam.Core.TokenizedString InstallPath
+        object Bam.Core.IPackageMetaData.this[string index]
         {
-            get;
-            private set;
+            get
+            {
+                return this.Meta[index];
+            }
+        }
+
+        bool Bam.Core.IPackageMetaData.Contains(
+            string index)
+        {
+            return this.Meta.ContainsKey(index);
+        }
+
+        string QtCommon.IICUMeta.Version
+        {
+            get
+            {
+                return this.Meta["ICUVersion"] as string;
+            }
         }
     }
 }

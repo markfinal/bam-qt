@@ -128,9 +128,9 @@ namespace Qt5Test1
                 this.Include<Qt.Core>(C.DynamicLibrary.Key, ".", app);
                 this.Include<Qt.Widgets>(C.DynamicLibrary.Key, ".", app);
                 this.Include<Qt.Gui>(C.DynamicLibrary.Key, ".", app);
-                this.Include<ICU.ICUIN>(C.DynamicLibrary.Key, ".", app);
-                this.Include<ICU.ICUUC>(C.DynamicLibrary.Key, ".", app);
-                this.Include<ICU.ICUDT>(C.DynamicLibrary.Key, ".", app);
+                this.Include<QtCommon.ICUIN>(C.DynamicLibrary.Key, ".", app);
+                this.Include<QtCommon.ICUUC>(C.DynamicLibrary.Key, ".", app);
+                this.Include<QtCommon.ICUDT>(C.DynamicLibrary.Key, ".", app);
 
                 this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "qtplugins/platforms", app);
                 this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/qt.conf"), ".", app);
