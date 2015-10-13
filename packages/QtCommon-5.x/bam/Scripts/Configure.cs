@@ -41,6 +41,7 @@ namespace QtCommon
                 throw new Bam.Core.Exception("Unable to locate Qt package for this build");
             }
             var qtVersion = qtPackage.Version;
+            Version = new Bam.Core.StringArray(qtVersion.Split(new [] {'.'}));
 
             var qtInstallDir = Bam.Core.CommandLineProcessor.Evaluate(new QtInstallPath());
             if (!System.IO.Directory.Exists(qtInstallDir))
@@ -51,6 +52,12 @@ namespace QtCommon
         }
 
         public static Bam.Core.TokenizedString InstallPath
+        {
+            get;
+            private set;
+        }
+
+        public static Bam.Core.StringArray Version
         {
             get;
             private set;

@@ -46,6 +46,12 @@ namespace QtCommon
             Bam.Core.Module parent)
         {
             base.Init(parent);
+
+            var version = Configure.Version;
+            this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[0]);
+            this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[1]);
+            this.Macros["BuildVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[2]);
+
             this.Macros.Add("QtIncludePath", this.CreateTokenizedString("$(QtInstallPath)/include"));
             this.Macros.Add("QtLibraryPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             this.Macros.Add("QtBinaryPath", this.CreateTokenizedString("$(QtInstallPath)/bin"));
@@ -53,12 +59,19 @@ namespace QtCommon
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtBinaryPath)/$(dynamicprefix)Qt5$(QtModuleName)$(QtConfig)$(dynamicext)");
-                this.GeneratedPaths[ImportLibraryKey] = this.CreateTokenizedString("$(QtLibraryPath)/$(libprefix)Qt5$(QtModuleName)$(QtConfig)$(libext)");
+                this.Macros["OutputName"] = this.CreateTokenizedString("Qt5$(QtModuleName)$(QtConfig)");
+                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtBinaryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
+                this.GeneratedPaths[ImportLibraryKey] = this.CreateTokenizedString("$(QtLibraryPath)/$(libprefix)$(OutputName)$(libext)");
             }
             else
             {
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)Qt5$(QtModuleName)$(dynamicext)");
+                this.Macros["OutputName"] = this.CreateTokenizedString("Qt5$(QtModuleName)");
+                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
+                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
+                {
+                    // overrules the same macro in the Linker
+                    this.Macros["dynamicext"] = this.CreateTokenizedString(".so.$(MajorVersion).$(MinorVersion).$(BuildVersion)");
+                }
             }
 
             this.PublicPatch((settings, appliedTo) =>

@@ -35,7 +35,13 @@ namespace QtCommon
         static Configure()
         {
             var graph = Bam.Core.Graph.Instance;
-            var qtVersion = graph.Packages.Where(item => item.Name == "Qt").ElementAt(0).Version;
+            var qtPackage = graph.Packages.Where(item => item.Name == "Qt").FirstOrDefault();
+            if (null == qtPackage)
+            {
+                throw new Bam.Core.Exception("Unable to locate Qt package for this build");
+            }
+            var qtVersion = qtPackage.Version;
+            Version = new Bam.Core.StringArray(qtVersion.Split(new [] {'.'}));
 
             var qtInstallDir = Bam.Core.CommandLineProcessor.Evaluate(new QtInstallPath());
             if (!System.IO.Directory.Exists(qtInstallDir))
@@ -46,6 +52,12 @@ namespace QtCommon
         }
 
         public static Bam.Core.TokenizedString InstallPath
+        {
+            get;
+            private set;
+        }
+
+        public static Bam.Core.StringArray Version
         {
             get;
             private set;
