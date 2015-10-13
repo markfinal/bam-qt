@@ -57,6 +57,9 @@ namespace QtCommon
             {
                 this.Macros.Add("ICUInstallPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
                 this.Macros["dynamicext"] = this.CreateTokenizedString(".so.$(ICUVersion)");
+
+                // runtime support only required
+                this.Macros.Remove("SOName");
             }
 
             var qtPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "Qt").First();
