@@ -38,18 +38,18 @@ namespace QtCommon
             Bam.Core.Module parent)
         {
             base.Init(parent);
-            this.Macros.Add("QtPluginDir", "platforms");
+            this.Macros.AddVerbatim("QtPluginDir", "platforms");
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.Macros.Add("QtPluginName", "qwindows");
+                this.Macros.AddVerbatim("QtPluginName", "qwindows");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
-                this.Macros.Add("QtPluginName", "qxcb");
+                this.Macros.AddVerbatim("QtPluginName", "qxcb");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                this.Macros.Add("QtPluginName", "qcocoa");
+                this.Macros.AddVerbatim("QtPluginName", "qcocoa");
             }
         }
     }

@@ -37,7 +37,7 @@ namespace QtCommon
             string moduleName) :
             base()
         {
-            this.Macros.Add("QtModuleName", moduleName);
+            this.Macros.AddVerbatim("QtModuleName", moduleName);
             this.Macros.Add("QtInstallPath", Configure.InstallPath);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {

@@ -36,7 +36,7 @@ namespace QtCommon
             string moduleName) :
             base()
         {
-            this.Macros.Add("QtModuleName", moduleName);
+            this.Macros.AddVerbatim("QtModuleName", moduleName);
             this.Macros.Add("QtInstallPath", Configure.InstallPath);
             this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
