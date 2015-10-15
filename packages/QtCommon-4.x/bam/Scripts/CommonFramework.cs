@@ -64,14 +64,14 @@ namespace QtCommon
                 var osxCompiler = settings as C.ICommonCompilerSettingsOSX;
                 if (null != osxCompiler)
                 {
-                    osxCompiler.FrameworkSearchDirectories.AddUnique(this.Macros["QtFrameworkPath"]);
+                    osxCompiler.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
                 }
 
-                var osxLinker = settings as C.ILinkerSettingsOSX;
+                var osxLinker = settings as C.ICommonLinkerSettingsOSX;
                 if (null != osxLinker)
                 {
                     osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/$(QtFramework)"));
-                    osxLinker.FrameworkSearchDirectories.AddUnique(this.Macros["QtFrameworkPath"]);
+                    osxLinker.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
                 }
             });
         }
