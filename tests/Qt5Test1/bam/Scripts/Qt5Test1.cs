@@ -128,16 +128,17 @@ namespace Qt5Test1
                 this.Include<Qt.Core>(C.DynamicLibrary.Key, ".", app);
                 this.Include<Qt.Widgets>(C.DynamicLibrary.Key, ".", app);
                 this.Include<Qt.Gui>(C.DynamicLibrary.Key, ".", app);
-                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
-                {
-                    this.Include<Qt.DBus>(C.DynamicLibrary.Key, ".", app); // for qxcb plugin
-                }
                 this.Include<QtCommon.ICUIN>(C.DynamicLibrary.Key, ".", app);
                 this.Include<QtCommon.ICUUC>(C.DynamicLibrary.Key, ".", app);
                 this.Include<QtCommon.ICUDT>(C.DynamicLibrary.Key, ".", app);
 
-                this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "qtplugins/platforms", app);
                 this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/qt.conf"), ".", app);
+                var platformPlugin = this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "qtplugins/platforms", app);
+                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
+                {
+                    this.ChangeRPath(platformPlugin, "$ORIGIN/../..");
+                    this.Include<Qt.DBus>(C.DynamicLibrary.Key, ".", app); // for qxcb plugin
+                }
             }
         }
     }
