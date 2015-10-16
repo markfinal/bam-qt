@@ -38,6 +38,7 @@ namespace QtCommon.MocExtension
         {
             // moc file
             var mocFile = Bam.Core.Module.Create<MocGeneratedSource>(module);
+            module.DependsOn(mocFile);
             mocFile.SourceHeader = header;
             // TODO: reinstate this - but causes an exception in finding the encapsulating module
             //mocFile.DependsOn(header);

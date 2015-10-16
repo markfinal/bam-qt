@@ -53,6 +53,7 @@ namespace QtCommon
             set
             {
                 this.SourceHeaderModule = value;
+                this.GetEncapsulatingReferencedModule(); // required to satisfy the $(encapsulatingbuilddir) macro
                 this.GeneratedPaths[Key].Aliased(this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@basename($(0))_moc.cpp", value.GeneratedPaths[C.HeaderFile.Key]));
             }
         }
