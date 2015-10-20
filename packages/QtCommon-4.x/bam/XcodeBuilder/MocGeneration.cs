@@ -40,6 +40,12 @@ namespace QtCommon
             Bam.Core.TokenizedString generatedMocSource,
             C.HeaderFile source)
         {
+            var encapsulating = sender.GetEncapsulatingReferencedModule();
+
+            var workspace = Bam.Core.Graph.Instance.MetaData as XcodeBuilder.WorkspaceMeta;
+            var target = workspace.EnsureTargetExists(encapsulating);
+            var configuration = target.GetConfiguration(encapsulating);
+
             var output = generatedMocSource.Parse();
 
             var commands = new Bam.Core.StringArray();
@@ -52,8 +58,7 @@ namespace QtCommon
             args.Add(source.InputPath.Parse());
             commands.Add(args.ToString(' '));
 
-            var header = new XcodeBuilder.XcodeHeaderFile(sender);
-            header.Project.ProjectConfigurations[sender.BuildEnvironment.Configuration].PreBuildCommands.AddRange(commands);
+            target.AddPreBuildCommands(commands, configuration);
         }
     }
 }
