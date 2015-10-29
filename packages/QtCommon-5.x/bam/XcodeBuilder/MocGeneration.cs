@@ -47,6 +47,7 @@ namespace QtCommon
             var configuration = target.GetConfiguration(encapsulating);
 
             var output = generatedMocSource.Parse();
+            var sourcePath = source.InputPath.Parse();
 
             var commands = new Bam.Core.StringArray();
             commands.Add(System.String.Format("[[ ! -d {0} ]] && mkdir -p {0}", System.IO.Path.GetDirectoryName(output)));
@@ -55,8 +56,15 @@ namespace QtCommon
             args.Add(mocCompiler.Executable.Parse());
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(sender, args);
             args.Add(System.String.Format("-o {0}", output));
-            args.Add(source.InputPath.Parse());
-            commands.Add(args.ToString(' '));
+            args.Add(sourcePath);
+
+            var moc_commandLine = args.ToString(' ');
+
+            commands.Add(System.String.Format("if [[ ! -e {0} || {1} -nt {0} ]]", output, sourcePath));
+            commands.Add("then");
+            commands.Add(System.String.Format("\techo {0}", moc_commandLine));
+            commands.Add(System.String.Format("\t{0}", moc_commandLine));
+            commands.Add("fi");
 
             target.AddPreBuildCommands(commands, configuration);
         }
