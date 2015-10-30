@@ -33,20 +33,18 @@ namespace QtCommon.MocExtension
     {
         public static System.Tuple<Bam.Core.Module, Bam.Core.Module>
         MocHeader(
-            this C.Cxx.ObjectFileCollection module,
+            this C.Cxx.ObjectFileCollection collection,
             C.HeaderFile header)
         {
-            // moc file
-            var mocFile = Bam.Core.Module.Create<MocGeneratedSource>(module);
-            module.DependsOn(mocFile);
-            mocFile.SourceHeader = header;
-            // TODO: reinstate this - but causes an exception in finding the encapsulating module
-            //mocFile.DependsOn(header);
+            // moc the header file to generate the source file
+            var mocSourceFile = Bam.Core.Module.Create<MocGeneratedSource>(collection);
+            mocSourceFile.SourceHeader = header;
 
-            // compile source
-            var objFile = module.AddFile(MocGeneratedSource.Key, mocFile);
+            // compile the generated source file
+            var objFile = collection.AddFile(mocSourceFile);
 
-            return new System.Tuple<Bam.Core.Module, Bam.Core.Module>(mocFile, objFile);
+            // return both moc'd source, and the compiled object file
+            return new System.Tuple<Bam.Core.Module, Bam.Core.Module>(mocSourceFile, objFile);
         }
     }
 }
