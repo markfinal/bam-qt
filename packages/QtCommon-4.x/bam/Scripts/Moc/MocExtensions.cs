@@ -38,10 +38,13 @@ namespace QtCommon.MocExtension
         {
             // moc the header file to generate the source file
             var mocSourceFile = Bam.Core.Module.Create<MocGeneratedSource>(collection);
-            mocSourceFile.SourceHeader = header;
 
             // compile the generated source file
             var objFile = collection.AddFile(mocSourceFile);
+
+            // set the source header AFTER the source has been chained into the object file
+            // so that the encapsulating module can be determined
+            mocSourceFile.SourceHeader = header;
 
             // return both moc'd source, and the compiled object file
             return new System.Tuple<Bam.Core.Module, Bam.Core.Module>(mocSourceFile, objFile);
