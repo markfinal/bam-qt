@@ -49,16 +49,10 @@ namespace QtCommon
                 }
                 else
                 {
-                    return Bam.Core.TokenizedString.Create("$(0)/bin/moc", null, new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath));
+                    return Bam.Core.TokenizedString.Create("$(0)/bin/moc$(1)", null,
+                        new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath, QtCommon.Configure.ExecutableExtension));
                 }
             }
-        }
-
-        public override void
-        Evaluate()
-        {
-            // TODO: should be able to check the executable if it used a proper TokenizedString
-            this.ReasonToExecute = null;
         }
     }
 }
