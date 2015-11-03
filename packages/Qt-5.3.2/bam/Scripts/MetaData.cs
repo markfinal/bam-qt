@@ -30,7 +30,7 @@
 namespace Qt
 {
     public class MetaData :
-        Bam.Core.IPackageMetaData,
+        Bam.Core.PackageMetaData,
         QtCommon.IICUMeta
     {
         private System.Collections.Generic.Dictionary<string, object> Meta = new System.Collections.Generic.Dictionary<string,object>();
@@ -40,7 +40,7 @@ namespace Qt
             this.Meta.Add("ICUVersion", "52");
         }
 
-        object Bam.Core.IPackageMetaData.this[string index]
+        public override object this[string index]
         {
             get
             {
@@ -48,7 +48,8 @@ namespace Qt
             }
         }
 
-        bool Bam.Core.IPackageMetaData.Contains(
+        public override bool
+        Contains(
             string index)
         {
             return this.Meta.ContainsKey(index);
