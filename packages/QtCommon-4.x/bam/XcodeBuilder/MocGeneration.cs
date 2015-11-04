@@ -53,7 +53,7 @@ namespace QtCommon
             commands.Add(System.String.Format("[[ ! -d {0} ]] && mkdir -p {0}", System.IO.Path.GetDirectoryName(output)));
 
             var args = new Bam.Core.StringArray();
-            args.Add(mocCompiler.Executable.Parse());
+            args.Add(CommandLineProcessor.Processor.StringifyTool(mocCompiler));
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(sender, args);
             args.Add(System.String.Format("-o {0}", output));
             args.Add(sourcePath);
