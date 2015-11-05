@@ -98,7 +98,7 @@ namespace Qt4Test1
         }
     }
 
-    sealed class RuntimePackage :
+    sealed class Qt4Test1Runtime :
         Publisher.Collation
     {
         protected override void
@@ -121,6 +121,19 @@ namespace Qt4Test1
         }
     }
 
+    sealed class Qt4Test1DebugSymbols :
+        Publisher.DebugSymbolCollation
+    {
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
+
+            this.CreateSymbolsFrom<Qt4Test1Runtime>();
+        }
+    }
+
     sealed class TarBallInstaller :
         Installer.TarBall
     {
@@ -130,7 +143,7 @@ namespace Qt4Test1
         {
             base.Init(parent);
 
-            this.SourceFolder<RuntimePackage>(Publisher.Collation.PublishingRoot);
+            this.SourceFolder<Qt4Test1Runtime>(Publisher.Collation.PublishingRoot);
         }
     }
 }

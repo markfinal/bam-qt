@@ -103,7 +103,7 @@ namespace Qt5Test1
         }
     }
 
-    sealed class RuntimePackage :
+    sealed class Qt5Test1Runtime :
         Publisher.Collation
     {
         protected override void
@@ -143,6 +143,19 @@ namespace Qt5Test1
         }
     }
 
+    sealed class Qt5Test1DebugSymbols :
+        Publisher.DebugSymbolCollation
+    {
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
+
+            this.CreateSymbolsFrom<Qt5Test1Runtime>();
+        }
+    }
+
     sealed class TarBallInstaller :
         Installer.TarBall
     {
@@ -152,7 +165,7 @@ namespace Qt5Test1
         {
             base.Init(parent);
 
-            this.SourceFolder<RuntimePackage>(Publisher.Collation.PublishingRoot);
+            this.SourceFolder<Qt5Test1Runtime>(Publisher.Collation.PublishingRoot);
         }
     }
 }
