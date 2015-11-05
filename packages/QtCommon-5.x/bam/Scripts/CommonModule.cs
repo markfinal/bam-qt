@@ -51,7 +51,7 @@ namespace QtCommon
             var version = Configure.Version;
             this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[0]);
             this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[1]);
-            this.Macros["BuildVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[2]);
+            this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[2]);
 
             this.Macros.Add("QtIncludePath", this.CreateTokenizedString("$(QtInstallPath)/include"));
             this.Macros.Add("QtLibraryPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
@@ -68,11 +68,6 @@ namespace QtCommon
             {
                 this.Macros["OutputName"] = this.CreateTokenizedString("Qt5$(QtModuleName)");
                 this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
-                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
-                {
-                    // overrules the same macro in the Linker
-                    this.Macros["dynamicext"] = this.CreateTokenizedString(".so.$(MajorVersion).$(MinorVersion).$(BuildVersion)");
-                }
             }
 
             this.PublicPatch((settings, appliedTo) =>
