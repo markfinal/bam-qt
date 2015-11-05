@@ -156,6 +156,19 @@ namespace Qt5Test1
         }
     }
 
+    sealed class Qt5Test1Stripped :
+        Publisher.StrippedBinaryCollation
+    {
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
+
+            this.StripBinariesFrom<Qt5Test1Runtime, Qt5Test1DebugSymbols>();
+        }
+    }
+
     sealed class TarBallInstaller :
         Installer.TarBall
     {
