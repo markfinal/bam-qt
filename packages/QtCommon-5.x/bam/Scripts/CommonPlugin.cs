@@ -30,6 +30,7 @@
 using Bam.Core;
 namespace QtCommon
 {
+    [C.Prebuilt]
     public abstract class CommonPlugin :
         C.Cxx.Plugin
     {

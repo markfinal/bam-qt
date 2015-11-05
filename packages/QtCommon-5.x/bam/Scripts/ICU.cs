@@ -39,6 +39,7 @@ namespace QtCommon
         }
     }
 
+    [C.Prebuilt]
     public abstract class ICUBase :
         C.Cxx.DynamicLibrary
     {

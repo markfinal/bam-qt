@@ -29,6 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
+    [C.Prebuilt]
     public abstract class CommonFramework :
         C.ExternalFramework
     {
