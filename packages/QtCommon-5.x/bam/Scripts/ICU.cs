@@ -48,6 +48,11 @@ namespace QtCommon
             Bam.Core.Module parent)
         {
             base.Init(parent);
+
+            this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("52");
+            this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("1");
+            this.Macros.Remove("PatchVersion"); // does not use this part of the version numbering system
+
             this.Macros.Add("QtInstallPath", Configure.InstallPath);
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
@@ -57,10 +62,6 @@ namespace QtCommon
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
                 this.Macros.Add("ICUInstallPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
-                this.Macros["dynamicext"] = this.CreateTokenizedString(".so.$(ICUVersion)");
-
-                // runtime support only required
-                this.Macros.Remove("SOName");
             }
 
             var qtPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "Qt").First();
