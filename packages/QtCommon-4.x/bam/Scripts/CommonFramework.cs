@@ -32,7 +32,7 @@ namespace QtCommon
 {
     [C.Prebuilt]
     public abstract class CommonFramework :
-        C.ExternalFramework
+        C.OSXFramework
     {
         protected CommonFramework(
             string moduleName) :
@@ -50,7 +50,7 @@ namespace QtCommon
             }
             this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
 
-            // required for C.ExternalFramework
+            // required for C.OSXFramework
             this.Macros["FrameworkLibraryPath"].Aliased(this.CreateTokenizedString("$(QtFramework)/Versions/4/Qt$(QtModuleName)"));
         }
 
