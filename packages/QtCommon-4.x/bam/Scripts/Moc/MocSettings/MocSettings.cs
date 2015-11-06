@@ -42,10 +42,9 @@ namespace QtCommon
 
         void
         CommandLineProcessor.IConvertToCommandLine.Convert(
-            Bam.Core.Module module,
             Bam.Core.StringArray commandLine)
         {
-            (this as IMocSettings).Convert(module, commandLine);
+            (this as IMocSettings).Convert(commandLine);
         }
 
         C.PreprocessorDefinitions IMocSettings.PreprocessorDefinitions

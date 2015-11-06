@@ -34,7 +34,6 @@ namespace QtCommon
         public static void
         Convert(
             this IMocSettings settings,
-            Bam.Core.Module module,
             Bam.Core.StringArray commandLine)
         {
             foreach (var define in settings.PreprocessorDefinitions)

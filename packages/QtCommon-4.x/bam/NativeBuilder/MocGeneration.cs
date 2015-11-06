@@ -48,7 +48,7 @@ namespace QtCommon
             }
 
             var args = new Bam.Core.StringArray();
-            (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(sender, args);
+            (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
             args.Add(System.String.Format("-o {0}", mocOutputPath));
             args.Add(source.InputPath.Parse());
             CommandLineProcessor.Processor.Execute(context, mocCompiler, args);

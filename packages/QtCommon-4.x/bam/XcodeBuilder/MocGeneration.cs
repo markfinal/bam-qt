@@ -54,7 +54,7 @@ namespace QtCommon
 
             var args = new Bam.Core.StringArray();
             args.Add(CommandLineProcessor.Processor.StringifyTool(mocCompiler));
-            (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(sender, args);
+            (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
             args.Add(System.String.Format("-o {0}", output));
             args.Add(sourcePath);
 
