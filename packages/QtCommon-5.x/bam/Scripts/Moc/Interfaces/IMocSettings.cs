@@ -45,13 +45,13 @@ namespace QtCommon
             set;
         }
 
-        bool? DoNotGenerateIncludeStatement
+        bool DoNotGenerateIncludeStatement
         {
             get;
             set;
         }
 
-        bool? DoNotDisplayWarnings
+        bool DoNotDisplayWarnings
         {
             get;
             set;

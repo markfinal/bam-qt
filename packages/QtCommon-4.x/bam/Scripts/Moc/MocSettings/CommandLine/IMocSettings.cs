@@ -53,12 +53,12 @@ namespace QtCommon
                 commandLine.Add(System.String.Format("-I {0}", path.Parse()));
             }
 
-            if (settings.DoNotGenerateIncludeStatement.HasValue && settings.DoNotGenerateIncludeStatement.Value)
+            if (settings.DoNotGenerateIncludeStatement)
             {
                 commandLine.Add("-i");
             }
 
-            if (settings.DoNotDisplayWarnings.HasValue && settings.DoNotDisplayWarnings.Value)
+            if (settings.DoNotDisplayWarnings)
             {
                 commandLine.Add("--no-warnings");
             }

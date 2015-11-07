@@ -59,13 +59,13 @@ namespace QtCommon
             set;
         }
 
-        bool? IMocSettings.DoNotGenerateIncludeStatement
+        bool IMocSettings.DoNotGenerateIncludeStatement
         {
             get;
             set;
         }
 
-        bool? IMocSettings.DoNotDisplayWarnings
+        bool IMocSettings.DoNotDisplayWarnings
         {
             get;
             set;
