@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public static partial class NativeImplementation
+    public static partial class CommandLineImplementation
     {
         public static void
         Convert(
