@@ -90,10 +90,13 @@ namespace Qt4Test1
                 this.CompileAndLinkAgainst<Qt.Gui>(source);
             }
 
-            if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows) &&
-                this.Linker is VisualCCommon.LinkerBase)
+            if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.LinkAgainst<WindowsSDK.WindowsSDK>();
+                this.CreateWinResourceContainer("$(packagedir)/resources/*.rc");
+                if (this.Linker is VisualCCommon.LinkerBase)
+                {
+                    this.CompilePubliclyAndLinkAgainst<WindowsSDK.WindowsSDK>(source);
+                }
             }
         }
     }
