@@ -85,25 +85,5 @@ namespace QtCommon
                 }
             });
         }
-
-        public override void
-        Evaluate()
-        {
-            this.ReasonToExecute = null;
-        }
-
-        protected override void
-        ExecuteInternal(
-            Bam.Core.ExecutionContext context)
-        {
-            // prebuilt - no execution
-        }
-
-        protected override void
-        GetExecutionPolicy(
-            string mode)
-        {
-            // prebuilt - no execution policy
-        }
     }
 }

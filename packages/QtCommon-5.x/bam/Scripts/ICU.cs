@@ -70,26 +70,6 @@ namespace QtCommon
 
             this.GeneratedPaths[C.DynamicLibrary.Key] = this.CreateTokenizedString("$(ICUInstallPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
         }
-
-        public override void
-        Evaluate()
-        {
-            this.ReasonToExecute = null;
-        }
-
-        protected override void
-        ExecuteInternal(
-            Bam.Core.ExecutionContext context)
-        {
-            // do nothing
-        }
-
-        protected override void
-        GetExecutionPolicy(
-            string mode)
-        {
-            // do nothing
-        }
     }
 
     public sealed class ICUIN :
