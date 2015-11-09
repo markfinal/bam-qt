@@ -156,7 +156,7 @@ namespace Qt4Test1
         {
             base.Init(parent);
 
-            this.SourceFolder<Qt4Test1Runtime>(Publisher.Collation.PublishingRoot);
+            this.SourceFolder<Qt4Test1Stripped>(Publisher.StrippedBinaryCollation.Key);
         }
     }
 }

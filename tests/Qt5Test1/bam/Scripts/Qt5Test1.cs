@@ -178,7 +178,7 @@ namespace Qt5Test1
         {
             base.Init(parent);
 
-            this.SourceFolder<Qt5Test1Runtime>(Publisher.Collation.PublishingRoot);
+            this.SourceFolder<Qt5Test1Stripped>(Publisher.StrippedBinaryCollation.Key);
         }
     }
 }
