@@ -120,6 +120,15 @@ namespace Qt4Test1
             {
                 this.Include<Qt.Core>(C.DynamicLibrary.Key, ".", app);
                 this.Include<Qt.Gui>(C.DynamicLibrary.Key, ".", app);
+
+                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows) &&
+                    this.BuildEnvironment.Configuration != EConfiguration.Debug &&
+                    (app.SourceModule as QtApplication).Linker is VisualCCommon.LinkerBase)
+                {
+                    var visualCRuntimeLibrary = Bam.Core.Graph.Instance.PackageMetaData<VisualCCommon.IRuntimeLibraryPathMeta>("VisualC");
+                    this.IncludeFile(runtimeLibrary.MSVCR((app.SourceModule as QtApplication).BitDepth), ".", app);
+                    this.IncludeFile(runtimeLibrary.MSVCP((app.SourceModule as QtApplication).BitDepth), ".", app);
+                }
             }
         }
     }

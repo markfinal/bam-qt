@@ -142,6 +142,15 @@ namespace Qt5Test1
                     this.ChangeRPath(platformPlugin, "$ORIGIN/../..");
                     this.Include<Qt.DBus>(C.DynamicLibrary.Key, ".", app); // for qxcb plugin
                 }
+
+                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows) &&
+                    this.BuildEnvironment.Configuration != EConfiguration.Debug &&
+                    (app.SourceModule as Qt5Application).Linker is VisualCCommon.LinkerBase)
+                {
+                    var visualCRuntimeLibrary = Bam.Core.Graph.Instance.PackageMetaData<VisualCCommon.IRuntimeLibraryPathMeta>("VisualC");
+                    this.IncludeFile(visualCRuntimeLibrary.MSVCR((app.SourceModule as Qt5Application).BitDepth), ".", app);
+                    this.IncludeFile(visualCRuntimeLibrary.MSVCP((app.SourceModule as Qt5Application).BitDepth), ".", app);
+                }
             }
         }
     }
