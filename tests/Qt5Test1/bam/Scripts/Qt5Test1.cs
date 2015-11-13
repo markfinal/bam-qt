@@ -155,6 +155,7 @@ namespace Qt5Test1
         }
     }
 
+    [Bam.Core.ConfigurationFilter(Bam.Core.EConfiguration.NotDebug)]
     sealed class Qt5Test1DebugSymbols :
         Publisher.DebugSymbolCollation
     {
@@ -168,6 +169,7 @@ namespace Qt5Test1
         }
     }
 
+    [Bam.Core.ConfigurationFilter(Bam.Core.EConfiguration.NotDebug)]
     sealed class Qt5Test1Stripped :
         Publisher.StrippedBinaryCollation
     {
@@ -181,6 +183,7 @@ namespace Qt5Test1
         }
     }
 
+    [Bam.Core.ConfigurationFilter(Bam.Core.EConfiguration.NotDebug)]
     sealed class TarBallInstaller :
         Installer.TarBall
     {

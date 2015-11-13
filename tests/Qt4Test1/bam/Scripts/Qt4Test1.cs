@@ -133,6 +133,7 @@ namespace Qt4Test1
         }
     }
 
+    [Bam.Core.ConfigurationFilter(Bam.Core.EConfiguration.NotDebug)]
     sealed class Qt4Test1DebugSymbols :
         Publisher.DebugSymbolCollation
     {
@@ -146,6 +147,7 @@ namespace Qt4Test1
         }
     }
 
+    [Bam.Core.ConfigurationFilter(Bam.Core.EConfiguration.NotDebug)]
     sealed class Qt4Test1Stripped :
         Publisher.StrippedBinaryCollation
     {
@@ -159,6 +161,7 @@ namespace Qt4Test1
         }
     }
 
+    [Bam.Core.ConfigurationFilter(Bam.Core.EConfiguration.NotDebug)]
     sealed class TarBallInstaller :
         Installer.TarBall
     {
