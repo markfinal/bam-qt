@@ -38,6 +38,11 @@ namespace Qt
         public MetaData()
         {
             this.Meta.Add("ICUVersion", "54");
+            if (Bam.Core.OSUtilities.IsWindowsHosting)
+            {
+                this.Meta.Add("WindowsProductCode", @"{15839f8e-6fcb-4a1a-a372-427d54de327b}"); // needed to find the uninstaller code in the Windows registry
+                this.Meta.Add("MSVCFlavour", "msvc2013_64");
+            }
         }
 
         public override object this[string index]

@@ -85,24 +85,34 @@ namespace QtCommon
         GetWindowsInstallPath(
             string qtVersion)
         {
-            using (var key = Bam.Core.Win32RegistryUtilities.OpenCUSoftwareKey(System.String.Format(@"Microsoft\Windows\CurrentVersion\Uninstall\Qt {0}", qtVersion)))
+            var registrySubKey = "Qt " + qtVersion;
+            var qtMeta = Bam.Core.Graph.Instance.PackageMetaData<Bam.Core.PackageMetaData>("Qt");
+            if (qtMeta.Contains("WindowsProductCode"))
+            {
+                registrySubKey = qtMeta["WindowsProductCode"] as string;
+            }
+            var msvcFlavour = qtMeta["MSVCFlavour"] as string;
+
+            var keyPath = System.String.Format(@"Microsoft\Windows\CurrentVersion\Uninstall\{0}", registrySubKey);
+            using (var key = Bam.Core.Win32RegistryUtilities.OpenCUSoftwareKey(keyPath))
             {
                 if (null == key)
                 {
-                    throw new Bam.Core.Exception("Qt libraries for {0} were not installed", qtVersion);
+                    throw new Bam.Core.Exception(@"Could not detect if Qt {0} libraries were installed; checked registry at HKEY_CURRENT_USER\Software\{1}", qtVersion, keyPath);
                 }
 
-                var installPath = key.GetValue("InstallLocation") as string;
-                if (null == installPath)
+                var installDir = key.GetValue("InstallLocation") as string;
+                if (null == installDir)
                 {
-                    throw new Bam.Core.Exception("Unable to locate InstallLocation registry key for Qt {0}", qtVersion);
+                    throw new Bam.Core.Exception(@"Unable to locate InstallLocation registry key for Qt {0} at HKEY_CURRENT_USER\Software\{1}\InstallationLocation", qtVersion, keyPath);
                 }
 
-                // precompiled binaries now have a subdirectory indicating their flavour
-                installPath += @"\5.3\msvc2013_64_opengl";
+                var qtVersionSplit = qtVersion.Split('.');
 
-                Bam.Core.Log.DebugMessage("Qt installation folder is {0}", installPath);
-                return installPath;
+                var qtInstallPath = System.String.Format(@"{0}\{1}.{2}\{3}", installDir, qtVersionSplit[0], qtVersionSplit[1], msvcFlavour);
+
+                Bam.Core.Log.DebugMessage("Qt installation folder is {0}", qtInstallPath);
+                return qtInstallPath;
             }
         }
 

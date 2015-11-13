@@ -38,6 +38,10 @@ namespace Qt
         public MetaData()
         {
             this.Meta.Add("ICUVersion", "52");
+            if (Bam.Core.OSUtilities.IsWindowsHosting)
+            {
+                this.Meta.Add("MSVCFlavour", "msvc2013_64_opengl");
+            }
         }
 
         public override object this[string index]
