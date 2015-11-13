@@ -49,7 +49,11 @@ namespace QtCommon
         {
             base.Init(parent);
 
-            this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("52");
+            var qtPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "Qt").First();
+            var qtMeta = qtPackage.MetaData as IICUMeta;
+            this.Macros.Add("ICUVersion", Bam.Core.TokenizedString.CreateVerbatim(qtMeta.Version));
+
+            this.Macros["MajorVersion"] = this.Macros["ICUVersion"];
             this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("1");
             this.Macros.Remove("PatchVersion"); // does not use this part of the version numbering system
 
@@ -63,10 +67,6 @@ namespace QtCommon
             {
                 this.Macros.Add("ICUInstallPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             }
-
-            var qtPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "Qt").First();
-            var qtMeta = qtPackage.MetaData as IICUMeta;
-            this.Macros.Add("ICUVersion", Bam.Core.TokenizedString.CreateVerbatim(qtMeta.Version));
 
             this.GeneratedPaths[C.DynamicLibrary.Key] = this.CreateTokenizedString("$(ICUInstallPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
         }
