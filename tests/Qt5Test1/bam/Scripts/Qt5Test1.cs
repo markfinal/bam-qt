@@ -29,6 +29,7 @@
 #endregion // License
 using Bam.Core;
 using QtCommon.MocExtension;
+using System.Linq;
 namespace Qt5Test1
 {
     sealed class Qt5Application :
@@ -87,11 +88,22 @@ namespace Qt5Test1
             }
             else
             {
-                this.CompileAndLinkAgainst<Qt.Core>(source);
                 this.CompileAndLinkAgainst<Qt.Widgets>(source);
-                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
+
+                var qtPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "Qt").First();
+                var qtVersionSplit = qtPackage.Version.Split('.');
+                if (System.Convert.ToInt32(qtVersionSplit[1]) >= 5) // if 5.x >= 5.5
                 {
-                    this.LinkAgainst<Qt.Gui>();
+                    this.CompilePubliclyAndLinkAgainst<Qt.Core>(source); // requires link patches for ICU (at least on Linux)
+                }
+                else
+                {
+                    this.CompileAndLinkAgainst<Qt.Core>(source);
+                    if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
+                    {
+                        // link dependency from QtWidgets
+                        this.LinkAgainst<Qt.Gui>();
+                    }
                 }
             }
 
@@ -141,6 +153,10 @@ namespace Qt5Test1
                 {
                     this.ChangeRPath(platformPlugin, "$ORIGIN/../..");
                     this.Include<Qt.DBus>(C.DynamicLibrary.Key, ".", app); // for qxcb plugin
+
+#if D_PACKAGE_QT_5_5_1
+                    this.Include<Qt.XcbQpa>(C.DynamicLibrary.Key, ".", app);
+#endif
                 }
 
                 if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows) &&
