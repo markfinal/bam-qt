@@ -136,14 +136,18 @@ namespace Qt5Test1
             var app = this.Include<Qt5Application>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                this.IncludeFramework<Qt.CoreFramework>("../Frameworks", app);
-                this.IncludeFramework<Qt.WidgetsFramework>("../Frameworks", app);
-                this.IncludeFramework<Qt.GuiFramework>("../Frameworks", app);
+                var qtPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "Qt").First();
+                var qtVersionSplit = qtPackage.Version.Split('.');
+                var updateInstallName = (System.Convert.ToInt32(qtVersionSplit[1]) < 5); // < Qt5.5 requires install name updates
+
+                this.IncludeFramework<Qt.CoreFramework>("../Frameworks", app, updateInstallName: updateInstallName);
+                this.IncludeFramework<Qt.WidgetsFramework>("../Frameworks", app, updateInstallName: updateInstallName);
+                this.IncludeFramework<Qt.GuiFramework>("../Frameworks", app, updateInstallName: updateInstallName);
 
                 // required by the platform plugin
-                this.IncludeFramework<Qt.PrintSupportFramework>("../Frameworks", app);
+                this.IncludeFramework<Qt.PrintSupportFramework>("../Frameworks", app, updateInstallName: updateInstallName);
 #if D_PACKAGE_QT_5_5_1
-                this.IncludeFramework<Qt.DBusFramework>("../Frameworks", app);
+                this.IncludeFramework<Qt.DBusFramework>("../Frameworks", app, updateInstallName: updateInstallName);
 #endif
 
                 this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "../Plugins/qtplugins/platforms", app);
