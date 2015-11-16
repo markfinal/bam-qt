@@ -74,10 +74,16 @@ namespace Qt5Test1
             this.PrivatePatch(settings =>
             {
                 var gccLinker = settings as GccCommon.ICommonLinkerSettings;
-                if (gccLinker != null)
+                if (null != gccLinker)
                 {
                     gccLinker.CanUseOrigin = true;
-                    gccLinker.RPath.Add("$ORIGIN");
+                    gccLinker.RPath.AddUnique("$ORIGIN");
+                }
+
+                var clangLinker = settings as ClangCommon.ICommonLinkerSettings;
+                if (null != clangLinker)
+                {
+                    clangLinker.RPath.AddUnique("@executable_path/../Frameworks");
                 }
             });
 
