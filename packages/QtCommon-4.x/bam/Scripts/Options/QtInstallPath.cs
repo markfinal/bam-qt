@@ -28,7 +28,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
 using System.Linq;
-namespace QtCommon
+namespace QtCommon.Options
 {
     class QtInstallPath :
         Bam.Core.IStringCommandLineArgument,

@@ -43,7 +43,7 @@ namespace QtCommon
             var qtVersion = qtPackage.Version;
             Version = new Bam.Core.StringArray(qtVersion.Split(new [] {'.'}));
 
-            var qtInstallDir = Bam.Core.CommandLineProcessor.Evaluate(new QtInstallPath());
+            var qtInstallDir = Bam.Core.CommandLineProcessor.Evaluate(new Options.QtInstallPath());
             if (!System.IO.Directory.Exists(qtInstallDir))
             {
                 throw new Bam.Core.Exception("Qt install dir, {0}, does not exist", qtInstallDir);
