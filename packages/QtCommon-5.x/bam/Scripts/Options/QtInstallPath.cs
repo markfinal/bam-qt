@@ -87,33 +87,52 @@ namespace QtCommon.Options
         {
             var registrySubKey = "Qt " + qtVersion;
             var qtMeta = Bam.Core.Graph.Instance.PackageMetaData<Bam.Core.PackageMetaData>("Qt");
-            if (qtMeta.Contains("WindowsProductCode"))
-            {
-                registrySubKey = qtMeta["WindowsProductCode"] as string;
-            }
             var msvcFlavour = qtMeta["MSVCFlavour"] as string;
 
-            var keyPath = System.String.Format(@"Microsoft\Windows\CurrentVersion\Uninstall\{0}", registrySubKey);
-            using (var key = Bam.Core.Win32RegistryUtilities.OpenCUSoftwareKey(keyPath))
+            var uninstallKey = @"Microsoft\Windows\CurrentVersion\Uninstall";
+            using (var key = Bam.Core.Win32RegistryUtilities.OpenCUSoftwareKey(uninstallKey))
             {
                 if (null == key)
                 {
-                    throw new Bam.Core.Exception(@"Could not detect if Qt {0} libraries were installed; checked registry at HKEY_CURRENT_USER\Software\{1}", qtVersion, keyPath);
+                    throw new Bam.Core.Exception(@"Could not detect if Qt {0} libraries were installed; checked registry at HKEY_CURRENT_USER\Software\{1}", qtVersion, uninstallKey);
                 }
 
-                var installDir = key.GetValue("InstallLocation") as string;
-                if (null == installDir)
+                foreach (var subKeyName in key.GetSubKeyNames())
                 {
-                    throw new Bam.Core.Exception(@"Unable to locate InstallLocation registry key for Qt {0} at HKEY_CURRENT_USER\Software\{1}\InstallationLocation", qtVersion, keyPath);
+                    using (var subKey = key.OpenSubKey(subKeyName))
+                    {
+                        foreach (var valueName in subKey.GetValueNames())
+                        {
+                            if ("DisplayName" == valueName)
+                            {
+                                var displayName = subKey.GetValue(valueName) as string;
+                                if (displayName == registrySubKey)
+                                {
+                                    var installDir = subKey.GetValue("InstallLocation") as string;
+                                    if (null == installDir)
+                                    {
+                                        throw new Bam.Core.Exception(@"InstallLocation registry key for Qt {0} at HKEY_CURRENT_USER\Software\{1}\{2}\InstallationLocation is invalid", qtVersion, uninstallKey, subKeyName);
+                                    }
+                                    if (!System.IO.Directory.Exists(installDir))
+                                    {
+                                        throw new Bam.Core.Exception("Qt {0} installation directory, {1}, does not exist", qtVersion, installDir);
+                                    }
+
+                                    var qtVersionSplit = qtVersion.Split('.');
+
+                                    var qtInstallPath = System.String.Format(@"{0}\{1}.{2}\{3}", installDir, qtVersionSplit[0], qtVersionSplit[1], msvcFlavour);
+
+                                    Bam.Core.Log.DebugMessage("Qt installation folder is {0}", qtInstallPath);
+                                    return qtInstallPath;
+                                }
+                                break;
+                            }
+                        }
+                    }
                 }
-
-                var qtVersionSplit = qtVersion.Split('.');
-
-                var qtInstallPath = System.String.Format(@"{0}\{1}.{2}\{3}", installDir, qtVersionSplit[0], qtVersionSplit[1], msvcFlavour);
-
-                Bam.Core.Log.DebugMessage("Qt installation folder is {0}", qtInstallPath);
-                return qtInstallPath;
             }
+
+            throw new Bam.Core.Exception("Blah");
         }
 
         private static string
