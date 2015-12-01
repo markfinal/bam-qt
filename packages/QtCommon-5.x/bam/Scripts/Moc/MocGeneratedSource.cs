@@ -54,7 +54,7 @@ namespace QtCommon
             {
                 this.SourceHeaderModule = value;
                 this.DependsOn(value);
-                this.GeneratedPaths[Key].Aliased(this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@basename($(0))_moc.cpp", value.GeneratedPaths[C.HeaderFile.Key]));
+                this.GeneratedPaths[Key].Aliased(this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(0),$(packagedir)),../),.moc.cpp)", value.GeneratedPaths[C.HeaderFile.Key]));
                 this.GetEncapsulatingReferencedModule(); // or the path above won't be parsable prior to all modules having been created
             }
         }
