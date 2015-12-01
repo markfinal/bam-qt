@@ -39,6 +39,7 @@ namespace Qt
         {
             base.Init(parent);
 
+#if D_PACKAGE_GCCCOMMON
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
                 this.PublicPatch((settings, appliedTo) =>
@@ -52,6 +53,7 @@ namespace Qt
                         }
                     });
             }
+#endif
         }
     }
 
