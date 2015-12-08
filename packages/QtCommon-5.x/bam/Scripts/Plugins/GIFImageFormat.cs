@@ -27,17 +27,19 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-namespace Qt
+using Bam.Core;
+namespace QtCommon
 {
-    public sealed class PlatformPlugin :
-        QtCommon.PlatformPlugin
-    { }
-
-    public sealed class XCBGLIntegrationsPlugin :
-        QtCommon.XCBGLIntegrations
-    { }
-
-    public sealed class GIFImageFormatPlugin :
-        QtCommon.GIFImageFormatPlugin
-    { }
+    public abstract class GIFImageFormatPlugin :
+        CommonPlugin
+    {
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
+            this.Macros.AddVerbatim("QtPluginDir", "imageformats");
+            this.Macros.AddVerbatim("QtPluginName", "qgif");
+        }
+    }
 }
