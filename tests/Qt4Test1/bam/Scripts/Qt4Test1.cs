@@ -126,8 +126,14 @@ namespace Qt4Test1
                     (app.SourceModule as QtApplication).Linker is VisualCCommon.LinkerBase)
                 {
                     var visualCRuntimeLibrary = Bam.Core.Graph.Instance.PackageMetaData<VisualCCommon.IRuntimeLibraryPathMeta>("VisualC");
-                    this.IncludeFile(visualCRuntimeLibrary.MSVCR((app.SourceModule as QtApplication).BitDepth), ".", app);
-                    this.IncludeFile(visualCRuntimeLibrary.MSVCP((app.SourceModule as QtApplication).BitDepth), ".", app);
+                    foreach (var libpath in visualCRuntimeLibrary.CRuntimePaths((app.SourceModule as C.CModule).BitDepth))
+                    {
+                        this.IncludeFile(libpath, ".", app);
+                    }
+                    foreach (var libpath in visualCRuntimeLibrary.CxxRuntimePaths((app.SourceModule as C.CModule).BitDepth))
+                    {
+                        this.IncludeFile(libpath, ".", app);
+                    }
                 }
             }
         }
