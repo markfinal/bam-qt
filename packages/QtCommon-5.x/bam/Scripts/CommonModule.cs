@@ -36,10 +36,18 @@ namespace QtCommon
         C.Cxx.DynamicLibrary
     {
         protected CommonModule(
-            string moduleName)
+            string moduleName,
+            bool hasHeaders = true)
         {
             this.Macros.AddVerbatim("QtModuleName", moduleName);
             this.Macros.Add("QtInstallPath", Configure.InstallPath);
+            this.HasHeaders = hasHeaders;
+        }
+
+        private bool HasHeaders
+        {
+            get;
+            set;
         }
 
         protected override void
@@ -64,8 +72,11 @@ namespace QtCommon
             this.Macros.Add("QtBinaryPath", this.CreateTokenizedString("$(QtInstallPath)/bin"));
             this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim((this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ? "d" : string.Empty));
 
-            // note the wildcard, to capture headers without extensions too
-            this.CreateHeaderContainer("$(QtIncludePath)/Qt$(QtModuleName)/**.*", this);
+            if (this.HasHeaders)
+            {
+                // note the wildcard, to capture headers without extensions too
+                this.CreateHeaderContainer("$(QtIncludePath)/Qt$(QtModuleName)/**.*", this);
+            }
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {

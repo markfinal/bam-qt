@@ -34,7 +34,7 @@ namespace QtCommon
         CommonModule
     {
         public XcbQpa() :
-            base("XcbQpa")
+            base("XcbQpa", hasHeaders: false)
         { }
     }
 }
