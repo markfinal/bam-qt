@@ -31,12 +31,12 @@ using Bam.Core;
 namespace QtCommon
 {
     [C.Prebuilt]
+    [Bam.Core.ModuleGroup("Thirdparty/Qt4")]
     public abstract class CommonModule :
         C.DynamicLibrary
     {
         protected CommonModule(
-            string moduleName) :
-            base()
+            string moduleName)
         {
             this.Macros.AddVerbatim("QtModuleName", moduleName);
             this.Macros.Add("QtInstallPath", Configure.InstallPath);
@@ -48,6 +48,12 @@ namespace QtCommon
         {
             base.Init(parent);
 
+            // aliasing the packagedir to the real Qt installation directory allows headers in IDE projects to use more intuitive relative paths
+            if (!this.Macros["packagedir"].IsAliased)
+            {
+                this.Macros["packagedir"].Aliased(Configure.InstallPath);
+            }
+
             var version = Configure.Version;
             this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[0]);
             this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[1]);
@@ -57,6 +63,9 @@ namespace QtCommon
             this.Macros.Add("QtLibraryPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             this.Macros.Add("QtBinaryPath", this.CreateTokenizedString("$(QtInstallPath)/bin"));
             this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim((this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ? "d" : string.Empty));
+
+            // note the wildcard, to capture headers without extensions too
+            this.CreateHeaderContainer("$(QtIncludePath)/Qt$(QtModuleName)/**.*", this);
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
