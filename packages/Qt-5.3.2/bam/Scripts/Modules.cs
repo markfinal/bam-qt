@@ -57,6 +57,10 @@ namespace Qt
         QtCommon.Multimedia
     { }
 
+    public sealed class MultimediaWidgets :
+        QtCommon.MultimediaWidgets
+    { }
+
     public sealed class Network :
         QtCommon.Network
     { }
