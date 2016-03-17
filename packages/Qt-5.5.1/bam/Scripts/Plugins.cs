@@ -48,4 +48,8 @@ namespace Qt
     public sealed class GSTMediaPlayerPlugin :
         QtCommon.GSTMediaPlayerPlugin
     { }
+
+    public sealed class AVFMediaPlayerPlugin :
+        QtCommon.AVFMediaPlayerPlugin
+    { }
 }
