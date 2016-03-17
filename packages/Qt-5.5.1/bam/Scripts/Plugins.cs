@@ -33,11 +33,15 @@ namespace Qt
         QtCommon.PlatformPlugin
     { }
 
-    public sealed class XCBGLIntegrationsPlugin :
+    public sealed class XCBGLIntegrationsPlugin : // new in Qt5.5
         QtCommon.XCBGLIntegrations
     { }
 
     public sealed class GIFImageFormatPlugin :
         QtCommon.GIFImageFormatPlugin
+    { }
+
+    public sealed class WMFEngineMediaServicePlugin :
+        QtCommon.WMFEngineMediaServicePlugin
     { }
 }
