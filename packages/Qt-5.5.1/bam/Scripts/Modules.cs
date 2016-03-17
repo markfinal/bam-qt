@@ -151,4 +151,9 @@ namespace Qt
     public sealed class XcbQpa :
         QtCommon.XcbQpa
     { }
+
+    [Bam.Core.PlatformFilter(Bam.Core.EPlatform.Linux)]
+    public sealed class GSTTools :
+        QtCommon.GSTTools
+    { }
 }

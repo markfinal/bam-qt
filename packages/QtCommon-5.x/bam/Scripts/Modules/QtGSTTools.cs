@@ -27,102 +27,17 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-namespace Qt
+namespace QtCommon
 {
-    public sealed class Core :
-        QtCommon.Core
-    { }
-
-    public sealed class DBus :
-        QtCommon.DBus
-    { }
-
-    public sealed class Declarative :
-        QtCommon.Declarative
-    { }
-
-    public sealed class Designer :
-        QtCommon.Designer
-    { }
-
-    public sealed class Gui :
-        QtCommon.Gui
-    { }
-
-    public sealed class Help :
-        QtCommon.Help
-    { }
-
-    public sealed class Multimedia :
-        QtCommon.Multimedia
-    { }
-
-    public sealed class MultimediaWidgets :
-        QtCommon.MultimediaWidgets
-    { }
-
-    public sealed class Network :
-        QtCommon.Network
-    { }
-
-    public sealed class OpenGL :
-        QtCommon.OpenGL
-    { }
-
-    public sealed class OpenVG :
-        QtCommon.OpenVG
-    { }
-
-    public sealed class Phonon :
-        QtCommon.Phonon
-    { }
-
-    public sealed class PrintSupport :
-        QtCommon.PrintSupport
-    { }
-
-    public sealed class Script :
-        QtCommon.Script
-    { }
-
-    public sealed class ScriptTools :
-        QtCommon.ScriptTools
-    { }
-
-    public sealed class Sql :
-        QtCommon.Sql
-    { }
-
-    public sealed class Svg :
-        QtCommon.Svg
-    { }
-
-    public sealed class Test :
-        QtCommon.Test
-    { }
-
-    public sealed class UiTools :
-        QtCommon.UiTools
-    { }
-
-    public sealed class WebKit :
-        QtCommon.WebKit
-    { }
-
-    public sealed class Widgets :
-        QtCommon.Widgets
-    { }
-
-    public sealed class Xml :
-        QtCommon.Xml
-    { }
-
-    public sealed class XmlPatterns :
-        QtCommon.XmlPatterns
-    { }
-
     [Bam.Core.PlatformFilter(Bam.Core.EPlatform.Linux)]
-    public sealed class GSTTools :
-        QtCommon.GSTTools
-    { }
+    public abstract class GSTTools :
+        CommonModule
+    {
+        public GSTTools() :
+            base("qgsttools_p", // TODO: does the _p mean private?
+                 hasHeaders: false,
+                 hasPrefix: false,
+                 customVersionNumber: System.Tuple.Create("1", "0", "0"))
+        { }
+    }
 }

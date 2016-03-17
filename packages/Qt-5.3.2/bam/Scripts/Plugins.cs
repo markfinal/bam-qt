@@ -40,4 +40,8 @@ namespace Qt
     public sealed class WMFEngineMediaServicePlugin :
         QtCommon.WMFEngineMediaServicePlugin
     { }
+
+    public sealed class GSTMediaPlayerPlugin :
+        QtCommon.GSTMediaPlayerPlugin
+    { }
 }
