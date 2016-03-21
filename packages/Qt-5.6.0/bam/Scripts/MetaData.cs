@@ -37,10 +37,14 @@ namespace Qt
 
         public MetaData()
         {
-            this.Meta.Add("ICUVersion", "54");
             if (Bam.Core.OSUtilities.IsWindowsHosting)
             {
+                this.Meta.Add("ICUVersion", "54"); // TODO: even though it says 56 here: https://wiki.qt.io/Qt-5.6.0-tools-and-versions
                 this.Meta.Add("MSVCFlavour", "msvc2013_64");
+            }
+            else
+            {
+                this.Meta.Add("ICUVersion", "56");
             }
         }
 
