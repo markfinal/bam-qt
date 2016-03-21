@@ -149,6 +149,9 @@ namespace Qt5Test1
 #if D_PACKAGE_QT_5_5_1
                 this.IncludeFramework<Qt.DBusFramework>("../Frameworks", app, updateInstallName: updateInstallName);
 #endif
+#if D_PACKAGE_QT_5_6_0
+                this.IncludeFramework<Qt.DBusFramework>("../Frameworks", app, updateInstallName: updateInstallName);
+#endif
 
                 this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "../Plugins/qtplugins/platforms", app);
                 this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/osx/qt.conf"), "../Resources", app);
