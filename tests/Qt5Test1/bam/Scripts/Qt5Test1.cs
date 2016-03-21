@@ -172,6 +172,9 @@ namespace Qt5Test1
 #if D_PACKAGE_QT_5_5_1
                     this.Include<Qt.XcbQpa>(C.DynamicLibrary.Key, ".", app);
 #endif
+#if D_PACKAGE_QT_5_6_0
+                    this.Include<Qt.XcbQpa>(C.DynamicLibrary.Key, ".", app);
+#endif
                 }
 
                 if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows) &&
