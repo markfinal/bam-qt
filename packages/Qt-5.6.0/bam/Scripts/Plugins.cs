@@ -41,9 +41,12 @@ namespace Qt
         QtCommon.GIFImageFormatPlugin
     { }
 
+    // Note: Qt 5.6.0 is missing the wmfengine plugin: https://bugreports.qt.io/browse/QTBUG-52082
+#if false
     public sealed class WMFEngineMediaServicePlugin :
         QtCommon.WMFEngineMediaServicePlugin
     { }
+#endif
 
     public sealed class GSTMediaPlayerPlugin :
         QtCommon.GSTMediaPlayerPlugin

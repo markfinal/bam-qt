@@ -39,7 +39,8 @@ namespace Qt
         {
             if (Bam.Core.OSUtilities.IsWindowsHosting)
             {
-                this.Meta.Add("ICUVersion", "54"); // TODO: even though it says 56 here: https://wiki.qt.io/Qt-5.6.0-tools-and-versions
+                // TODO: reported this different version to Qt: https://bugreports.qt.io/browse/QTBUG-52083
+                this.Meta.Add("ICUVersion", "54");
                 this.Meta.Add("MSVCFlavour", "msvc2013_64");
             }
             else
