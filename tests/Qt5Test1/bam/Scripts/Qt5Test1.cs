@@ -146,10 +146,7 @@ namespace Qt5Test1
 
                 // required by the platform plugin
                 this.IncludeFramework<Qt.PrintSupportFramework>("../Frameworks", app, updateInstallName: updateInstallName);
-#if D_PACKAGE_QT_5_5_1
-                this.IncludeFramework<Qt.DBusFramework>("../Frameworks", app, updateInstallName: updateInstallName);
-#endif
-#if D_PACKAGE_QT_5_6_0
+#if D_PACKAGE_QT_5_5_1 || D_PACKAGE_QT_5_6_0
                 this.IncludeFramework<Qt.DBusFramework>("../Frameworks", app, updateInstallName: updateInstallName);
 #endif
 
@@ -172,10 +169,7 @@ namespace Qt5Test1
                     this.ChangeRPath(platformPlugin, "$ORIGIN/../..");
                     this.Include<Qt.DBus>(C.DynamicLibrary.Key, ".", app); // for qxcb plugin
 
-#if D_PACKAGE_QT_5_5_1
-                    this.Include<Qt.XcbQpa>(C.DynamicLibrary.Key, ".", app);
-#endif
-#if D_PACKAGE_QT_5_6_0
+#if D_PACKAGE_QT_5_5_1 || D_PACKAGE_QT_5_6_0
                     this.Include<Qt.XcbQpa>(C.DynamicLibrary.Key, ".", app);
 #endif
                 }
