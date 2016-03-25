@@ -89,8 +89,8 @@ namespace Qt5Test1
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                this.CompilePubliclyAndLinkAgainst<Qt.CoreFramework>(source);
-                this.CompilePubliclyAndLinkAgainst<Qt.WidgetsFramework>(source);
+                this.CompileAndLinkAgainst<Qt.CoreFramework>(source);
+                this.CompileAndLinkAgainst<Qt.WidgetsFramework>(source);
             }
             else
             {
@@ -100,7 +100,7 @@ namespace Qt5Test1
                 var qtVersionSplit = qtPackage.Version.Split('.');
                 if (System.Convert.ToInt32(qtVersionSplit[1]) >= 5) // if 5.x >= 5.5
                 {
-                    this.CompilePubliclyAndLinkAgainst<Qt.Core>(source); // requires link patches for ICU (at least on Linux)
+                    this.CompileAndLinkAgainst<Qt.Core>(source); // requires link patches for ICU (at least on Linux)
                 }
                 else
                 {
@@ -118,7 +118,7 @@ namespace Qt5Test1
                 this.CreateWinResourceContainer("$(packagedir)/resources/*.rc");
                 if (this.Linker is VisualCCommon.LinkerBase)
                 {
-                    this.CompilePubliclyAndLinkAgainst<WindowsSDK.WindowsSDK>(source);
+                    this.CompileAndLinkAgainst<WindowsSDK.WindowsSDK>(source);
                 }
             }
         }

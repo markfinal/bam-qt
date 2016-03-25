@@ -81,8 +81,8 @@ namespace Qt4Test1
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                this.CompilePubliclyAndLinkAgainst<Qt.CoreFramework>(source);
-                this.CompilePubliclyAndLinkAgainst<Qt.GuiFramework>(source);
+                this.CompileAndLinkAgainst<Qt.CoreFramework>(source);
+                this.CompileAndLinkAgainst<Qt.GuiFramework>(source);
             }
             else
             {
@@ -95,7 +95,7 @@ namespace Qt4Test1
                 this.CreateWinResourceContainer("$(packagedir)/resources/*.rc");
                 if (this.Linker is VisualCCommon.LinkerBase)
                 {
-                    this.CompilePubliclyAndLinkAgainst<WindowsSDK.WindowsSDK>(source);
+                    this.CompileAndLinkAgainst<WindowsSDK.WindowsSDK>(source);
                 }
             }
         }
