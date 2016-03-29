@@ -41,6 +41,10 @@ namespace Qt
         QtCommon.GIFImageFormatPlugin
     { }
 
+    public sealed class DirectShowEngineMediaServicePlugin :
+        QtCommon.DirectShowEngineMediaServicePlugin
+    { }
+
     public sealed class WMFEngineMediaServicePlugin :
         QtCommon.WMFEngineMediaServicePlugin
     { }

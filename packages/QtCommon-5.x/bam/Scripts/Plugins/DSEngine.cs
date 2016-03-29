@@ -27,30 +27,19 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-namespace Qt
+using Bam.Core;
+namespace QtCommon
 {
-    public sealed class PlatformPlugin :
-        QtCommon.PlatformPlugin
-    { }
-
-    public sealed class XCBGLIntegrationsPlugin : // new in Qt5.5
-        QtCommon.XCBGLIntegrations
-    { }
-
-    public sealed class GIFImageFormatPlugin :
-        QtCommon.GIFImageFormatPlugin
-    { }
-
-    // Note: Qt 5.6.0+ prebuilt binaries no longer contain the wmfengine plugin, only DirectShow
-    public sealed class DirectShowEngineMediaServicePlugin :
-        QtCommon.DirectShowEngineMediaServicePlugin
-    { }
-
-    public sealed class GSTMediaPlayerPlugin :
-        QtCommon.GSTMediaPlayerPlugin
-    { }
-
-    public sealed class AVFMediaPlayerPlugin :
-        QtCommon.AVFMediaPlayerPlugin
-    { }
+    public abstract class DirectShowEngineMediaServicePlugin :
+        CommonPlugin
+    {
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
+            this.Macros.AddVerbatim("QtPluginDir", "mediaservice");
+            this.Macros.AddVerbatim("QtPluginName", "dsengine");
+        }
+    }
 }
