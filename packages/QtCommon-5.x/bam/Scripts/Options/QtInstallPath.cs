@@ -132,7 +132,7 @@ namespace QtCommon.Options
                 }
             }
 
-            throw new Bam.Core.Exception("Blah");
+            throw new Bam.Core.Exception("Unable to detect from the Windows registry whether Qt {0} was installed", qtVersion);
         }
 
         private static string
