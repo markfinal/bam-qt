@@ -27,6 +27,7 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
+using System.Linq;
 namespace Qt
 {
     public class MetaData :
@@ -40,7 +41,24 @@ namespace Qt
             this.Meta.Add("ICUVersion", "54");
             if (Bam.Core.OSUtilities.IsWindowsHosting)
             {
-                this.Meta.Add("MSVCFlavour", "msvc2013_64");
+                var visualcPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "VisualC").FirstOrDefault();
+                if (null == visualcPackage)
+                {
+                    throw new Bam.Core.Exception("Unable to locate the VisualC package");
+                }
+                var visualcVersion = visualcPackage.Version;
+                if (visualcVersion == "12.0")
+                {
+                    this.Meta.Add("MSVCFlavour", "msvc2013_64");
+                }
+                else if (visualcVersion == "14.0")
+                {
+                    this.Meta.Add("MSVCFlavour", "msvc2015_64");
+                }
+                else
+                {
+                    throw new Bam.Core.Exception("VisualC version {0} not supported by this Qt installation", visualcVersion);
+                }
             }
         }
 
