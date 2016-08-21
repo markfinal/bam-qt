@@ -63,7 +63,7 @@ namespace QtCommon.Options
             get
             {
                 var graph = Bam.Core.Graph.Instance;
-                var qtVersion = graph.Packages.Where(item => item.Name == "Qt").ElementAt(0).Version;
+                var qtVersion = graph.Packages.First(item => item.Name == "Qt").Version;
 
                 switch (Bam.Core.OSUtilities.CurrentOS)
                 {

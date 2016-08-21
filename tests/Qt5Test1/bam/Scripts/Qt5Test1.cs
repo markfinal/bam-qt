@@ -96,7 +96,7 @@ namespace Qt5Test1
             {
                 this.CompileAndLinkAgainst<Qt.Widgets>(source);
 
-                var qtPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "Qt").First();
+                var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
                 var qtVersionSplit = qtPackage.Version.Split('.');
                 if (System.Convert.ToInt32(qtVersionSplit[1]) >= 5) // if 5.x >= 5.5
                 {
@@ -136,7 +136,7 @@ namespace Qt5Test1
             var app = this.Include<Qt5Application>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                var qtPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "Qt").First();
+                var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
                 var qtVersionSplit = qtPackage.Version.Split('.');
                 var updateInstallName = (System.Convert.ToInt32(qtVersionSplit[1]) < 5); // < Qt5.5 requires install name updates
 

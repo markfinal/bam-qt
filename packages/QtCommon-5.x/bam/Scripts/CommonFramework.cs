@@ -49,7 +49,7 @@ namespace QtCommon
             this.Macros["FrameworkLibraryPath"].Aliased(this.CreateTokenizedString("$(QtFramework)/Versions/5/Qt$(QtModuleName)"));
 
             var graph = Bam.Core.Graph.Instance;
-            var qtPackage = graph.Packages.Where(item => item.Name == "Qt").First();
+            var qtPackage = graph.Packages.First(item => item.Name == "Qt");
             var qtVersion = qtPackage.Version;
             var qtVersionSplit = qtVersion.Split('.');
             var minorVersion = System.Convert.ToInt32(qtVersionSplit[1]);

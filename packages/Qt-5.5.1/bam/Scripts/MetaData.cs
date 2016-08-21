@@ -41,7 +41,7 @@ namespace Qt
             this.Meta.Add("ICUVersion", "54");
             if (Bam.Core.OSUtilities.IsWindowsHosting)
             {
-                var visualcPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "VisualC").FirstOrDefault();
+                var visualcPackage = Bam.Core.Graph.Instance.Packages.FirstOrDefault(item => item.Name == "VisualC");
                 if (null == visualcPackage)
                 {
                     throw new Bam.Core.Exception("Unable to locate the VisualC package");

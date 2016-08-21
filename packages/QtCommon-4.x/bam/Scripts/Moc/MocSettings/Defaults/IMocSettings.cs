@@ -37,7 +37,7 @@ namespace QtCommon.DefaultSettings
             this IMocSettings settings,
             Bam.Core.Module module)
         {
-            var qtPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "Qt").First();
+            var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
             var qtVersion = qtPackage.Version.Split('.');
             var paddedQtVersion = System.String.Format("0x{0}{1}{2}",
                 System.Convert.ToInt32(qtVersion[0]).ToString("00"),

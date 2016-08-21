@@ -35,7 +35,7 @@ namespace QtCommon
         static Configure()
         {
             var graph = Bam.Core.Graph.Instance;
-            var qtPackage = graph.Packages.Where(item => item.Name == "Qt").FirstOrDefault();
+            var qtPackage = graph.Packages.FirstOrDefault(item => item.Name == "Qt");
             if (null == qtPackage)
             {
                 throw new Bam.Core.Exception("Unable to locate Qt package for this build");

@@ -42,7 +42,7 @@ namespace Qt
             {
                 // TODO: reported this different version to Qt: https://bugreports.qt.io/browse/QTBUG-52083
                 this.Meta.Add("ICUVersion", "54");
-                var visualcPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "VisualC").FirstOrDefault();
+                var visualcPackage = Bam.Core.Graph.Instance.Packages.FirstOrDefault(item => item.Name == "VisualC");
                 if (null == visualcPackage)
                 {
                     throw new Bam.Core.Exception("Unable to locate the VisualC package");

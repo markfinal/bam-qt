@@ -49,7 +49,7 @@ namespace QtCommon
         {
             base.Init(parent);
 
-            var qtPackage = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "Qt").First();
+            var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
             var qtMeta = qtPackage.MetaData as IICUMeta;
             this.Macros.Add("ICUVersion", Bam.Core.TokenizedString.CreateVerbatim(qtMeta.Version));
 
