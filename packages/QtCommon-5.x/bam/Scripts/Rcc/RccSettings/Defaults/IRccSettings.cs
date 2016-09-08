@@ -34,24 +34,15 @@ namespace QtCommon.DefaultSettings
     {
         public static void
         Defaults(
-            this IMocSettings settings,
+            this IRccSettings settings,
             Bam.Core.Module module)
         {
-            var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
-            var qtVersion = qtPackage.Version.Split('.');
-            var paddedQtVersion = System.String.Format("0x{0}{1}{2}",
-                System.Convert.ToInt32(qtVersion[0]).ToString("00"),
-                System.Convert.ToInt32(qtVersion[1]).ToString("00"),
-                System.Convert.ToInt32(qtVersion[2]).ToString("00"));
-            settings.PreprocessorDefinitions.Add("QT_VERSION", paddedQtVersion);
         }
 
         public static void
         Empty(
-            this IMocSettings settings)
+            this IRccSettings settings)
         {
-            settings.PreprocessorDefinitions = new C.PreprocessorDefinitions();
-            settings.IncludePaths = new Bam.Core.Array<Bam.Core.TokenizedString>();
         }
     }
 }

@@ -27,31 +27,35 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using System.Linq;
-namespace QtCommon.DefaultSettings
+namespace QtCommon
 {
-    public static partial class DefaultSettingsExtensions
+    public sealed class MakeFileRccGeneration :
+        IRccGenerationPolicy
     {
-        public static void
-        Defaults(
-            this IMocSettings settings,
-            Bam.Core.Module module)
+        void
+        IRccGenerationPolicy.Rcc(
+            RccGeneratedSource sender,
+            Bam.Core.ExecutionContext context,
+            Bam.Core.ICommandLineTool rccCompiler,
+            Bam.Core.TokenizedString generatedRccSource,
+            C.HeaderFile source)
         {
-            var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
-            var qtVersion = qtPackage.Version.Split('.');
-            var paddedQtVersion = System.String.Format("0x{0}{1}{2}",
-                System.Convert.ToInt32(qtVersion[0]).ToString("00"),
-                System.Convert.ToInt32(qtVersion[1]).ToString("00"),
-                System.Convert.ToInt32(qtVersion[2]).ToString("00"));
-            settings.PreprocessorDefinitions.Add("QT_VERSION", paddedQtVersion);
-        }
+            var meta = new MakeFileBuilder.MakeFileMeta(sender);
+            var rule = meta.AddRule();
+            rule.AddTarget(generatedRccSource);
+            rule.AddPrerequisite(source, C.HeaderFile.Key);
 
-        public static void
-        Empty(
-            this IMocSettings settings)
-        {
-            settings.PreprocessorDefinitions = new C.PreprocessorDefinitions();
-            settings.IncludePaths = new Bam.Core.Array<Bam.Core.TokenizedString>();
+            var rccOutputPath = generatedRccSource.Parse();
+            var rccOutputDir = System.IO.Path.GetDirectoryName(rccOutputPath);
+
+            var args = new Bam.Core.StringArray();
+            args.Add(CommandLineProcessor.Processor.StringifyTool(rccCompiler));
+            (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
+            args.Add(System.String.Format("-o {0}", rccOutputPath));
+            args.Add(source.InputPath.Parse());
+            rule.AddShellCommand(args.ToString(' '));
+
+            meta.CommonMetaData.Directories.AddUnique(rccOutputDir);
         }
     }
 }

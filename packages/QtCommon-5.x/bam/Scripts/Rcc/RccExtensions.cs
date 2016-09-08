@@ -27,31 +27,27 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using System.Linq;
-namespace QtCommon.DefaultSettings
+namespace QtCommon.RccExtension
 {
-    public static partial class DefaultSettingsExtensions
+    public static class RccExtension
     {
-        public static void
-        Defaults(
-            this IMocSettings settings,
-            Bam.Core.Module module)
+        public static System.Tuple<Bam.Core.Module, Bam.Core.Module>
+        Rcc(
+            this C.Cxx.ObjectFileCollection collection,
+            C.HeaderFile header)
         {
-            var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
-            var qtVersion = qtPackage.Version.Split('.');
-            var paddedQtVersion = System.String.Format("0x{0}{1}{2}",
-                System.Convert.ToInt32(qtVersion[0]).ToString("00"),
-                System.Convert.ToInt32(qtVersion[1]).ToString("00"),
-                System.Convert.ToInt32(qtVersion[2]).ToString("00"));
-            settings.PreprocessorDefinitions.Add("QT_VERSION", paddedQtVersion);
-        }
+            // rcc the .qrc file to generate the source file
+            var rccSourceFile = Bam.Core.Module.Create<RccGeneratedSource>(collection);
 
-        public static void
-        Empty(
-            this IMocSettings settings)
-        {
-            settings.PreprocessorDefinitions = new C.PreprocessorDefinitions();
-            settings.IncludePaths = new Bam.Core.Array<Bam.Core.TokenizedString>();
+            // compile the generated source file
+            var objFile = collection.AddFile(rccSourceFile);
+
+            // set the source header AFTER the source has been chained into the object file
+            // so that the encapsulating module can be determined
+            rccSourceFile.SourceHeader = header;
+
+            // return both rcc'd source, and the compiled object file
+            return new System.Tuple<Bam.Core.Module, Bam.Core.Module>(rccSourceFile, objFile);
         }
     }
 }

@@ -27,31 +27,25 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using System.Linq;
-namespace QtCommon.DefaultSettings
+namespace QtCommon
 {
-    public static partial class DefaultSettingsExtensions
+    public sealed class RccTool :
+        Bam.Core.PreBuiltTool
     {
-        public static void
-        Defaults(
-            this IMocSettings settings,
-            Bam.Core.Module module)
+        public override Bam.Core.Settings
+        CreateDefaultSettings<T>(
+            T module)
         {
-            var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
-            var qtVersion = qtPackage.Version.Split('.');
-            var paddedQtVersion = System.String.Format("0x{0}{1}{2}",
-                System.Convert.ToInt32(qtVersion[0]).ToString("00"),
-                System.Convert.ToInt32(qtVersion[1]).ToString("00"),
-                System.Convert.ToInt32(qtVersion[2]).ToString("00"));
-            settings.PreprocessorDefinitions.Add("QT_VERSION", paddedQtVersion);
+            return new RccSettings(module);
         }
 
-        public static void
-        Empty(
-            this IMocSettings settings)
+        public override Bam.Core.TokenizedString Executable
         {
-            settings.PreprocessorDefinitions = new C.PreprocessorDefinitions();
-            settings.IncludePaths = new Bam.Core.Array<Bam.Core.TokenizedString>();
+            get
+            {
+                return Bam.Core.TokenizedString.Create("$(0)/bin/rcc$(1)", null,
+                    new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath, QtCommon.Configure.ExecutableExtension));
+            }
         }
     }
 }
