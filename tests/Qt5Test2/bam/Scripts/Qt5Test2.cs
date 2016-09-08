@@ -139,6 +139,10 @@ namespace Qt5Test2
                 var platformPlugin = this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "qtplugins/platforms", app);
                 if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
                 {
+                    this.Include<QtCommon.ICUIN>(C.DynamicLibrary.Key, ".", app);
+                    this.Include<QtCommon.ICUUC>(C.DynamicLibrary.Key, ".", app);
+                    this.Include<QtCommon.ICUDT>(C.DynamicLibrary.Key, ".", app);
+
                     this.ChangeRPath(platformPlugin, "$ORIGIN/../..");
                     this.Include<Qt.DBus>(C.DynamicLibrary.Key, ".", app); // for qxcb plugin
 
