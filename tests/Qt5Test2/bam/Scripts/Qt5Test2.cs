@@ -43,10 +43,10 @@ namespace Qt5Test2
 
             var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
 
-            var qrcResources = this.CreateHeaderContainer("$(packagedir)/resources/*.qrc");
+            var qrcResources = this.CreateQrcContainer("$(packagedir)/resources/*.qrc");
             foreach (var rccFile in qrcResources.Children)
             {
-                /*var rccMocTuple = */source.Rcc(rccFile as C.HeaderFile);
+                /*var rccMocTuple = */source.Rcc(rccFile);
             }
 
             this.PrivatePatch(settings =>

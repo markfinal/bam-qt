@@ -38,7 +38,7 @@ namespace QtCommon
             Bam.Core.ExecutionContext context,
             Bam.Core.ICommandLineTool rccCompiler,
             Bam.Core.TokenizedString generatedRccSource,
-            C.HeaderFile source)
+            QRCFile source)
         {
             var encapsulating = sender.GetEncapsulatingReferencedModule();
 
@@ -53,6 +53,8 @@ namespace QtCommon
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
             args.Add(System.String.Format("-o {0}", output));
             args.Add("%(FullPath)");
+
+            config.AddOtherFile(source);
 
             var customBuild = config.GetSettingsGroup(VSSolutionBuilder.VSSettingsGroup.ESettingsGroup.CustomBuild, include: source.InputPath, uniqueToProject: true);
             customBuild.AddSetting("Command", args.ToString(' '), condition: config.ConditionText);

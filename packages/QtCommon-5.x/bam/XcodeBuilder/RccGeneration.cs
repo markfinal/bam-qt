@@ -38,7 +38,7 @@ namespace QtCommon
             Bam.Core.ExecutionContext context,
             Bam.Core.ICommandLineTool rccCompiler,
             Bam.Core.TokenizedString generatedRccSource,
-            C.HeaderFile source)
+            QRCFile source)
         {
             var encapsulating = sender.GetEncapsulatingReferencedModule();
 

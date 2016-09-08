@@ -34,7 +34,7 @@ namespace QtCommon.RccExtension
         public static System.Tuple<Bam.Core.Module, Bam.Core.Module>
         Rcc(
             this C.Cxx.ObjectFileCollection collection,
-            C.HeaderFile header)
+            QRCFile qrcFile)
         {
             // rcc the .qrc file to generate the source file
             var rccSourceFile = Bam.Core.Module.Create<RccGeneratedSource>(collection);
@@ -42,12 +42,25 @@ namespace QtCommon.RccExtension
             // compile the generated source file
             var objFile = collection.AddFile(rccSourceFile);
 
-            // set the source header AFTER the source has been chained into the object file
+            // set the source file AFTER the source has been chained into the object file
             // so that the encapsulating module can be determined
-            rccSourceFile.SourceHeader = header;
+            rccSourceFile.SourceHeader = qrcFile;
 
             // return both rcc'd source, and the compiled object file
             return new System.Tuple<Bam.Core.Module, Bam.Core.Module>(rccSourceFile, objFile);
+        }
+
+        public static QRCFileCollection
+        CreateQrcContainer(
+            this C.CModule module,
+            string wildcardPath = null,
+            Bam.Core.Module macroModuleOverride = null,
+            System.Text.RegularExpressions.Regex filter = null)
+        {
+            var source = Bam.Core.Module.Create<QRCFileCollection>(module);
+            module.Requires(source);
+            (source as C.IAddFiles).AddFiles(wildcardPath, macroModuleOverride: macroModuleOverride, filter: filter);
+            return source;
         }
     }
 }

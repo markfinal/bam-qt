@@ -32,7 +32,7 @@ namespace QtCommon
     public class RccGeneratedSource :
         C.SourceFile
     {
-        private C.HeaderFile SourceHeaderModule;
+        private QRCFile SourceQRCFile;
         private IRccGenerationPolicy Policy = null;
 
         protected override void
@@ -44,15 +44,15 @@ namespace QtCommon
             this.Requires(this.Compiler);
         }
 
-        public C.HeaderFile SourceHeader
+        public QRCFile SourceHeader
         {
             get
             {
-                return this.SourceHeaderModule;
+                return this.SourceQRCFile;
             }
             set
             {
-                this.SourceHeaderModule = value;
+                this.SourceQRCFile = value;
                 this.DependsOn(value);
                 this.GeneratedPaths[Key].Aliased(this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(0),$(packagedir)),../),.rcc.cpp)", value.GeneratedPaths[C.HeaderFile.Key]));
                 this.GetEncapsulatingReferencedModule(); // or the path above won't be parsable prior to all modules having been created
@@ -70,10 +70,10 @@ namespace QtCommon
                 return;
             }
             var sourceFileWriteTime = System.IO.File.GetLastWriteTime(generatedPath);
-            var headerFileWriteTime = System.IO.File.GetLastWriteTime(this.SourceHeaderModule.InputPath.Parse());
+            var headerFileWriteTime = System.IO.File.GetLastWriteTime(this.SourceQRCFile.InputPath.Parse());
             if (headerFileWriteTime > sourceFileWriteTime)
             {
-                this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(this.GeneratedPaths[Key], this.SourceHeaderModule.InputPath);
+                this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(this.GeneratedPaths[Key], this.SourceQRCFile.InputPath);
                 return;
             }
         }

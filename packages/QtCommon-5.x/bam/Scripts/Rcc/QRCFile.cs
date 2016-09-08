@@ -29,14 +29,23 @@
 #endregion // License
 namespace QtCommon
 {
-    public interface IRccGenerationPolicy
+    public class QRCFile :
+        C.HeaderFile
     {
-        void
-        Rcc(
-            RccGeneratedSource sender,
-            Bam.Core.ExecutionContext context,
-            Bam.Core.ICommandLineTool rccCompiler,
-            Bam.Core.TokenizedString generatedRccSource,
-            QRCFile source);
+        // override the name of the Key from HeaderFile
+        new static public Bam.Core.PathKey Key = Bam.Core.PathKey.Generate("QRC File");
+    }
+
+    public class QRCFileCollection :
+        C.CModuleContainer<QRCFile>
+    {
+        public void
+        AddFile(
+            QRCFile sourceModule)
+        {
+            (sourceModule as Bam.Core.IChildModule).Parent = this;
+            this.children.Add(sourceModule);
+            this.DependsOn(sourceModule);
+        }
     }
 }
