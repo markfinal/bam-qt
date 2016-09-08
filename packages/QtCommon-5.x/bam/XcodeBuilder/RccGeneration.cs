@@ -58,6 +58,10 @@ namespace QtCommon
             args.Add(System.String.Format("-o {0}", output));
             args.Add(sourcePath);
 
+            target.EnsureFileOfTypeExists(source.InputPath, XcodeBuilder.FileReference.EFileType.TextFile,
+                                          relativePath: target.Project.GetRelativePathToProject(source.InputPath),
+                                          explicitType: false);
+
             var rcc_commandLine = args.ToString(' ');
 
             commands.Add(System.String.Format("if [[ ! -e {0} || {1} -nt {0} ]]", output, sourcePath));
