@@ -65,6 +65,16 @@ namespace Qt5Test2
                     }
                 });
 
+            source.PrivatePatch(settings =>
+                {
+                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
+                    if (null != gccCompiler)
+                    {
+                        // because Qt5.6.0/5.6/gcc_64/include/QtCore/qglobal.h:1090:4: error: #error "You must build your code with position independent code if Qt was built with -reduce-relocations. " "Compile your code with -fPIC (-fPIE is not enough)."
+                        gccCompiler.PositionIndependentCode = true;
+                    }
+                });
+
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
                 this.CompileAndLinkAgainst<Qt.CoreFramework>(source);
