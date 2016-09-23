@@ -57,6 +57,10 @@ namespace Qt
         }
     }
 
+    public sealed class Concurrent :
+        QtCommon.Concurrent
+    { }
+
     public sealed class DBus :
         QtCommon.DBus
     { }

@@ -33,6 +33,10 @@ namespace Qt
         QtCommon.CoreFramework
     { }
 
+    public sealed class ConcurrentFramework :
+        QtCommon.ConcurrentFramework
+    { }
+
     public sealed class DBusFramework :
         QtCommon.DBusFramework
     { }
