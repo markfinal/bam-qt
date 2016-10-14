@@ -53,5 +53,40 @@ namespace QtCommon
         public WebEngineCoreFramework() :
             base("WebEngineCore")
         { }
+
+        public override Bam.Core.Array<C.OSXFramework.Path> DirectoriesToPublish
+        {
+            get
+            {
+                // ignore the base, as it's empty
+                var toPublish = new Bam.Core.Array<Path>();
+                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Helpers/QtWebEngineProcess.app/")));
+                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/qtwebengine_locales/")));
+                return toPublish;
+            }
+        }
+
+        public override Bam.Core.Array<C.OSXFramework.Path> FilesToPublish
+        {
+            get
+            {
+                var files = base.FilesToPublish;
+                files.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/icudtl.dat")));
+                files.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/qtwebengine_resources.pak")));
+                files.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/qtwebengine_resources_100p.pak")));
+                files.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/qtwebengine_resources_200p.pak")));
+                return files;
+            }
+        }
+
+        public override Bam.Core.Array<C.OSXFramework.Path> SymlinksToPublish
+        {
+            get
+            {
+                var symlinks = base.SymlinksToPublish;
+                symlinks.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Helpers")));
+                return symlinks;
+            }
+        }
     }
 }
