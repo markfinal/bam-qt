@@ -85,6 +85,14 @@ namespace Qt
         QtCommon.PrintSupportFramework
     { }
 
+    public sealed class QmlFramework :
+        QtCommon.QmlFramework
+    { }
+
+    public sealed class QuickFramework :
+        QtCommon.QuickFramework
+    { }
+
     public sealed class ScriptFramework :
         QtCommon.ScriptFramework
     { }
@@ -111,6 +119,18 @@ namespace Qt
 
     public sealed class WebKitFramework :
         QtCommon.WebKitFramework
+    { }
+
+    public sealed class WebEngineCoreFramework :
+        QtCommon.WebEngineCoreFramework
+    { }
+
+    public sealed class WebChannelFramework :
+        QtCommon.WebChannelFramework
+    { }
+
+    public sealed class WebEngineWidgetsFramework :
+        QtCommon.WebEngineWidgetsFramework
     { }
 
     public sealed class WidgetsFramework :

@@ -109,6 +109,14 @@ namespace Qt
         QtCommon.PrintSupport
     { }
 
+    public sealed class Qml :
+        QtCommon.Qml
+    { }
+
+    public sealed class Quick :
+        QtCommon.Quick
+    { }
+
     public sealed class Script :
         QtCommon.Script
     { }
@@ -135,6 +143,18 @@ namespace Qt
 
     public sealed class WebKit :
         QtCommon.WebKit
+    { }
+
+    public sealed class WebEngineCore :
+        QtCommon.WebEngineCore
+    { }
+
+    public sealed class WebChannel :
+        QtCommon.WebChannel
+    { }
+
+    public sealed class WebEngineWidgets :
+        QtCommon.WebEngineWidgets
     { }
 
     public sealed class Widgets :
