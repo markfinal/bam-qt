@@ -33,7 +33,7 @@ namespace QtCommon
         CommonModule
     {
         public WebKit() :
-            base("Core")
+            base("WebKit")
         { }
     }
 
