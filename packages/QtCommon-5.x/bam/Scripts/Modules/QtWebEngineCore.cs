@@ -35,6 +35,16 @@ namespace QtCommon
         public WebEngineCore() :
             base("WebEngineCore")
         { }
+
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
+
+            this.Macros.Add("ICUDTL", this.CreateTokenizedString("$(QtInstallPath)/resources/icudtl.dat"));
+            this.Macros.Add("ResourcePak", this.CreateTokenizedString("$(QtInstallPath)/resources/qtwebengine_resources.pak"));
+        }
     }
 
     public abstract class WebEngineCoreFramework :
