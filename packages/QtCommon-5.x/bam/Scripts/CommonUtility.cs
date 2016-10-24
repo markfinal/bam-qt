@@ -51,7 +51,7 @@ namespace QtCommon
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/bin/$(QtUtilityName)");
+                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/libexec/$(QtUtilityName)");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
