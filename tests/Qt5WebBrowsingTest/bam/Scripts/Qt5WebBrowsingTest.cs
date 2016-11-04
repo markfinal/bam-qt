@@ -174,6 +174,10 @@ namespace Qt5WebBrowsingTest
 #if D_PACKAGE_QT_5_5_1 || D_PACKAGE_QT_5_6_0 || D_PACKAGE_QT_5_6_1
                     this.Include<Qt.XcbQpa>(C.DynamicLibrary.Key, ".", app);
 #endif
+
+                    // required for OpenGL support
+                    var xcbGLIntegrationPlugin = this.Include<Qt.XCBGLIntegrationsPlugin>(C.Plugin.Key, "qtplugins/xcbglintegrations", app);
+                    this.ChangeRPath(xcbGLIntegrationPlugin, "$ORIGIN/../..");
                 }
 
                 this.Include<Qt.Network>(C.DynamicLibrary.Key, ".", app);
