@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 #endif
 
-    auto webview = new QWebEngineView;
+    QWebEngineView *webview = new QWebEngineView;
     webview->setWindowTitle("Web browser");
     webview->setAttribute(Qt::WA_DeleteOnClose, true);
     webview->setUrl(QUrl("https://www.google.co.uk"));
