@@ -9,4 +9,7 @@ def configure_repository():
     configs["Qt5Test2"] = TestSetup(win={"Native":[visualc64],"VSSolution":[visualc64],"MakeFile":[visualc64]},
                                     linux={"Native":[gcc64],"MakeFile":[gcc64]},
                                     osx={"Native":[clang64],"MakeFile":[clang64],"Xcode":[clang64]})
+    configs["Qt5WebBrowsingTest"] = TestSetup(win={"Native":[visualc64],"VSSolution":[visualc64],"MakeFile":[visualc64]},
+                                              linux={"Native":[gcc64],"MakeFile":[gcc64]},
+                                              osx={"Native":[clang64],"MakeFile":[clang64],"Xcode":[clang64]})
     return configs
