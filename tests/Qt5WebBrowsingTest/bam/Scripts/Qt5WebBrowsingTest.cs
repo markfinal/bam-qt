@@ -143,12 +143,12 @@ namespace Qt5WebBrowsingTest
                 this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "../Plugins/qtplugins/platforms", app);
                 this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/osx/qt.conf"), "../Resources", app);
 
-                this.IncludeFramework<Qt.NetworkFramework>("../Frameworks", app);
-                this.IncludeFramework<Qt.QmlFramework>("../Frameworks", app);
-                this.IncludeFramework<Qt.QuickFramework>("../Frameworks", app);
-                this.IncludeFramework<Qt.WebEngineCoreFramework>("../Frameworks", app);
-                this.IncludeFramework<Qt.WebChannelFramework>("../Frameworks", app);
-                this.IncludeFramework<Qt.WebEngineWidgetsFramework>("../Frameworks", app);
+                this.IncludeFramework<Qt.NetworkFramework>("../Frameworks", app, updateInstallName: updateInstallName);
+                this.IncludeFramework<Qt.QmlFramework>("../Frameworks", app, updateInstallName: updateInstallName);
+                this.IncludeFramework<Qt.QuickFramework>("../Frameworks", app, updateInstallName: updateInstallName);
+                this.IncludeFramework<Qt.WebEngineCoreFramework>("../Frameworks", app, updateInstallName: updateInstallName);
+                this.IncludeFramework<Qt.WebChannelFramework>("../Frameworks", app, updateInstallName: updateInstallName);
+                this.IncludeFramework<Qt.WebEngineWidgetsFramework>("../Frameworks", app, updateInstallName: updateInstallName);
             }
             else
             {
