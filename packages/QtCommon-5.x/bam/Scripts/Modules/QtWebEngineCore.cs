@@ -62,8 +62,8 @@ namespace QtCommon
             {
                 // ignore the base, as it's empty
                 var toPublish = new Bam.Core.Array<Path>();
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Helpers/QtWebEngineProcess.app/")));
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/qtwebengine_locales/")));
+                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Helpers/QtWebEngineProcess.app")));
+                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/qtwebengine_locales")));
                 return toPublish;
             }
         }
