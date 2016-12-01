@@ -81,6 +81,10 @@ namespace Qt
         QtCommon.PhononFramework
     { }
 
+    public sealed class PositioningFramework :
+        QtCommon.PositioningFramework
+    { }
+
     public sealed class PrintSupportFramework :
         QtCommon.PrintSupportFramework
     { }
