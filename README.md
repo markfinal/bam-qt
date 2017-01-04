@@ -1,6 +1,6 @@
 # [![BuildAMation](http://buildamation.com/BAM-small.png)](https://github.com/markfinal/BuildAMation) Qt package repository
 
-This repository contains packages wrapping the prebuilt Qt installs, with extensions to use Moc in other build scripts.
+This repository contains packages wrapping the prebuilt Qt installs, with extensions to use Moc and Rcc in other build scripts.
 
 * Qt-4.8.5
 * Qt-5.3.2
