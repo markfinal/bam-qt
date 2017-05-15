@@ -55,7 +55,7 @@ namespace QtCommon
             args.Add(source.InputPath.Parse());
             rule.AddShellCommand(args.ToString(' '));
 
-            meta.CommonMetaData.Directories.AddUnique(mocOutputDir);
+            meta.CommonMetaData.AddDirectory(mocOutputDir);
         }
     }
 }
