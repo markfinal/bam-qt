@@ -63,14 +63,14 @@ namespace QtCommon
         Evaluate()
         {
             this.ReasonToExecute = null;
-            var generatedPath = this.GeneratedPaths[Key].Parse();
+            var generatedPath = this.GeneratedPaths[Key].ToString();
             if (!System.IO.File.Exists(generatedPath))
             {
                 this.ReasonToExecute = Bam.Core.ExecuteReasoning.FileDoesNotExist(this.GeneratedPaths[Key]);
                 return;
             }
             var sourceFileWriteTime = System.IO.File.GetLastWriteTime(generatedPath);
-            var headerFileWriteTime = System.IO.File.GetLastWriteTime(this.SourceQRCFile.InputPath.Parse());
+            var headerFileWriteTime = System.IO.File.GetLastWriteTime(this.SourceQRCFile.InputPath.ToString());
             if (headerFileWriteTime > sourceFileWriteTime)
             {
                 this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(this.GeneratedPaths[Key], this.SourceQRCFile.InputPath);

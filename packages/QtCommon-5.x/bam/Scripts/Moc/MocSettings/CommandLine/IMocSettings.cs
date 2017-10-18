@@ -38,19 +38,19 @@ namespace QtCommon
         {
             foreach (var define in settings.PreprocessorDefinitions)
             {
-                if (System.String.IsNullOrEmpty(define.Value))
+                if (null == define.Value)
                 {
                     commandLine.Add(System.String.Format("-D {0}", define.Key));
                 }
                 else
                 {
-                    commandLine.Add(System.String.Format("-D {0}={1}", define.Key, define.Value));
+                    commandLine.Add(System.String.Format("-D {0}={1}", define.Key, define.Value.ToString()));
                 }
             }
 
             foreach (var path in settings.IncludePaths)
             {
-                commandLine.Add(System.String.Format("-I {0}", path.Parse()));
+                commandLine.Add(System.String.Format("-I {0}", path.ToString()));
             }
 
             if (settings.DoNotGenerateIncludeStatement)

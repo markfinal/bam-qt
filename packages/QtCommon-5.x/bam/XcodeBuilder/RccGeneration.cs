@@ -46,8 +46,8 @@ namespace QtCommon
             var target = workspace.EnsureTargetExists(encapsulating);
             var configuration = target.GetConfiguration(encapsulating);
 
-            var output = generatedRccSource.Parse();
-            var sourcePath = source.InputPath.Parse();
+            var output = generatedRccSource.ToString();
+            var sourcePath = source.InputPath.ToString();
 
             var commands = new Bam.Core.StringArray();
             commands.Add(System.String.Format("[[ ! -d {0} ]] && mkdir -p {0}", System.IO.Path.GetDirectoryName(output)));
