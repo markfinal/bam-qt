@@ -36,6 +36,14 @@ namespace QtCommon
     {
         private bool FixIncorrectFrameworks = false;
 
+        protected override Bam.Core.TokenizedString FrameworkLibraryPath
+        {
+            get
+            {
+                return this.CreateTokenizedString("$(QtFramework)/Versions/5/Qt$(QtModuleName)");
+            }
+        }
+
         protected CommonFramework(
             string moduleName) :
             base()
@@ -44,9 +52,6 @@ namespace QtCommon
             this.Macros.Add("QtInstallPath", Configure.InstallPath);
             this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
-
-            // required for C.OSXFramework
-            this.Macros["FrameworkLibraryPath"].Aliased(this.CreateTokenizedString("$(QtFramework)/Versions/5/Qt$(QtModuleName)"));
 
             var graph = Bam.Core.Graph.Instance;
             var qtPackage = graph.Packages.First(item => item.Name == "Qt");
