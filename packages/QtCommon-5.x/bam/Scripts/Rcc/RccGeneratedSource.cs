@@ -42,6 +42,7 @@ namespace QtCommon
             base.Init(parent);
             this.Compiler = Bam.Core.Graph.Instance.FindReferencedModule<RccTool>();
             this.Requires(this.Compiler);
+            this.InputPath = this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(QRCHeaderPath),$(packagedir)),../),.rcc.cpp)");
         }
 
         public QRCFile SourceHeader
@@ -52,9 +53,13 @@ namespace QtCommon
             }
             set
             {
+                if (null != this.SourceQRCFile)
+                {
+                    throw new Bam.Core.Exception(".qrc file has already been assigned");
+                }
                 this.SourceQRCFile = value;
                 this.DependsOn(value);
-                this.GeneratedPaths[Key].Aliased(this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(0),$(packagedir)),../),.rcc.cpp)", value.GeneratedPaths[C.HeaderFile.Key]));
+                this.Macros.Add("QRCHeaderPath", value.InputPath);
                 this.GetEncapsulatingReferencedModule(); // or the path above won't be parsable prior to all modules having been created
             }
         }

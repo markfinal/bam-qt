@@ -73,6 +73,16 @@ namespace Qt5Test2
                         // because Qt5.6.0/5.6/gcc_64/include/QtCore/qglobal.h:1090:4: error: #error "You must build your code with position independent code if Qt was built with -reduce-relocations. " "Compile your code with -fPIC (-fPIE is not enough)."
                         gccCompiler.PositionIndependentCode = true;
                     }
+
+                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
+                    if (null != vcCompiler)
+                    {
+                        if (source.Compiler.IsAtLeast(14))
+                        {
+                            var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
+                            cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Synchronous; // C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iosfwd(343): warning C4577: 'noexcept' used with no exception handling mode specified; termination on exception is not guaranteed. Specify /EHsc
+                        }
+                    }
                 });
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
@@ -113,6 +123,10 @@ namespace Qt5Test2
         {
             base.Init(parent);
 
+#if D_NEW_PUBLISHING
+            this.SetDefaultMacros(EPublishingType.WindowedApplication);
+            this.Include<Qt5Application>(C.Cxx.GUIApplication.Key);
+#else
             var app = this.Include<Qt5Application>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
@@ -166,6 +180,7 @@ namespace Qt5Test2
                     }
                 }
             }
+#endif
         }
     }
 
@@ -179,7 +194,10 @@ namespace Qt5Test2
         {
             base.Init(parent);
 
+#if D_NEW_PUBLISHING
+#else
             this.CreateSymbolsFrom<Qt5Test2Runtime>();
+#endif
         }
     }
 
@@ -193,7 +211,10 @@ namespace Qt5Test2
         {
             base.Init(parent);
 
+#if D_NEW_PUBLISHING
+#else
             this.StripBinariesFrom<Qt5Test2Runtime, Qt5Test2DebugSymbols>();
+#endif
         }
     }
 
@@ -207,7 +228,10 @@ namespace Qt5Test2
         {
             base.Init(parent);
 
+#if D_NEW_PUBLISHING
+#else
             this.SourceFolder<Qt5Test2Stripped>(Publisher.StrippedBinaryCollation.Key);
+#endif
         }
     }
 }

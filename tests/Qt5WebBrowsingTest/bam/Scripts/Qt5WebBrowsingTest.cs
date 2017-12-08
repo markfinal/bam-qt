@@ -123,6 +123,10 @@ namespace Qt5WebBrowsingTest
         {
             base.Init(parent);
 
+#if D_NEW_PUBLISHING
+            this.SetDefaultMacros(EPublishingType.WindowedApplication);
+            this.Include<WebBrowser>(C.Cxx.GUIApplication.Key);
+#else
             var app = this.Include<WebBrowser>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
@@ -213,6 +217,7 @@ namespace Qt5WebBrowsingTest
                     }
                 }
             }
+#endif
         }
     }
 
@@ -226,7 +231,10 @@ namespace Qt5WebBrowsingTest
         {
             base.Init(parent);
 
+#if D_NEW_PUBLISHING
+#else
             this.CreateSymbolsFrom<Qt5WebBrowsingTestRuntime>();
+#endif
         }
     }
 
@@ -240,7 +248,10 @@ namespace Qt5WebBrowsingTest
         {
             base.Init(parent);
 
+#if D_NEW_PUBLISHING
+#else
             this.StripBinariesFrom<Qt5WebBrowsingTestRuntime, Qt5WebBrowsingTestDebugSymbols>();
+#endif
         }
     }
 
@@ -254,7 +265,10 @@ namespace Qt5WebBrowsingTest
         {
             base.Init(parent);
 
+#if D_NEW_PUBLISHING
+#else
             this.SourceFolder<Qt5WebBrowsingTestStripped>(Publisher.StrippedBinaryCollation.Key);
+#endif
         }
     }
 }
