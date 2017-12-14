@@ -36,14 +36,6 @@ namespace QtCommon
     {
         private bool FixIncorrectFrameworks = false;
 
-        protected override Bam.Core.TokenizedString FrameworkLibraryPath
-        {
-            get
-            {
-                return this.CreateTokenizedString("$(QtFramework)/Versions/5/Qt$(QtModuleName)");
-            }
-        }
-
         protected CommonFramework(
             string moduleName) :
             base()
@@ -112,6 +104,22 @@ namespace QtCommon
             get
             {
                 return this.Macros["QtFrameworkPath"];
+            }
+        }
+
+        protected override Bam.Core.TokenizedString FrameworkBundleName
+        {
+            get
+            {
+                return this.Macros["QtFramework"];
+            }
+        }
+
+        protected override Bam.Core.TokenizedString FrameworkLibraryPath
+        {
+            get
+            {
+                return this.CreateTokenizedString("$(QtFramework)/Versions/5/Qt$(QtModuleName)");
             }
         }
 
