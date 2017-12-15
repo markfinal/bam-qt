@@ -43,5 +43,14 @@ namespace QtCommon
         public WidgetsFramework() :
             base("Widgets")
         {}
+
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
+            var gui = Bam.Core.Graph.Instance.FindReferencedModule<Qt.GuiFramework>();
+            this.Requires(gui);
+        }
     }
 }
