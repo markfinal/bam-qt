@@ -126,6 +126,15 @@ namespace Qt5Test2
 #if D_NEW_PUBLISHING
             this.SetDefaultMacros(EPublishingType.WindowedApplication);
             this.Include<Qt5Application>(C.Cxx.GUIApplication.Key);
+
+
+            var collatedQtFrameworks = this.Find<QtCommon.CommonFramework>();
+            collatedQtFrameworks.ToList().ForEach(collatedFramework =>
+                (collatedFramework as Publisher.CollatedObject).PrivatePatch(settings =>
+                    {
+                        var rsyncSettings = settings as Publisher.IRsyncSettings;
+                        rsyncSettings.Exclusions = (collatedFramework.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
+                    }));
 #else
             var app = this.Include<Qt5Application>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
