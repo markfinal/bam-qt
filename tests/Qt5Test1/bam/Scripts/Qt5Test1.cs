@@ -147,6 +147,20 @@ namespace Qt5Test1
 #if D_NEW_PUBLISHING
             this.SetDefaultMacros(EPublishingType.WindowedApplication);
             this.Include<Qt5Application>(C.Cxx.GUIApplication.Key);
+
+            var qtCore = this.Find<Qt.CoreFramework>();
+            (qtCore as Publisher.CollatedOSXFramework).PrivatePatch(settings =>
+                {
+                    var rsyncSettings = settings as Publisher.IRsyncSettings;
+                    rsyncSettings.Exclusions = (qtCore.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
+                });
+
+            var qtWidgets = this.Find<Qt.WidgetsFramework>();
+            (qtWidgets as Publisher.CollatedOSXFramework).PrivatePatch(settings =>
+                {
+                    var rsyncSettings = settings as Publisher.IRsyncSettings;
+                    rsyncSettings.Exclusions = (qtWidgets.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
+                });
 #else
             var app = this.Include<Qt5Application>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))

@@ -126,6 +126,30 @@ namespace Qt5WebBrowsingTest
 #if D_NEW_PUBLISHING
             this.SetDefaultMacros(EPublishingType.WindowedApplication);
             this.Include<WebBrowser>(C.Cxx.GUIApplication.Key);
+
+            var qtCore = this.Find<Qt.CoreFramework>();
+            (qtCore as Publisher.CollatedOSXFramework).PrivatePatch(settings =>
+                {
+                    var rsyncSettings = settings as Publisher.IRsyncSettings;
+                    rsyncSettings.Exclusions = (qtCore.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
+                });
+
+            var qtWidgets = this.Find<Qt.WidgetsFramework>();
+            (qtWidgets as Publisher.CollatedOSXFramework).PrivatePatch(settings =>
+                {
+                    var rsyncSettings = settings as Publisher.IRsyncSettings;
+                    rsyncSettings.Exclusions = (qtWidgets.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
+                });
+
+#if false
+            // Note: no direct dependency
+            var qtWebEngineCore = this.Find<Qt.WebEngineCoreFramework>();
+            (qtWebEngineCore as Publisher.CollatedOSXFramework).PrivatePatch(settings =>
+                {
+                    var rsyncSettings = settings as Publisher.IRsyncSettings;
+                    rsyncSettings.Exclusions = (qtWebEngineCore.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
+                });
+#endif
 #else
             var app = this.Include<WebBrowser>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))

@@ -27,15 +27,12 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using System.Linq;
 namespace QtCommon
 {
     [C.Prebuilt]
     public abstract class CommonFramework :
         C.OSXFramework
     {
-        private bool FixIncorrectFrameworks = false;
-
         protected CommonFramework(
             string moduleName) :
             base()
@@ -44,16 +41,6 @@ namespace QtCommon
             this.Macros.Add("QtInstallPath", Configure.InstallPath);
             this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
-
-            var graph = Bam.Core.Graph.Instance;
-            var qtPackage = graph.Packages.First(item => item.Name == "Qt");
-            var qtVersion = qtPackage.Version;
-            var qtVersionSplit = qtVersion.Split('.');
-            var minorVersion = System.Convert.ToInt32(qtVersionSplit[1]);
-            if (minorVersion < 5)
-            {
-                this.FixIncorrectFrameworks = true;
-            }
         }
 
         protected override void
@@ -123,52 +110,16 @@ namespace QtCommon
             }
         }
 
-        public override Bam.Core.Array<Path> DirectoriesToPublish
+        public virtual Bam.Core.TokenizedStringArray PublishingExclusions
         {
             get
             {
-                return null;
-            }
-        }
-
-        public override Bam.Core.Array<Path> FilesToPublish
-        {
-            get
-            {
-                var toPublish = new Bam.Core.Array<Path>();
-                toPublish.Add(new Path(this.Macros["FrameworkLibraryPath"]));
-
-                if (this.FixIncorrectFrameworks)
-                {
-                    // Info.plist is in the wrong location for codesigning
-                    toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Contents/Info.plist"), this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/Info.plist")));
-                }
-                else
-                {
-                    toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/Info.plist")));
-                }
-
-                return toPublish;
-            }
-        }
-
-        public override Bam.Core.Array<Path> SymlinksToPublish
-        {
-            get
-            {
-                var toPublish = new Bam.Core.Array<Path>();
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/Current")));
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Qt$(QtModuleName)")));
-                if (this.FixIncorrectFrameworks)
-                {
-                    // Resources symlink does not exist in the SDK frameworks
-                    toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Resources"), Bam.Core.TokenizedString.CreateVerbatim("Versions/5/Resources")));
-                }
-                else
-                {
-                    toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Resources")));
-                }
-                return toPublish;
+                var exclusions = new Bam.Core.TokenizedStringArray();
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("Headers/"));
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("Headers"));
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("*_debug"));
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("*.prl"));
+                return exclusions;
             }
         }
     }
