@@ -35,6 +35,16 @@ namespace QtCommon
         public Gui() :
             base("Gui")
         {}
+
+        protected override Bam.Core.TypeArray DependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.Core)
+                };
+            }
+        }
     }
 
     public abstract class GuiFramework :
@@ -43,5 +53,15 @@ namespace QtCommon
         public GuiFramework() :
             base("Gui")
         {}
+
+        protected override Bam.Core.TypeArray DependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.CoreFramework)
+                };
+            }
+        }
     }
 }

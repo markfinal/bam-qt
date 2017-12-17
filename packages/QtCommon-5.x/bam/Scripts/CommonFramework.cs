@@ -43,6 +43,15 @@ namespace QtCommon
             this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
         }
 
+        protected virtual Bam.Core.TypeArray
+        DependentModules
+        {
+            get
+            {
+                return null;
+            }
+        }
+
         protected override void
         Init(
             Bam.Core.Module parent)
@@ -50,20 +59,33 @@ namespace QtCommon
             base.Init(parent);
 
             this.PublicPatch((settings, appliedTo) =>
-            {
-                var osxCompiler = settings as C.ICommonCompilerSettingsOSX;
-                if (null != osxCompiler)
                 {
-                    osxCompiler.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
-                }
+                    var osxCompiler = settings as C.ICommonCompilerSettingsOSX;
+                    if (null != osxCompiler)
+                    {
+                        osxCompiler.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
+                    }
 
-                var osxLinker = settings as C.ICommonLinkerSettingsOSX;
-                if (null != osxLinker)
+                    var osxLinker = settings as C.ICommonLinkerSettingsOSX;
+                    if (null != osxLinker)
+                    {
+                        osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/$(QtFramework)"));
+                        osxLinker.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
+                    }
+                });
+
+            var dependentTypes = this.DependentModules;
+            if (null != dependentTypes)
+            {
+                var graph = Bam.Core.Graph.Instance;
+                var findReferencedModuleMethod = graph.GetType().GetMethod("FindReferencedModule");
+                foreach (var depType in dependentTypes)
                 {
-                    osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/$(QtFramework)"));
-                    osxLinker.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
+                    var genericVersionForModuleType = findReferencedModuleMethod.MakeGenericMethod(depType);
+                    var depModule = genericVersionForModuleType.Invoke(graph, null) as Bam.Core.Module;
+                    this.Requires(depModule);
                 }
-            });
+            }
         }
 
         public override void

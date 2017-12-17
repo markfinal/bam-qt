@@ -35,6 +35,17 @@ namespace QtCommon
         public WebEngineWidgets() :
             base("WebEngineWidgets")
         { }
+
+        protected override Bam.Core.TypeArray DependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.WebEngineCore),
+                    typeof(Qt.Quick)
+                };
+            }
+        }
     }
 
     public abstract class WebEngineWidgetsFramework :
@@ -43,5 +54,16 @@ namespace QtCommon
         public WebEngineWidgetsFramework() :
             base("WebEngineWidgets")
         { }
+
+        protected override Bam.Core.TypeArray DependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.WebEngineCoreFramework),
+                    typeof(Qt.QuickFramework)
+                };
+            }
+        }
     }
 }

@@ -36,6 +36,17 @@ namespace QtCommon
             base("WebEngineCore")
         { }
 
+        protected override Bam.Core.TypeArray DependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.WebChannel),
+                    typeof(Qt.Positioning)
+                };
+            }
+        }
+
         protected override void
         Init(
             Bam.Core.Module parent)
@@ -55,5 +66,16 @@ namespace QtCommon
         public WebEngineCoreFramework() :
             base("WebEngineCore")
         { }
+
+        protected override Bam.Core.TypeArray DependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.WebChannelFramework),
+                    typeof(Qt.PositioningFramework)
+                };
+            }
+        }
     }
 }

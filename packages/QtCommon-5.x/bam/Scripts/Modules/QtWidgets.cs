@@ -35,6 +35,16 @@ namespace QtCommon
         public Widgets() :
             base("Widgets")
         {}
+
+        protected override Bam.Core.TypeArray DependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.Gui)
+                };
+            }
+        }
     }
 
     public abstract class WidgetsFramework :
@@ -44,13 +54,14 @@ namespace QtCommon
             base("Widgets")
         {}
 
-        protected override void
-        Init(
-            Bam.Core.Module parent)
+        protected override Bam.Core.TypeArray DependentModules
         {
-            base.Init(parent);
-            var gui = Bam.Core.Graph.Instance.FindReferencedModule<Qt.GuiFramework>();
-            this.Requires(gui);
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.GuiFramework)
+                };
+            }
         }
     }
 }

@@ -60,6 +60,15 @@ namespace QtCommon
             set;
         }
 
+        protected virtual Bam.Core.TypeArray
+        DependentModules
+        {
+            get
+            {
+                return null;
+            }
+        }
+
         protected override void
         Init(
             Bam.Core.Module parent)
@@ -107,19 +116,32 @@ namespace QtCommon
             }
 
             this.PublicPatch((settings, appliedTo) =>
-            {
-                var compiler = settings as C.ICommonCompilerSettings;
-                if (null != compiler)
                 {
-                    compiler.IncludePaths.AddUnique(this.Macros["QtIncludePath"]);
-                }
+                    var compiler = settings as C.ICommonCompilerSettings;
+                    if (null != compiler)
+                    {
+                        compiler.IncludePaths.AddUnique(this.Macros["QtIncludePath"]);
+                    }
 
-                var linker = settings as C.ICommonLinkerSettings;
-                if (null != linker)
+                    var linker = settings as C.ICommonLinkerSettings;
+                    if (null != linker)
+                    {
+                        linker.LibraryPaths.AddUnique(this.Macros["QtLibraryPath"]);
+                    }
+                });
+
+            var dependentTypes = this.DependentModules;
+            if (null != dependentTypes)
+            {
+                var graph = Bam.Core.Graph.Instance;
+                var findReferencedModuleMethod = graph.GetType().GetMethod("FindReferencedModule");
+                foreach (var depType in dependentTypes)
                 {
-                    linker.LibraryPaths.AddUnique(this.Macros["QtLibraryPath"]);
+                    var genericVersionForModuleType = findReferencedModuleMethod.MakeGenericMethod(depType);
+                    var depModule = genericVersionForModuleType.Invoke(graph, null) as Bam.Core.Module;
+                    this.Requires(depModule);
                 }
-            });
+            }
         }
     }
 }

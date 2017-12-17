@@ -35,6 +35,16 @@ namespace QtCommon
         public WebChannel() :
             base("WebChannel")
         { }
+
+        protected override Bam.Core.TypeArray DependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.Qml)
+                };
+            }
+        }
     }
 
     public abstract class WebChannelFramework :
@@ -43,5 +53,15 @@ namespace QtCommon
         public WebChannelFramework() :
             base("WebChannel")
         { }
+
+        protected override Bam.Core.TypeArray DependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.QmlFramework)
+                };
+            }
+        }
     }
 }
