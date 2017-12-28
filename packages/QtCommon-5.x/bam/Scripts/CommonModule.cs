@@ -41,9 +41,11 @@ namespace QtCommon
             bool hasPrefix = true,
             System.Tuple<string,string,string> customVersionNumber = null)
         {
+            var graph = Bam.Core.Graph.Instance;
+            graph.Macros.Add("QtInstallPath", Configure.InstallPath);
+
             this.Macros.AddVerbatim("QtModulePrefix", hasPrefix ? "Qt5" : string.Empty);
             this.Macros.AddVerbatim("QtModuleName", moduleName);
-            this.Macros.Add("QtInstallPath", Configure.InstallPath);
             this.HasHeaders = hasHeaders;
             this.CustomVersionNumber = customVersionNumber;
         }
@@ -92,9 +94,9 @@ namespace QtCommon
                 this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim(this.CustomVersionNumber.Item3);
             }
 
-            this.Macros.Add("QtIncludePath", this.CreateTokenizedString("$(QtInstallPath)/include"));
-            this.Macros.Add("QtLibraryPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
-            this.Macros.Add("QtBinaryPath", this.CreateTokenizedString("$(QtInstallPath)/bin"));
+            this.Macros.Add("QtIncludePath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/include", null));
+            this.Macros.Add("QtLibraryPath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/lib", null));
+            this.Macros.Add("QtBinaryPath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/bin", null));
             this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim((this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ? "d" : string.Empty));
 
             if (this.HasHeaders)
