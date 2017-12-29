@@ -114,7 +114,24 @@ namespace QtCommon
             else
             {
                 this.Macros["OutputName"] = this.CreateTokenizedString("$(QtModulePrefix)$(QtModuleName)");
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)$(OutputName)$(linkernameext)");
+                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
+
+                this.Macros.Add("SOName", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)"));
+                this.Macros.Add("LinkerName", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(linkernameext)"));
+
+                var linkerName = Bam.Core.Module.Create<CommonModuleSymbolicLink>(preInitCallback:module=>
+                    {
+                        module.Macros.AddVerbatim("SymlinkUsage", "LinkerName");
+                        module.SharedObject = this;
+                    });
+                this.LinkerNameSymbolicLink = linkerName;
+
+                var SOName = Bam.Core.Module.Create<CommonModuleSymbolicLink>(preInitCallback:module=>
+                    {
+                        module.Macros.AddVerbatim("SymlinkUsage", "SOName");
+                        module.SharedObject = this;
+                    });
+                this.SONameSymbolicLink = SOName;
             }
 
             this.PublicPatch((settings, appliedTo) =>
