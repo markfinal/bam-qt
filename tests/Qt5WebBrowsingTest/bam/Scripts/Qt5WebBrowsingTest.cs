@@ -65,7 +65,7 @@ namespace Qt5WebBrowsingTest
                     if (null != gccLinker)
                     {
                         gccLinker.CanUseOrigin = true;
-                        gccLinker.RPath.AddUnique("$ORIGIN");
+                        gccLinker.RPath.AddUnique("$ORIGIN/../lib");
                     }
 
                     var clangLinker = settings as ClangCommon.ICommonLinkerSettings;
@@ -83,24 +83,9 @@ namespace Qt5WebBrowsingTest
             }
             else
             {
+                this.CompileAndLinkAgainst<Qt.Core>(source);
                 this.CompileAndLinkAgainst<Qt.Widgets>(source);
                 this.CompileAndLinkAgainst<Qt.WebEngineWidgets>(source);
-
-                var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
-                var qtVersionSplit = qtPackage.Version.Split('.');
-                if (System.Convert.ToInt32(qtVersionSplit[1]) >= 5) // if 5.x >= 5.5
-                {
-                    this.CompileAndLinkAgainst<Qt.Core>(source); // requires link patches for ICU (at least on Linux)
-                }
-                else
-                {
-                    this.CompileAndLinkAgainst<Qt.Core>(source);
-                    if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
-                    {
-                        // link dependency from QtWidgets
-                        this.LinkAgainst<Qt.Gui>();
-                    }
-                }
             }
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
@@ -239,10 +224,7 @@ namespace Qt5WebBrowsingTest
         {
             base.Init(parent);
 
-#if D_NEW_PUBLISHING
-#else
             this.CreateSymbolsFrom<Qt5WebBrowsingTestRuntime>();
-#endif
         }
     }
 
@@ -256,10 +238,7 @@ namespace Qt5WebBrowsingTest
         {
             base.Init(parent);
 
-#if D_NEW_PUBLISHING
-#else
             this.StripBinariesFrom<Qt5WebBrowsingTestRuntime, Qt5WebBrowsingTestDebugSymbols>();
-#endif
         }
     }
 
@@ -273,10 +252,7 @@ namespace Qt5WebBrowsingTest
         {
             base.Init(parent);
 
-#if D_NEW_PUBLISHING
-#else
             this.SourceFolder<Qt5WebBrowsingTestStripped>(Publisher.StrippedBinaryCollation.Key);
-#endif
         }
     }
 }
