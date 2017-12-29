@@ -55,7 +55,7 @@ namespace Qt5Test2
                     if (null != gccLinker)
                     {
                         gccLinker.CanUseOrigin = true;
-                        gccLinker.RPath.AddUnique("$ORIGIN");
+                        gccLinker.RPath.AddUnique("$ORIGIN/../lib");
                     }
 
                     var clangLinker = settings as ClangCommon.ICommonLinkerSettings;
@@ -126,7 +126,6 @@ namespace Qt5Test2
 #if D_NEW_PUBLISHING
             this.SetDefaultMacros(EPublishingType.WindowedApplication);
             this.Include<Qt5Application>(C.Cxx.GUIApplication.Key);
-
 
             var collatedQtFrameworks = this.Find<QtCommon.CommonFramework>();
             collatedQtFrameworks.ToList().ForEach(collatedFramework =>
@@ -203,10 +202,7 @@ namespace Qt5Test2
         {
             base.Init(parent);
 
-#if D_NEW_PUBLISHING
-#else
             this.CreateSymbolsFrom<Qt5Test2Runtime>();
-#endif
         }
     }
 
@@ -220,10 +216,7 @@ namespace Qt5Test2
         {
             base.Init(parent);
 
-#if D_NEW_PUBLISHING
-#else
             this.StripBinariesFrom<Qt5Test2Runtime, Qt5Test2DebugSymbols>();
-#endif
         }
     }
 
@@ -237,10 +230,7 @@ namespace Qt5Test2
         {
             base.Init(parent);
 
-#if D_NEW_PUBLISHING
-#else
             this.SourceFolder<Qt5Test2Stripped>(Publisher.StrippedBinaryCollation.Key);
-#endif
         }
     }
 }
