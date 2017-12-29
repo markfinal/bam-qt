@@ -42,7 +42,8 @@ namespace QtCommon
             {
                 return new Bam.Core.TypeArray {
                     typeof(Qt.WebEngineCore),
-                    typeof(Qt.Quick)
+                    typeof(Qt.Quick),
+                    typeof(Qt.Network)
                 };
             }
         }
@@ -61,7 +62,8 @@ namespace QtCommon
             {
                 return new Bam.Core.TypeArray {
                     typeof(Qt.WebEngineCoreFramework),
-                    typeof(Qt.QuickFramework)
+                    typeof(Qt.QuickFramework),
+                    typeof(Qt.NetworkFramework)
                 };
             }
         }
