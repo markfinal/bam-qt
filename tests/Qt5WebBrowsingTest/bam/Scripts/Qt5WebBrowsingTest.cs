@@ -114,7 +114,8 @@ namespace Qt5WebBrowsingTest
 
             var collatedQtFrameworks = this.Find<QtCommon.CommonFramework>();
             collatedQtFrameworks.ToList().ForEach(collatedFramework =>
-                (collatedFramework as Publisher.CollatedObject).PrivatePatch(settings =>
+                // must be a public patch in order for the stripping mode to inherit the settings
+                (collatedFramework as Publisher.CollatedObject).PublicPatch((settings, appliedTo) =>
                     {
                         var rsyncSettings = settings as Publisher.IRsyncSettings;
                         rsyncSettings.Exclusions = (collatedFramework.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
