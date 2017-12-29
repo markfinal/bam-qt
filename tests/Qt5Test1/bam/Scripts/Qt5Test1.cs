@@ -83,20 +83,20 @@ namespace Qt5Test1
                 });
 
             this.PrivatePatch(settings =>
-            {
-                var gccLinker = settings as GccCommon.ICommonLinkerSettings;
-                if (null != gccLinker)
                 {
-                    gccLinker.CanUseOrigin = true;
-                    gccLinker.RPath.AddUnique("$ORIGIN/../lib");
-                }
+                    var gccLinker = settings as GccCommon.ICommonLinkerSettings;
+                    if (null != gccLinker)
+                    {
+                        gccLinker.CanUseOrigin = true;
+                        gccLinker.RPath.AddUnique("$ORIGIN/../lib");
+                    }
 
-                var clangLinker = settings as ClangCommon.ICommonLinkerSettings;
-                if (null != clangLinker)
-                {
-                    clangLinker.RPath.AddUnique("@executable_path/../Frameworks");
-                }
-            });
+                    var clangLinker = settings as ClangCommon.ICommonLinkerSettings;
+                    if (null != clangLinker)
+                    {
+                        clangLinker.RPath.AddUnique("@executable_path/../Frameworks");
+                    }
+                });
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
@@ -105,23 +105,8 @@ namespace Qt5Test1
             }
             else
             {
+                this.CompileAndLinkAgainst<Qt.Core>(source);
                 this.CompileAndLinkAgainst<Qt.Widgets>(source);
-
-                var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
-                var qtVersionSplit = qtPackage.Version.Split('.');
-                if (System.Convert.ToInt32(qtVersionSplit[1]) >= 5) // if 5.x >= 5.5
-                {
-                    this.CompileAndLinkAgainst<Qt.Core>(source); // requires link patches for ICU (at least on Linux)
-                }
-                else
-                {
-                    this.CompileAndLinkAgainst<Qt.Core>(source);
-                    if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
-                    {
-                        // link dependency from QtWidgets
-                        this.LinkAgainst<Qt.Gui>();
-                    }
-                }
             }
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
@@ -226,10 +211,7 @@ namespace Qt5Test1
         {
             base.Init(parent);
 
-#if D_NEW_PUBLISHING
-#else
             this.CreateSymbolsFrom<Qt5Test1Runtime>();
-#endif
         }
     }
 
@@ -243,10 +225,7 @@ namespace Qt5Test1
         {
             base.Init(parent);
 
-#if D_NEW_PUBLISHING
-#else
             this.StripBinariesFrom<Qt5Test1Runtime, Qt5Test1DebugSymbols>();
-#endif
         }
     }
 
@@ -260,10 +239,7 @@ namespace Qt5Test1
         {
             base.Init(parent);
 
-#if D_NEW_PUBLISHING
-#else
             this.SourceFolder<Qt5Test1Stripped>(Publisher.StrippedBinaryCollation.Key);
-#endif
         }
     }
 }
