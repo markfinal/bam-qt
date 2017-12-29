@@ -126,6 +126,15 @@ namespace Qt5Test2
                         var rsyncSettings = settings as Publisher.IRsyncSettings;
                         rsyncSettings.Exclusions = (collatedFramework.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
                     }));
+
+            if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
+            {
+                this.IncludeFiles(this.CreateTokenizedString("$(packagedir)/resources/osx/qt.conf"), this.Macros["macOSAppBundleResourcesDir"]);
+            }
+            else
+            {
+                this.IncludeFiles(this.CreateTokenizedString("$(packagedir)/resources/qt.conf"), this.ExecutableDir);
+            }
 #else
             var app = this.Include<Qt5Application>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
