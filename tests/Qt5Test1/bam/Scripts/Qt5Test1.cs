@@ -88,7 +88,7 @@ namespace Qt5Test1
                 if (null != gccLinker)
                 {
                     gccLinker.CanUseOrigin = true;
-                    gccLinker.RPath.AddUnique("$ORIGIN");
+                    gccLinker.RPath.AddUnique("$ORIGIN/../lib");
                 }
 
                 var clangLinker = settings as ClangCommon.ICommonLinkerSettings;
