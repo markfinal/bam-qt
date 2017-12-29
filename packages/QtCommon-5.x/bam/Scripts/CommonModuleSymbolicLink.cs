@@ -35,13 +35,5 @@ namespace QtCommon
     public class CommonModuleSymbolicLink :
         C.SharedObjectSymbolicLink
     {
-        public override void
-        Evaluate()
-        {
-#if __MonoCS__
-            // never build
-            this.ReasonToExecute = null;
-#endif
-        }
     }
 }

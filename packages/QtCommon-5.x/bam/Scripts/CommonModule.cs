@@ -152,13 +152,11 @@ namespace QtCommon
             var dependentTypes = this.DependentModules;
             if (null != dependentTypes)
             {
-                var graph = Bam.Core.Graph.Instance;
-                var findReferencedModuleMethod = graph.GetType().GetMethod("FindReferencedModule");
+                var requiredToExistMethod = this.GetType().GetMethod("RequiredToExist");
                 foreach (var depType in dependentTypes)
                 {
-                    var genericVersionForModuleType = findReferencedModuleMethod.MakeGenericMethod(depType);
-                    var depModule = genericVersionForModuleType.Invoke(graph, null) as Bam.Core.Module;
-                    this.Requires(depModule);
+                    var genericVersionForModuleType = requiredToExistMethod.MakeGenericMethod(depType);
+                    genericVersionForModuleType.Invoke(this, new [] { new C.CModule[0] });
                 }
             }
         }
