@@ -52,5 +52,19 @@ namespace QtCommon
                 this.Macros.AddVerbatim("QtPluginName", "qcocoa");
             }
         }
+
+        protected override TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
+                {
+                    return new Bam.Core.TypeArray {
+                        typeof(Qt.XcbQpa)
+                    };
+                }
+                return base.RuntimeDependentModules;
+            }
+        }
     }
 }
