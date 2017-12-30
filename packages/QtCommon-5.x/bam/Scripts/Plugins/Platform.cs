@@ -60,7 +60,8 @@ namespace QtCommon
                 if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
                 {
                     return new Bam.Core.TypeArray {
-                        typeof(Qt.XcbQpa)
+                        typeof(Qt.XcbQpa),
+                        typeof(Qt.DBus)
                     };
                 }
                 return base.RuntimeDependentModules;
