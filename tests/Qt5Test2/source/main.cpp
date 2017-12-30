@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
         std::cerr << "AppDir : " << qPrintable(appDirPath) << std::endl;
         return -1;
     }
-    std::cout << "Plugin path: '" << qPrintable(QLibraryInfo::location(QLibraryInfo::PluginsPath)) << std::endl;
+    std::cout << "Plugin path: '" << qPrintable(QLibraryInfo::location(QLibraryInfo::PluginsPath)) << "'" << std::endl;
 
     QFile embedded(":/embedded.txt");
     if (!embedded.open(QFile::ReadOnly | QFile::Text))

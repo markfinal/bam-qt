@@ -134,12 +134,23 @@ namespace Qt5Test2
                     this.Macros["macOSAppBundleResourcesDir"],
                     appAnchor);
             }
-            else
+            else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
                 this.IncludeFiles(
-                    this.CreateTokenizedString("$(packagedir)/resources/qt.conf"),
+                    this.CreateTokenizedString("$(packagedir)/resources/linux/qt.conf"),
                     this.ExecutableDir,
                     appAnchor);
+            }
+            else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
+            {
+                this.IncludeFiles(
+                    this.CreateTokenizedString("$(packagedir)/resources/windows/qt.conf"),
+                    this.ExecutableDir,
+                    appAnchor);
+            }
+            else
+            {
+                throw new Bam.Core.Exception("Unsupported platform");
             }
 #else
             var app = this.Include<Qt5Application>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
