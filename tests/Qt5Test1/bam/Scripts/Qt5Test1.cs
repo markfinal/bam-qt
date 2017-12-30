@@ -133,19 +133,20 @@ namespace Qt5Test1
             this.SetDefaultMacros(EPublishingType.WindowedApplication);
             var appAnchor = this.Include<Qt5Application>(C.Cxx.GUIApplication.Key);
 
-            var collatedQtFrameworks = this.Find<QtCommon.CommonFramework>();
-            collatedQtFrameworks.ToList().ForEach(collatedFramework =>
-                // must be a public patch in order for the stripping mode to inherit the settings
-                (collatedFramework as Publisher.CollatedObject).PublicPatch((settings, appliedTo) =>
-                    {
-                        var rsyncSettings = settings as Publisher.IRsyncSettings;
-                        rsyncSettings.Exclusions = (collatedFramework.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
-                    }));
-
-            (this.Find<QtCommon.PlatformPlugin>().First() as Publisher.CollatedObject).SetPublishingDirectory("$(0)/qtplugins/platforms", this.PluginDir);
+            var qtPlatformPlugin = this.Find<QtCommon.PlatformPlugin>().First();
+            (qtPlatformPlugin as Publisher.CollatedObject).SetPublishingDirectory("$(0)/qtplugins/platforms", this.PluginDir);
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
+                var collatedQtFrameworks = this.Find<QtCommon.CommonFramework>();
+                collatedQtFrameworks.ToList().ForEach(collatedFramework =>
+                    // must be a public patch in order for the stripping mode to inherit the settings
+                    (collatedFramework as Publisher.CollatedObject).PublicPatch((settings, appliedTo) =>
+                        {
+                            var rsyncSettings = settings as Publisher.IRsyncSettings;
+                            rsyncSettings.Exclusions = (collatedFramework.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
+                        }));
+
                 this.IncludeFiles(
                     this.CreateTokenizedString("$(packagedir)/resources/osx/qt.conf"),
                     this.Macros["macOSAppBundleResourcesDir"],
@@ -157,6 +158,7 @@ namespace Qt5Test1
                     this.CreateTokenizedString("$(packagedir)/resources/linux/qt.conf"),
                     this.ExecutableDir,
                     appAnchor);
+                this.ChangeRPath(qtPlatformPlugin, "$ORIGIN/../lib");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
