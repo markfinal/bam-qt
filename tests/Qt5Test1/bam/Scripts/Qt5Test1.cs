@@ -134,7 +134,7 @@ namespace Qt5Test1
             var appAnchor = this.Include<Qt5Application>(C.Cxx.GUIApplication.Key);
 
             var qtPlatformPlugin = this.Find<QtCommon.PlatformPlugin>().First();
-            (qtPlatformPlugin as Publisher.CollatedObject).SetPublishingDirectory("$(0)/qtplugins/platforms", this.PluginDir);
+            (qtPlatformPlugin as Publisher.CollatedObject).SetPublishingDirectory("$(0)/platforms", this.PluginDir);
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
@@ -158,7 +158,6 @@ namespace Qt5Test1
                     this.CreateTokenizedString("$(packagedir)/resources/linux/qt.conf"),
                     this.ExecutableDir,
                     appAnchor);
-                this.ChangeRPath(qtPlatformPlugin, "$ORIGIN/../lib");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
