@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
     QString appDirPath = QCoreApplication::applicationDirPath();
     QString prefix = QLibraryInfo::location(QLibraryInfo::PrefixPath);
-    if (!prefix.startsWith(appDirPath))
+    if (!appDirPath.startsWith(prefix))
     {
         std::cerr << "Mis-configured distribution: prefix does not match the application dir" << std::endl;
         std::cerr << "Prefix : " << qPrintable(prefix) << std::endl;

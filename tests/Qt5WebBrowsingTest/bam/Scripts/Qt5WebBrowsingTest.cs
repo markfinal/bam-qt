@@ -110,7 +110,7 @@ namespace Qt5WebBrowsingTest
 
 #if D_NEW_PUBLISHING
             this.SetDefaultMacros(EPublishingType.WindowedApplication);
-            this.Include<WebBrowser>(C.Cxx.GUIApplication.Key);
+            var appAnchor = this.Include<WebBrowser>(C.Cxx.GUIApplication.Key);
 
             var collatedQtFrameworks = this.Find<QtCommon.CommonFramework>();
             collatedQtFrameworks.ToList().ForEach(collatedFramework =>
@@ -120,6 +120,21 @@ namespace Qt5WebBrowsingTest
                         var rsyncSettings = settings as Publisher.IRsyncSettings;
                         rsyncSettings.Exclusions = (collatedFramework.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
                     }));
+
+            if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
+            {
+                this.IncludeFiles(
+                    this.CreateTokenizedString("$(packagedir)/resources/osx/qt.conf"),
+                    this.Macros["macOSAppBundleResourcesDir"],
+                    appAnchor);
+            }
+            else
+            {
+                this.IncludeFiles(
+                    this.CreateTokenizedString("$(packagedir)/resources/qt.conf"),
+                    this.ExecutableDir,
+                    appAnchor);
+            }
 #else
             var app = this.Include<WebBrowser>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
