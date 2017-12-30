@@ -64,6 +64,12 @@ namespace QtCommon
                         typeof(Qt.DBus)
                     };
                 }
+                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
+                {
+                    return new Bam.Core.TypeArray {
+                        typeof(Qt.PrintSupportFramework)
+                    };
+                }
                 return base.RuntimeDependentModules;
             }
         }
