@@ -165,6 +165,7 @@ namespace Qt5WebBrowsingTest
                 this.IncludeFiles(webEngine.Macros["ResourcePak"], this.ResourceDir, appAnchor);
                 this.IncludeFiles(webEngine.Macros["ResourcePak100p"], this.ResourceDir, appAnchor);
                 this.IncludeFiles(webEngine.Macros["ResourcePak200p"], this.ResourceDir, appAnchor);
+                this.IncludeDirectories(webEngine.Macros["Locales"], this.ResourceDir, appAnchor);
             }
 #else
             var app = this.Include<WebBrowser>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);

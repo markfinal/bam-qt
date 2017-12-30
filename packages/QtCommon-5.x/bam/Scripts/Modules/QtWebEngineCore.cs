@@ -58,6 +58,7 @@ namespace QtCommon
             this.Macros.Add("ResourcePak", this.CreateTokenizedString("$(QtInstallPath)/resources/qtwebengine_resources.pak"));
             this.Macros.Add("ResourcePak100p", this.CreateTokenizedString("$(QtInstallPath)/resources/qtwebengine_resources_100p.pak"));
             this.Macros.Add("ResourcePak200p", this.CreateTokenizedString("$(QtInstallPath)/resources/qtwebengine_resources_200p.pak"));
+            this.Macros.Add("Locales", this.CreateTokenizedString("$(QtInstallPath)/translations/qtwebengine_locales"));
         }
     }
 
