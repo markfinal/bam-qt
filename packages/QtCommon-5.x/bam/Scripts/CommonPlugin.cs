@@ -47,14 +47,9 @@ namespace QtCommon
             base.Init(parent);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                if (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug)
-                {
-                    this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName)d.dll");
-                }
-                else
-                {
-                    this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName).dll");
-                }
+                this.GeneratedPaths[Key] = (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ?
+                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName)d.dll") :
+                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName).dll");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
@@ -62,14 +57,9 @@ namespace QtCommon
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                if (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug)
-                {
-                    this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName)_debug.dylib");
-                }
-                else
-                {
-                    this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).dylib");
-                }
+                this.GeneratedPaths[Key] = (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ?
+                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName)_debug.dylib") :
+                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).dylib");
             }
         }
     }
