@@ -165,6 +165,10 @@ namespace Qt5Test1
                     this.ExecutableDir,
                     appAnchor);
             }
+            else
+            {
+                throw new Bam.Core.Exception("Unknown platform");
+            }
 #else
             var app = this.Include<Qt5Application>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
