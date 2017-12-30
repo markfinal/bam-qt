@@ -37,8 +37,10 @@ namespace QtCommon
             string moduleName) :
             base()
         {
+            var graph = Bam.Core.Graph.Instance;
+            graph.Macros.Add("QtInstallPath", Configure.InstallPath);
+
             this.Macros.AddVerbatim("QtModuleName", moduleName);
-            this.Macros.Add("QtInstallPath", Configure.InstallPath);
             this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
         }

@@ -36,7 +36,8 @@ namespace QtCommon
     {
         protected CommonUtility()
         {
-            this.Macros.Add("QtInstallPath", Configure.InstallPath);
+            var graph = Bam.Core.Graph.Instance;
+            graph.Macros.Add("QtInstallPath", Configure.InstallPath);
         }
 
         protected override void
