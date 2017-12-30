@@ -36,7 +36,7 @@ namespace QtCommon
             base("Gui")
         {}
 
-        protected override Bam.Core.TypeArray DependentModules
+        protected override Bam.Core.TypeArray RuntimeDependentModules
         {
             get
             {
@@ -55,7 +55,7 @@ namespace QtCommon
             base("Gui")
         {}
 
-        protected override Bam.Core.TypeArray DependentModules
+        protected override Bam.Core.TypeArray RuntimeDependentModules
         {
             get
             {

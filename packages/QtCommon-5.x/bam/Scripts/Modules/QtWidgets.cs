@@ -36,7 +36,7 @@ namespace QtCommon
             base("Widgets")
         {}
 
-        protected override Bam.Core.TypeArray DependentModules
+        protected override Bam.Core.TypeArray RuntimeDependentModules
         {
             get
             {
@@ -54,7 +54,7 @@ namespace QtCommon
             base("Widgets")
         {}
 
-        protected override Bam.Core.TypeArray DependentModules
+        protected override Bam.Core.TypeArray RuntimeDependentModules
         {
             get
             {

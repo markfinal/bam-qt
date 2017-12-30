@@ -63,7 +63,7 @@ namespace QtCommon
         }
 
         protected virtual Bam.Core.TypeArray
-        DependentModules
+        RuntimeDependentModules
         {
             get
             {
@@ -149,7 +149,7 @@ namespace QtCommon
                     }
                 });
 
-            var dependentTypes = this.DependentModules;
+            var dependentTypes = this.RuntimeDependentModules;
             if (null != dependentTypes)
             {
                 var requiredToExistMethod = this.GetType().GetMethod("RequiredToExist");

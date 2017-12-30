@@ -36,7 +36,7 @@ namespace QtCommon
             base("WebEngineWidgets")
         { }
 
-        protected override Bam.Core.TypeArray DependentModules
+        protected override Bam.Core.TypeArray RuntimeDependentModules
         {
             get
             {
@@ -56,7 +56,7 @@ namespace QtCommon
             base("WebEngineWidgets")
         { }
 
-        protected override Bam.Core.TypeArray DependentModules
+        protected override Bam.Core.TypeArray RuntimeDependentModules
         {
             get
             {
