@@ -151,10 +151,17 @@ namespace Qt5Test1
                     this.Macros["macOSAppBundleResourcesDir"],
                     appAnchor);
             }
-            else
+            else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
                 this.IncludeFiles(
-                    this.CreateTokenizedString("$(packagedir)/resources/qt.conf"),
+                    this.CreateTokenizedString("$(packagedir)/resources/linux/qt.conf"),
+                    this.ExecutableDir,
+                    appAnchor);
+            }
+            else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
+            {
+                this.IncludeFiles(
+                    this.CreateTokenizedString("$(packagedir)/resources/windows/qt.conf"),
                     this.ExecutableDir,
                     appAnchor);
             }
