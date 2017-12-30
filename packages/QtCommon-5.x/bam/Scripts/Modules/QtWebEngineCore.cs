@@ -42,7 +42,8 @@ namespace QtCommon
             {
                 return new Bam.Core.TypeArray {
                     typeof(Qt.WebChannel),
-                    typeof(Qt.Positioning)
+                    typeof(Qt.Positioning),
+                    typeof(Qt.QtWebEngineProcess)
                 };
             }
         }
@@ -71,6 +72,7 @@ namespace QtCommon
         {
             get
             {
+                // QtWebEngineProcess is included as a Helper in the framework
                 return new Bam.Core.TypeArray {
                     typeof(Qt.WebChannelFramework),
                     typeof(Qt.PositioningFramework)
