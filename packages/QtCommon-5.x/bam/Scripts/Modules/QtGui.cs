@@ -41,7 +41,8 @@ namespace QtCommon
             get
             {
                 return new Bam.Core.TypeArray {
-                    typeof(Qt.Core)
+                    typeof(Qt.Core),
+                    typeof(Qt.PlatformPlugin)
                 };
             }
         }
