@@ -142,6 +142,8 @@ namespace Qt5Test1
                         rsyncSettings.Exclusions = (collatedFramework.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
                     }));
 
+            (this.Find<QtCommon.PlatformPlugin>().First() as Publisher.CollatedObject).SetPublishingDirectory("$(0)/qtplugins/platforms", this.PluginDir);
+
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
                 this.IncludeFiles(
