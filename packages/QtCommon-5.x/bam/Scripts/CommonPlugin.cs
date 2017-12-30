@@ -61,6 +61,26 @@ namespace QtCommon
                     this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName)_debug.dylib") :
                     this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).dylib");
             }
+
+            var dependentTypes = this.RuntimeDependentModules;
+            if (null != dependentTypes)
+            {
+                var requiredToExistMethod = this.GetType().GetMethod("RequiredToExist");
+                foreach (var depType in dependentTypes)
+                {
+                    var genericVersionForModuleType = requiredToExistMethod.MakeGenericMethod(depType);
+                    genericVersionForModuleType.Invoke(this, new [] { new C.CModule[0] });
+                }
+            }
+        }
+
+        protected virtual Bam.Core.TypeArray
+        RuntimeDependentModules
+        {
+            get
+            {
+                return null;
+            }
         }
     }
 }
