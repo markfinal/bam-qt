@@ -115,6 +115,7 @@ namespace Qt5WebBrowsingTest
             var qtPlatformPlugin = this.Find<QtCommon.PlatformPlugin>().First();
             (qtPlatformPlugin as Publisher.CollatedObject).SetPublishingDirectory("$(0)/platforms", this.PluginDir);
 
+            var includeWebEngineResourceData = false;
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
                 var collatedQtFrameworks = this.Find<QtCommon.CommonFramework>();
@@ -133,6 +134,8 @@ namespace Qt5WebBrowsingTest
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
+                includeWebEngineResourceData = true;
+
                 this.IncludeFiles(
                     this.CreateTokenizedString("$(packagedir)/resources/linux/qt.conf"),
                     this.ExecutableDir,
@@ -143,6 +146,8 @@ namespace Qt5WebBrowsingTest
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
+                includeWebEngineResourceData = true;
+
                 this.IncludeFiles(
                     this.CreateTokenizedString("$(packagedir)/resources/windows/qt.conf"),
                     this.ExecutableDir,
@@ -151,6 +156,15 @@ namespace Qt5WebBrowsingTest
             else
             {
                 throw new Bam.Core.Exception("Unsupported platform");
+            }
+
+            if (includeWebEngineResourceData)
+            {
+                var webEngine = this.Find<Qt.WebEngineCore>().First().SourceModule;
+                this.IncludeFiles(webEngine.Macros["ICUDTL"], this.ResourceDir, appAnchor);
+                this.IncludeFiles(webEngine.Macros["ResourcePak"], this.ResourceDir, appAnchor);
+                this.IncludeFiles(webEngine.Macros["ResourcePak100p"], this.ResourceDir, appAnchor);
+                this.IncludeFiles(webEngine.Macros["ResourcePak200p"], this.ResourceDir, appAnchor);
             }
 #else
             var app = this.Include<WebBrowser>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
