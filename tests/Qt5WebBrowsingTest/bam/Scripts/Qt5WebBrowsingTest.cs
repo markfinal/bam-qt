@@ -137,6 +137,9 @@ namespace Qt5WebBrowsingTest
                     this.CreateTokenizedString("$(packagedir)/resources/linux/qt.conf"),
                     this.ExecutableDir,
                     appAnchor);
+
+                var XCBGLIntegrationPlugin = this.Find<QtCommon.XCBGLIntegrations>().First();
+                (XCBGLIntegrationPlugin as Publisher.CollatedObject).SetPublishingDirectory("$(0)/xcbglintegrations", this.PluginDir);
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {

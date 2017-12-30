@@ -36,5 +36,15 @@ namespace QtCommon
         public XcbQpa() :
             base("XcbQpa", hasHeaders: false)
         { }
+
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.XCBGLIntegrationsPlugin)
+                };
+            }
+        }
     }
 }
