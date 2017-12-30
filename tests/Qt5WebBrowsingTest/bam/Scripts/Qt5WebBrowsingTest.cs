@@ -112,28 +112,42 @@ namespace Qt5WebBrowsingTest
             this.SetDefaultMacros(EPublishingType.WindowedApplication);
             var appAnchor = this.Include<WebBrowser>(C.Cxx.GUIApplication.Key);
 
-            var collatedQtFrameworks = this.Find<QtCommon.CommonFramework>();
-            collatedQtFrameworks.ToList().ForEach(collatedFramework =>
-                // must be a public patch in order for the stripping mode to inherit the settings
-                (collatedFramework as Publisher.CollatedObject).PublicPatch((settings, appliedTo) =>
-                    {
-                        var rsyncSettings = settings as Publisher.IRsyncSettings;
-                        rsyncSettings.Exclusions = (collatedFramework.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
-                    }));
+            var qtPlatformPlugin = this.Find<QtCommon.PlatformPlugin>().First();
+            (qtPlatformPlugin as Publisher.CollatedObject).SetPublishingDirectory("$(0)/platforms", this.PluginDir);
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
+                var collatedQtFrameworks = this.Find<QtCommon.CommonFramework>();
+                collatedQtFrameworks.ToList().ForEach(collatedFramework =>
+                    // must be a public patch in order for the stripping mode to inherit the settings
+                    (collatedFramework as Publisher.CollatedObject).PublicPatch((settings, appliedTo) =>
+                        {
+                            var rsyncSettings = settings as Publisher.IRsyncSettings;
+                            rsyncSettings.Exclusions = (collatedFramework.SourceModule as QtCommon.CommonFramework).PublishingExclusions;
+                        }));
+
                 this.IncludeFiles(
                     this.CreateTokenizedString("$(packagedir)/resources/osx/qt.conf"),
                     this.Macros["macOSAppBundleResourcesDir"],
                     appAnchor);
             }
-            else
+            else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
                 this.IncludeFiles(
-                    this.CreateTokenizedString("$(packagedir)/resources/qt.conf"),
+                    this.CreateTokenizedString("$(packagedir)/resources/linux/qt.conf"),
                     this.ExecutableDir,
                     appAnchor);
+            }
+            else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
+            {
+                this.IncludeFiles(
+                    this.CreateTokenizedString("$(packagedir)/resources/windows/qt.conf"),
+                    this.ExecutableDir,
+                    appAnchor);
+            }
+            else
+            {
+                throw new Bam.Core.Exception("Unsupported platform");
             }
 #else
             var app = this.Include<WebBrowser>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
