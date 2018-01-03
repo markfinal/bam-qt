@@ -109,7 +109,7 @@ namespace Qt5WebBrowsingTest
             base.Init(parent);
 
 #if D_NEW_PUBLISHING
-            this.SetDefaultMacros(EPublishingType.WindowedApplication);
+            this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
             var appAnchor = this.Include<WebBrowser>(C.Cxx.GUIApplication.Key);
 
             var qtPlatformPlugin = this.Find<QtCommon.PlatformPlugin>().First();

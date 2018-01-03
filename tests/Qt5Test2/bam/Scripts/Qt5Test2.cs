@@ -115,7 +115,7 @@ namespace Qt5Test2
             base.Init(parent);
 
 #if D_NEW_PUBLISHING
-            this.SetDefaultMacros(EPublishingType.WindowedApplication);
+            this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
             var appAnchor = this.Include<Qt5Application>(C.Cxx.GUIApplication.Key);
 
             var collatedQtFrameworks = this.Find<QtCommon.CommonFramework>();
