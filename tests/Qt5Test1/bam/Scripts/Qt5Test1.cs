@@ -165,6 +165,15 @@ namespace Qt5Test1
                     this.CreateTokenizedString("$(packagedir)/resources/windows/qt.conf"),
                     this.ExecutableDir,
                     appAnchor);
+
+                var app = appAnchor.SourceModule as Qt5Application;
+                if (this.BuildEnvironment.Configuration != EConfiguration.Debug &&
+                    app.Linker is VisualCCommon.LinkerBase)
+                {
+                    var runtimeLibrary = Bam.Core.Graph.Instance.PackageMetaData<VisualCCommon.IRuntimeLibraryPathMeta>("VisualC");
+                    this.IncludeFiles(runtimeLibrary.CRuntimePaths(app.BitDepth), this.ExecutableDir, appAnchor);
+                    this.IncludeFiles(runtimeLibrary.CxxRuntimePaths(app.BitDepth), this.ExecutableDir, appAnchor);
+                }
             }
             else
             {
