@@ -48,7 +48,18 @@ namespace Qt
 
     public sealed class GSTMediaPlayerPlugin :
         QtCommon.GSTMediaPlayerPlugin
-    { }
+    {
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray
+                {
+                    typeof(GSTTools)
+                };
+            }
+        }
+    }
 
     public sealed class AVFMediaPlayerPlugin :
         QtCommon.AVFMediaPlayerPlugin
