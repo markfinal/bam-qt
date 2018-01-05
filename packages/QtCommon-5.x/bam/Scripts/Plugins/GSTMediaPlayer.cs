@@ -41,5 +41,16 @@ namespace QtCommon
             this.Macros.AddVerbatim("QtPluginDir", "mediaservice");
             this.Macros.AddVerbatim("QtPluginName", "gstmediaplayer");
         }
+
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray
+                {
+                    typeof(Qt.GSTTools)
+                };
+            }
+        }
     }
 }
