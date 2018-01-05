@@ -32,6 +32,15 @@ namespace QtCommon
     public sealed class MocTool :
         Bam.Core.PreBuiltTool
     {
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
+            this.Macros.Add("mocExe", Bam.Core.TokenizedString.Create("$(0)/bin/moc$(1)", null,
+                    new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath, QtCommon.Configure.ExecutableExtension)));
+        }
+
         public override Bam.Core.Settings
         CreateDefaultSettings<T>(
             T module)
@@ -43,15 +52,7 @@ namespace QtCommon
         {
             get
             {
-                if (Bam.Core.OSUtilities.IsOSXHosting)
-                {
-                    return Bam.Core.TokenizedString.Create("$(0)/moc", null, new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath));
-                }
-                else
-                {
-                    return Bam.Core.TokenizedString.Create("$(0)/bin/moc$(1)", null,
-                        new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath, QtCommon.Configure.ExecutableExtension));
-                }
+                return this.Macros["mocExe"];
             }
         }
     }

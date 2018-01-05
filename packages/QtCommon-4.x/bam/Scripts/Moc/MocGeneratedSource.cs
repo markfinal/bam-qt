@@ -42,6 +42,7 @@ namespace QtCommon
             base.Init(parent);
             this.Compiler = Bam.Core.Graph.Instance.FindReferencedModule<MocTool>();
             this.Requires(this.Compiler);
+            this.InputPath = this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(MOCHeaderPath),$(packagedir)),../),.moc.cpp)");
         }
 
         public C.HeaderFile SourceHeader
@@ -52,9 +53,13 @@ namespace QtCommon
             }
             set
             {
+                if (null != this.SourceHeaderModule)
+                {
+                    throw new Bam.Core.Exception(".h file has already been assigned");
+                }
                 this.SourceHeaderModule = value;
                 this.DependsOn(value);
-                this.GeneratedPaths[Key].Aliased(this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(0),$(packagedir)),../),.moc.cpp)", value.GeneratedPaths[C.HeaderFile.Key]));
+                this.Macros.Add("MOCHeaderPath", value.InputPath);
                 this.GetEncapsulatingReferencedModule(); // or the path above won't be parsable prior to all modules having been created
             }
         }
@@ -63,14 +68,14 @@ namespace QtCommon
         Evaluate()
         {
             this.ReasonToExecute = null;
-            var generatedPath = this.GeneratedPaths[Key].Parse();
+            var generatedPath = this.GeneratedPaths[Key].ToString();
             if (!System.IO.File.Exists(generatedPath))
             {
                 this.ReasonToExecute = Bam.Core.ExecuteReasoning.FileDoesNotExist(this.GeneratedPaths[Key]);
                 return;
             }
             var sourceFileWriteTime = System.IO.File.GetLastWriteTime(generatedPath);
-            var headerFileWriteTime = System.IO.File.GetLastWriteTime(this.SourceHeaderModule.InputPath.Parse());
+            var headerFileWriteTime = System.IO.File.GetLastWriteTime(this.SourceHeaderModule.InputPath.ToString());
             if (headerFileWriteTime > sourceFileWriteTime)
             {
                 this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(this.GeneratedPaths[Key], this.SourceHeaderModule.InputPath);

@@ -45,14 +45,14 @@ namespace QtCommon
             rule.AddTarget(generatedMocSource);
             rule.AddPrerequisite(source, C.HeaderFile.Key);
 
-            var mocOutputPath = generatedMocSource.Parse();
+            var mocOutputPath = generatedMocSource.ToString();
             var mocOutputDir = System.IO.Path.GetDirectoryName(mocOutputPath);
 
             var args = new Bam.Core.StringArray();
             args.Add(CommandLineProcessor.Processor.StringifyTool(mocCompiler));
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
             args.Add(System.String.Format("-o {0}", mocOutputPath));
-            args.Add(source.InputPath.Parse());
+            args.Add(source.InputPath.ToString());
             rule.AddShellCommand(args.ToString(' '));
 
             meta.CommonMetaData.AddDirectory(mocOutputDir);

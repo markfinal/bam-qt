@@ -110,6 +110,10 @@ namespace Qt4Test1
         {
             base.Init(parent);
 
+#if D_NEW_PUBLISHING
+            this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
+            this.Include<QtApplication>(C.ConsoleApplication.Key);
+#else
             var app = this.Include<QtApplication>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
@@ -136,6 +140,7 @@ namespace Qt4Test1
                     }
                 }
             }
+#endif
         }
     }
 
