@@ -80,7 +80,7 @@ namespace QtCommon
             if (null != dependentTypes)
             {
                 var graph = Bam.Core.Graph.Instance;
-                var findReferencedModuleMethod = graph.GetType().GetMethod("FindReferencedModule");
+                var findReferencedModuleMethod = graph.GetType().GetMethod("FindReferencedModule", System.Type.EmptyTypes);
                 foreach (var depType in dependentTypes)
                 {
                     var genericVersionForModuleType = findReferencedModuleMethod.MakeGenericMethod(depType);
