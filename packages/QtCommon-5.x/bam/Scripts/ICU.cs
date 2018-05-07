@@ -59,9 +59,7 @@ namespace QtCommon
             var qtMeta = qtPackage.MetaData as IICUMeta;
             this.Macros.Add("ICUVersion", Bam.Core.TokenizedString.CreateVerbatim(qtMeta.Version));
 
-            this.Macros["MajorVersion"] = this.Macros["ICUVersion"];
-            this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("1");
-            this.Macros.Remove("PatchVersion"); // does not use this part of the version numbering system
+            this.SetSemanticVersion(qtMeta.Version, "1", null); // no patch version
 
             var graph = Bam.Core.Graph.Instance;
             graph.Macros.Add("QtInstallPath", Configure.InstallPath);

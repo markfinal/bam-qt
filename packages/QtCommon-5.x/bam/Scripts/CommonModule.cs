@@ -83,15 +83,15 @@ namespace QtCommon
             if (null == this.CustomVersionNumber)
             {
                 var version = Configure.Version;
-                this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[0]);
-                this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[1]);
-                this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[2]);
+                this.SetSemanticVersion(version[0], version[1], version[2]);
             }
             else
             {
-                this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(this.CustomVersionNumber.Item1);
-                this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(this.CustomVersionNumber.Item2);
-                this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim(this.CustomVersionNumber.Item3);
+                this.SetSemanticVersion(
+                    this.CustomVersionNumber.Item1,
+                    this.CustomVersionNumber.Item2,
+                    this.CustomVersionNumber.Item3
+                );
             }
 
             this.Macros.Add("QtIncludePath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/include", null));
