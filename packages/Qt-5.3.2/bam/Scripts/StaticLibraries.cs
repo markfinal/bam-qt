@@ -27,21 +27,10 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-namespace QtCommon
+using Bam.Core;
+namespace Qt
 {
-    public abstract class UiTools :
-        CommonModule
-    {
-        public UiTools() :
-            base("UiTools")
-        { }
-    }
-
-    public abstract class UiToolsFramework :
-        CommonFramework
-    {
-        public UiToolsFramework() :
-            base("UiTools")
-        { }
-    }
+    public sealed class UiTools :
+        QtCommon.UiTools
+    { }
 }

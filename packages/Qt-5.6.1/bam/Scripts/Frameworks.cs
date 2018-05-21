@@ -113,10 +113,6 @@ namespace Qt
         QtCommon.TestFramework
     { }
 
-    public sealed class UiToolsFramework :
-        QtCommon.UiToolsFramework
-    { }
-
     public sealed class WebKitFramework :
         QtCommon.WebKitFramework
     { }

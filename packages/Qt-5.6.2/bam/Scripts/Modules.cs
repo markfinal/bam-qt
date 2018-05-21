@@ -141,10 +141,6 @@ namespace Qt
         QtCommon.Test
     { }
 
-    public sealed class UiTools :
-        QtCommon.UiTools
-    { }
-
     public sealed class WebKit :
         QtCommon.WebKit
     { }
