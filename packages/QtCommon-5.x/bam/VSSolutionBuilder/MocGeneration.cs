@@ -51,8 +51,8 @@ namespace QtCommon
             var args = new Bam.Core.StringArray();
             args.Add(CommandLineProcessor.Processor.StringifyTool(mocCompiler));
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
-            args.Add(System.String.Format("-o {0}", output));
-            args.Add("%(FullPath)");
+            args.Add(System.String.Format("-o {0}", generatedMocSource.ToStringQuoteIfNecessary()));
+            args.Add("\"%(FullPath)\"");
 
             var customBuild = config.GetSettingsGroup(VSSolutionBuilder.VSSettingsGroup.ESettingsGroup.CustomBuild, include: source.InputPath, uniqueToProject: true);
             customBuild.AddSetting("Command", args.ToString(' '), condition: config.ConditionText);

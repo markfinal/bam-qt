@@ -51,8 +51,8 @@ namespace QtCommon
             var args = new Bam.Core.StringArray();
             args.Add(CommandLineProcessor.Processor.StringifyTool(rccCompiler));
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
-            args.Add(System.String.Format("-o {0}", output));
-            args.Add("%(FullPath)");
+            args.Add(System.String.Format("-o {0}", generatedRccSource.ToStringQuoteIfNecessary()));
+            args.Add("\"%(FullPath)\"");
 
             config.AddOtherFile(source);
 
