@@ -48,8 +48,8 @@ namespace QtCommon
 
             var args = new Bam.Core.StringArray();
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
-            args.Add(System.String.Format("-o {0}", uicOutputPath));
-            args.Add(source.InputPath.ToString());
+            args.Add(System.String.Format("-o {0}", sender.GeneratedPaths[C.HeaderFile.Key].ToStringQuoteIfNecessary()));
+            args.Add(source.InputPath.ToStringQuoteIfNecessary());
             CommandLineProcessor.Processor.Execute(context, uicCompiler, args);
         }
     }

@@ -49,8 +49,8 @@ namespace QtCommon
 
             var args = new Bam.Core.StringArray();
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
-            args.Add(System.String.Format("-o {0}", rccOutputPath));
-            args.Add(source.InputPath.ToString());
+            args.Add(System.String.Format("-o {0}", generatedRccSource.ToStringQuoteIfNecessary()));
+            args.Add(source.InputPath.ToStringQuoteIfNecessary());
             CommandLineProcessor.Processor.Execute(context, rccCompiler, args);
         }
     }
