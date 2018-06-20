@@ -105,8 +105,20 @@ namespace Qt
         QtCommon.Phonon
     { }
 
+    public sealed class Positioning :
+        QtCommon.Positioning
+    { }
+
     public sealed class PrintSupport :
         QtCommon.PrintSupport
+    { }
+
+    public sealed class Qml :
+        QtCommon.Qml
+    { }
+
+    public sealed class Quick :
+        QtCommon.Quick
     { }
 
     public sealed class Script :
@@ -131,6 +143,14 @@ namespace Qt
 
     public sealed class WebKit :
         QtCommon.WebKit
+    { }
+
+    public sealed class WebEngineCore :
+        QtCommon.WebEngineCore
+    { }
+
+    public sealed class WebChannel :
+        QtCommon.WebChannel
     { }
 
     public sealed class Widgets :

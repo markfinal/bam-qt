@@ -108,10 +108,6 @@ namespace Qt5Test4
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
                 this.CreateWinResourceContainer("$(packagedir)/resources/*.rc");
-                if (this.Linker is VisualCCommon.LinkerBase)
-                {
-                    this.CompileAndLinkAgainst<WindowsSDK.WindowsSDK>(source);
-                }
             }
         }
     }

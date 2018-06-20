@@ -105,6 +105,10 @@ namespace Qt
         QtCommon.Phonon
     { }
 
+    public sealed class Positioning :
+        QtCommon.Positioning
+    { }
+
     public sealed class PrintSupport :
         QtCommon.PrintSupport
     { }
