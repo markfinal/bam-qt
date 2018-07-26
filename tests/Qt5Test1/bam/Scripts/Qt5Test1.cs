@@ -125,7 +125,6 @@ namespace Qt5Test1
         {
             base.Init(parent);
 
-#if D_NEW_PUBLISHING
             this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
             var appAnchor = this.Include<Qt5Application>(C.Cxx.GUIApplication.Key);
 
@@ -175,64 +174,6 @@ namespace Qt5Test1
             {
                 throw new Bam.Core.Exception("Unknown platform");
             }
-#else
-            var app = this.Include<Qt5Application>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
-            if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
-            {
-                var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
-                var qtVersionSplit = qtPackage.Version.Split('.');
-                var updateInstallName = (System.Convert.ToInt32(qtVersionSplit[1]) < 5); // < Qt5.5 requires install name updates
-
-                this.IncludeFramework<Qt.CoreFramework>("../Frameworks", app, updateInstallName: updateInstallName);
-                this.IncludeFramework<Qt.WidgetsFramework>("../Frameworks", app, updateInstallName: updateInstallName);
-                this.IncludeFramework<Qt.GuiFramework>("../Frameworks", app, updateInstallName: updateInstallName);
-
-                // required by the platform plugin
-                this.IncludeFramework<Qt.PrintSupportFramework>("../Frameworks", app, updateInstallName: updateInstallName);
-#if D_PACKAGE_QT_5_5_1 || D_PACKAGE_QT_5_6_0
-                this.IncludeFramework<Qt.DBusFramework>("../Frameworks", app, updateInstallName: updateInstallName);
-#endif
-
-                this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "../Plugins/qtplugins/platforms", app);
-                this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/osx/qt.conf"), "../Resources", app);
-            }
-            else
-            {
-                this.Include<Qt.Core>(C.DynamicLibrary.Key, ".", app);
-                this.Include<Qt.Widgets>(C.DynamicLibrary.Key, ".", app);
-                this.Include<Qt.Gui>(C.DynamicLibrary.Key, ".", app);
-                this.Include<QtCommon.ICUIN>(C.DynamicLibrary.Key, ".", app);
-                this.Include<QtCommon.ICUUC>(C.DynamicLibrary.Key, ".", app);
-                this.Include<QtCommon.ICUDT>(C.DynamicLibrary.Key, ".", app);
-
-                this.IncludeFile(this.CreateTokenizedString("$(packagedir)/resources/qt.conf"), ".", app);
-                var platformPlugin = this.Include<Qt.PlatformPlugin>(C.Plugin.Key, "qtplugins/platforms", app);
-                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
-                {
-                    this.ChangeRPath(platformPlugin, "$ORIGIN/../..");
-                    this.Include<Qt.DBus>(C.DynamicLibrary.Key, ".", app); // for qxcb plugin
-
-#if D_PACKAGE_QT_5_5_1 || D_PACKAGE_QT_5_6_0
-                    this.Include<Qt.XcbQpa>(C.DynamicLibrary.Key, ".", app);
-#endif
-                }
-
-                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows) &&
-                    this.BuildEnvironment.Configuration != EConfiguration.Debug &&
-                    (app.SourceModule as Qt5Application).Linker is VisualCCommon.LinkerBase)
-                {
-                    var visualCRuntimeLibrary = Bam.Core.Graph.Instance.PackageMetaData<VisualCCommon.IRuntimeLibraryPathMeta>("VisualC");
-                    foreach (var libpath in visualCRuntimeLibrary.CRuntimePaths((app.SourceModule as C.CModule).BitDepth))
-                    {
-                        this.IncludeFile(libpath, ".", app);
-                    }
-                    foreach (var libpath in visualCRuntimeLibrary.CxxRuntimePaths((app.SourceModule as C.CModule).BitDepth))
-                    {
-                        this.IncludeFile(libpath, ".", app);
-                    }
-                }
-            }
-#endif
         }
     }
 
