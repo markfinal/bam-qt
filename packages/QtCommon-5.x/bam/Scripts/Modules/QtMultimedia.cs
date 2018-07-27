@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -27,6 +27,7 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
+using Bam.Core;
 namespace QtCommon
 {
     public abstract class Multimedia :
@@ -35,6 +36,28 @@ namespace QtCommon
         public Multimedia() :
             base("Multimedia")
         { }
+
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
+                {
+                    return new Bam.Core.TypeArray
+                        {
+                            typeof(Qt.GSTMediaPlayerPlugin)
+                        };
+                }
+                else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
+                {
+                    return new Bam.Core.TypeArray
+                        {
+                            typeof(Qt.DirectShowEngineMediaServicePlugin)
+                        };
+                }
+                return null;
+            }
+        }
     }
 
     public abstract class MultimediaFramework :
@@ -43,5 +66,16 @@ namespace QtCommon
         public MultimediaFramework() :
             base("Multimedia")
         { }
+
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray
+                    {
+                        typeof(Qt.AVFMediaPlayerPlugin)
+                    };
+            }
+        }
     }
 }

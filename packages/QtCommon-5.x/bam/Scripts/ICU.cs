@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -40,6 +40,12 @@ namespace QtCommon
     }
 
     [C.Prebuilt]
+    public class ICUSharedObjectSymbolicLink :
+        C.SharedObjectSymbolicLink
+    {
+    }
+
+    [C.Prebuilt]
     public abstract class ICUBase :
         C.Cxx.DynamicLibrary
     {
@@ -53,11 +59,12 @@ namespace QtCommon
             var qtMeta = qtPackage.MetaData as IICUMeta;
             this.Macros.Add("ICUVersion", Bam.Core.TokenizedString.CreateVerbatim(qtMeta.Version));
 
-            this.Macros["MajorVersion"] = this.Macros["ICUVersion"];
-            this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("1");
-            this.Macros.Remove("PatchVersion"); // does not use this part of the version numbering system
+            this.SetSemanticVersion(qtMeta.Version, "1", null); // no patch version
 
-            this.Macros.Add("QtInstallPath", Configure.InstallPath);
+            var graph = Bam.Core.Graph.Instance;
+            graph.Macros.Add("QtInstallPath", Configure.InstallPath);
+
+            this.GeneratedPaths[C.DynamicLibrary.Key] = this.CreateTokenizedString("$(ICUInstallPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
@@ -66,9 +73,16 @@ namespace QtCommon
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
                 this.Macros.Add("ICUInstallPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
-            }
 
-            this.GeneratedPaths[C.DynamicLibrary.Key] = this.CreateTokenizedString("$(ICUInstallPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
+                this.Macros.Add("SOName", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)"));
+
+                var SOName = Bam.Core.Module.Create<ICUSharedObjectSymbolicLink>(preInitCallback:module=>
+                    {
+                        module.Macros.AddVerbatim("SymlinkUsage", "SOName");
+                        module.SharedObject = this;
+                    });
+                this.SONameSymbolicLink = SOName;
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,8 @@ namespace QtCommon
     {
         protected CommonUtility()
         {
-            this.Macros.Add("QtInstallPath", Configure.InstallPath);
+            var graph = Bam.Core.Graph.Instance;
+            graph.Macros.Add("QtInstallPath", Configure.InstallPath);
         }
 
         protected override void

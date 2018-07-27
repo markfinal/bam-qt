@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -49,9 +49,15 @@ namespace QtCommon
                 this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             }
             this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
+        }
 
-            // required for C.OSXFramework
-            this.Macros["FrameworkLibraryPath"].Aliased(this.CreateTokenizedString("$(QtFramework)/Versions/4/Qt$(QtModuleName)"));
+        protected virtual Bam.Core.TypeArray
+        RuntimeDependentModules
+        {
+            get
+            {
+                return null;
+            }
         }
 
         protected override void
@@ -75,10 +81,23 @@ namespace QtCommon
                     osxLinker.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
                 }
             });
+
+            var dependentTypes = this.RuntimeDependentModules;
+            if (null != dependentTypes)
+            {
+                var graph = Bam.Core.Graph.Instance;
+                var findReferencedModuleMethod = graph.GetType().GetMethod("FindReferencedModule");
+                foreach (var depType in dependentTypes)
+                {
+                    var genericVersionForModuleType = findReferencedModuleMethod.MakeGenericMethod(depType);
+                    var depModule = genericVersionForModuleType.Invoke(graph, null) as Bam.Core.Module;
+                    this.Requires(depModule);
+                }
+            }
         }
 
-        public override void
-        Evaluate()
+        protected override void
+        EvaluateInternal()
         {
             this.ReasonToExecute = null;
         }
@@ -105,36 +124,32 @@ namespace QtCommon
             }
         }
 
-        public override Bam.Core.Array<Path> DirectoriesToPublish
+        protected override Bam.Core.TokenizedString FrameworkBundleName
         {
             get
             {
-                return null;
+                return this.Macros["QtFramework"];
             }
         }
 
-        public override Bam.Core.Array<Path> FilesToPublish
+        protected override Bam.Core.TokenizedString FrameworkLibraryPath
         {
             get
             {
-                var toPublish = new Bam.Core.Array<Path>();
-                toPublish.Add(new Path(this.Macros["FrameworkLibraryPath"]));
-                // Info.plist is in the wrong location for codesigning
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Contents/Info.plist"), this.CreateTokenizedString("$(QtFramework)/Versions/4/Resources/Info.plist")));
-                return toPublish;
+                return this.CreateTokenizedString("$(QtFramework)/Versions/4/Qt$(QtModuleName)");
             }
         }
 
-        public override Bam.Core.Array<Path> SymlinksToPublish
+        public virtual Bam.Core.TokenizedStringArray PublishingExclusions
         {
             get
             {
-                var toPublish = new Bam.Core.Array<Path>();
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/Current")));
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Qt$(QtModuleName)")));
-                // Resources symlink does not exist in the SDK frameworks
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Resources"), Bam.Core.TokenizedString.CreateVerbatim("Versions/4/Resources")));
-                return toPublish;
+                var exclusions = new Bam.Core.TokenizedStringArray();
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("Headers/"));
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("Headers"));
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("*_debug"));
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("*.prl"));
+                return exclusions;
             }
         }
     }

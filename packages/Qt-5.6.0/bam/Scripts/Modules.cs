@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -105,8 +105,20 @@ namespace Qt
         QtCommon.Phonon
     { }
 
+    public sealed class Positioning :
+        QtCommon.Positioning
+    { }
+
     public sealed class PrintSupport :
         QtCommon.PrintSupport
+    { }
+
+    public sealed class Qml :
+        QtCommon.Qml
+    { }
+
+    public sealed class Quick :
+        QtCommon.Quick
     { }
 
     public sealed class Script :
@@ -129,12 +141,16 @@ namespace Qt
         QtCommon.Test
     { }
 
-    public sealed class UiTools :
-        QtCommon.UiTools
-    { }
-
     public sealed class WebKit :
         QtCommon.WebKit
+    { }
+
+    public sealed class WebEngineCore :
+        QtCommon.WebEngineCore
+    { }
+
+    public sealed class WebChannel :
+        QtCommon.WebChannel
     { }
 
     public sealed class Widgets :

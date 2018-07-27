@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -41,9 +41,11 @@ namespace QtCommon
             bool hasPrefix = true,
             System.Tuple<string,string,string> customVersionNumber = null)
         {
+            var graph = Bam.Core.Graph.Instance;
+            graph.Macros.Add("QtInstallPath", Configure.InstallPath);
+
             this.Macros.AddVerbatim("QtModulePrefix", hasPrefix ? "Qt5" : string.Empty);
             this.Macros.AddVerbatim("QtModuleName", moduleName);
-            this.Macros.Add("QtInstallPath", Configure.InstallPath);
             this.HasHeaders = hasHeaders;
             this.CustomVersionNumber = customVersionNumber;
         }
@@ -60,35 +62,41 @@ namespace QtCommon
             set;
         }
 
+        protected virtual Bam.Core.TypeArray
+        RuntimeDependentModules
+        {
+            get
+            {
+                return null;
+            }
+        }
+
         protected override void
         Init(
             Bam.Core.Module parent)
         {
             base.Init(parent);
 
-            // aliasing the packagedir to the real Qt installation directory allows headers in IDE projects to use more intuitive relative paths
-            if (!this.Macros["packagedir"].IsAliased)
-            {
-                this.Macros["packagedir"].Aliased(Configure.InstallPath);
-            }
+            // using the real Qt installation directory allows headers in IDE projects to use more intuitive relative paths
+            this.Macros["packagedir"] = Configure.InstallPath;
 
             if (null == this.CustomVersionNumber)
             {
                 var version = Configure.Version;
-                this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[0]);
-                this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[1]);
-                this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[2]);
+                this.SetSemanticVersion(version[0], version[1], version[2]);
             }
             else
             {
-                this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(this.CustomVersionNumber.Item1);
-                this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(this.CustomVersionNumber.Item2);
-                this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim(this.CustomVersionNumber.Item3);
+                this.SetSemanticVersion(
+                    this.CustomVersionNumber.Item1,
+                    this.CustomVersionNumber.Item2,
+                    this.CustomVersionNumber.Item3
+                );
             }
 
-            this.Macros.Add("QtIncludePath", this.CreateTokenizedString("$(QtInstallPath)/include"));
-            this.Macros.Add("QtLibraryPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
-            this.Macros.Add("QtBinaryPath", this.CreateTokenizedString("$(QtInstallPath)/bin"));
+            this.Macros.Add("QtIncludePath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/include", null));
+            this.Macros.Add("QtLibraryPath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/lib", null));
+            this.Macros.Add("QtBinaryPath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/bin", null));
             this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim((this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ? "d" : string.Empty));
 
             if (this.HasHeaders)
@@ -107,22 +115,50 @@ namespace QtCommon
             {
                 this.Macros["OutputName"] = this.CreateTokenizedString("$(QtModulePrefix)$(QtModuleName)");
                 this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
+
+                this.Macros.Add("SOName", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)"));
+                this.Macros.Add("LinkerName", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(linkernameext)"));
+
+                var linkerName = Bam.Core.Module.Create<CommonModuleSymbolicLink>(preInitCallback:module=>
+                    {
+                        module.Macros.AddVerbatim("SymlinkUsage", "LinkerName");
+                        module.SharedObject = this;
+                    });
+                this.LinkerNameSymbolicLink = linkerName;
+
+                var SOName = Bam.Core.Module.Create<CommonModuleSymbolicLink>(preInitCallback:module=>
+                    {
+                        module.Macros.AddVerbatim("SymlinkUsage", "SOName");
+                        module.SharedObject = this;
+                    });
+                this.SONameSymbolicLink = SOName;
             }
 
             this.PublicPatch((settings, appliedTo) =>
-            {
-                var compiler = settings as C.ICommonCompilerSettings;
-                if (null != compiler)
                 {
-                    compiler.IncludePaths.AddUnique(this.Macros["QtIncludePath"]);
-                }
+                    var compiler = settings as C.ICommonCompilerSettings;
+                    if (null != compiler)
+                    {
+                        compiler.IncludePaths.AddUnique(this.Macros["QtIncludePath"]);
+                    }
 
-                var linker = settings as C.ICommonLinkerSettings;
-                if (null != linker)
+                    var linker = settings as C.ICommonLinkerSettings;
+                    if (null != linker)
+                    {
+                        linker.LibraryPaths.AddUnique(this.Macros["QtLibraryPath"]);
+                    }
+                });
+
+            var dependentTypes = this.RuntimeDependentModules;
+            if (null != dependentTypes)
+            {
+                var requiredToExistMethod = this.GetType().GetMethod("RequiredToExist");
+                foreach (var depType in dependentTypes)
                 {
-                    linker.LibraryPaths.AddUnique(this.Macros["QtLibraryPath"]);
+                    var genericVersionForModuleType = requiredToExistMethod.MakeGenericMethod(depType);
+                    genericVersionForModuleType.Invoke(this, new [] { new C.CModule[0] });
                 }
-            });
+            }
         }
     }
 }

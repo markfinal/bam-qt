@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -35,6 +35,17 @@ namespace QtCommon
         public Gui() :
             base("Gui")
         {}
+
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.Core),
+                    typeof(Qt.PlatformPlugin)
+                };
+            }
+        }
     }
 
     public abstract class GuiFramework :
@@ -43,5 +54,16 @@ namespace QtCommon
         public GuiFramework() :
             base("Gui")
         {}
+
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.CoreFramework),
+                    typeof(Qt.PlatformPlugin)
+                };
+            }
+        }
     }
 }

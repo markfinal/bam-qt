@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -27,35 +27,30 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using System.Linq;
 namespace QtCommon
 {
     [C.Prebuilt]
     public abstract class CommonFramework :
         C.OSXFramework
     {
-        private bool FixIncorrectFrameworks = false;
-
         protected CommonFramework(
             string moduleName) :
             base()
         {
+            var graph = Bam.Core.Graph.Instance;
+            graph.Macros.Add("QtInstallPath", Configure.InstallPath);
+
             this.Macros.AddVerbatim("QtModuleName", moduleName);
-            this.Macros.Add("QtInstallPath", Configure.InstallPath);
             this.Macros.Add("QtFrameworkPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
             this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
+        }
 
-            // required for C.OSXFramework
-            this.Macros["FrameworkLibraryPath"].Aliased(this.CreateTokenizedString("$(QtFramework)/Versions/5/Qt$(QtModuleName)"));
-
-            var graph = Bam.Core.Graph.Instance;
-            var qtPackage = graph.Packages.First(item => item.Name == "Qt");
-            var qtVersion = qtPackage.Version;
-            var qtVersionSplit = qtVersion.Split('.');
-            var minorVersion = System.Convert.ToInt32(qtVersionSplit[1]);
-            if (minorVersion < 5)
+        protected virtual Bam.Core.TypeArray
+        RuntimeDependentModules
+        {
+            get
             {
-                this.FixIncorrectFrameworks = true;
+                return null;
             }
         }
 
@@ -66,24 +61,37 @@ namespace QtCommon
             base.Init(parent);
 
             this.PublicPatch((settings, appliedTo) =>
-            {
-                var osxCompiler = settings as C.ICommonCompilerSettingsOSX;
-                if (null != osxCompiler)
                 {
-                    osxCompiler.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
-                }
+                    var osxCompiler = settings as C.ICommonCompilerSettingsOSX;
+                    if (null != osxCompiler)
+                    {
+                        osxCompiler.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
+                    }
 
-                var osxLinker = settings as C.ICommonLinkerSettingsOSX;
-                if (null != osxLinker)
+                    var osxLinker = settings as C.ICommonLinkerSettingsOSX;
+                    if (null != osxLinker)
+                    {
+                        osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/$(QtFramework)"));
+                        osxLinker.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
+                    }
+                });
+
+            var dependentTypes = this.RuntimeDependentModules;
+            if (null != dependentTypes)
+            {
+                var graph = Bam.Core.Graph.Instance;
+                var findReferencedModuleMethod = graph.GetType().GetMethod("FindReferencedModule", System.Type.EmptyTypes);
+                foreach (var depType in dependentTypes)
                 {
-                    osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/$(QtFramework)"));
-                    osxLinker.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
+                    var genericVersionForModuleType = findReferencedModuleMethod.MakeGenericMethod(depType);
+                    var depModule = genericVersionForModuleType.Invoke(graph, null) as Bam.Core.Module;
+                    this.Requires(depModule);
                 }
-            });
+            }
         }
 
-        public override void
-        Evaluate()
+        protected override void
+        EvaluateInternal()
         {
             this.ReasonToExecute = null;
         }
@@ -110,52 +118,32 @@ namespace QtCommon
             }
         }
 
-        public override Bam.Core.Array<Path> DirectoriesToPublish
+        protected override Bam.Core.TokenizedString FrameworkBundleName
         {
             get
             {
-                return null;
+                return this.Macros["QtFramework"];
             }
         }
 
-        public override Bam.Core.Array<Path> FilesToPublish
+        protected override Bam.Core.TokenizedString FrameworkLibraryPath
         {
             get
             {
-                var toPublish = new Bam.Core.Array<Path>();
-                toPublish.Add(new Path(this.Macros["FrameworkLibraryPath"]));
-
-                if (this.FixIncorrectFrameworks)
-                {
-                    // Info.plist is in the wrong location for codesigning
-                    toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Contents/Info.plist"), this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/Info.plist")));
-                }
-                else
-                {
-                    toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/Info.plist")));
-                }
-
-                return toPublish;
+                return this.CreateTokenizedString("$(QtFramework)/Versions/5/Qt$(QtModuleName)");
             }
         }
 
-        public override Bam.Core.Array<Path> SymlinksToPublish
+        public virtual Bam.Core.TokenizedStringArray PublishingExclusions
         {
             get
             {
-                var toPublish = new Bam.Core.Array<Path>();
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/Current")));
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Qt$(QtModuleName)")));
-                if (this.FixIncorrectFrameworks)
-                {
-                    // Resources symlink does not exist in the SDK frameworks
-                    toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Resources"), Bam.Core.TokenizedString.CreateVerbatim("Versions/5/Resources")));
-                }
-                else
-                {
-                    toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Resources")));
-                }
-                return toPublish;
+                var exclusions = new Bam.Core.TokenizedStringArray();
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("Headers/"));
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("Headers"));
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("*_debug"));
+                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("*.prl"));
+                return exclusions;
             }
         }
     }

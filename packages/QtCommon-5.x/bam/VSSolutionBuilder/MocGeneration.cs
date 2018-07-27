@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -46,17 +46,17 @@ namespace QtCommon
             var project = solution.EnsureProjectExists(encapsulating);
             var config = project.GetConfiguration(encapsulating);
 
-            var output = generatedMocSource.Parse();
+            var output = generatedMocSource.ToString();
 
             var args = new Bam.Core.StringArray();
             args.Add(CommandLineProcessor.Processor.StringifyTool(mocCompiler));
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
-            args.Add(System.String.Format("-o {0}", output));
-            args.Add("%(FullPath)");
+            args.Add(System.String.Format("-o {0}", generatedMocSource.ToStringQuoteIfNecessary()));
+            args.Add("\"%(FullPath)\"");
 
             var customBuild = config.GetSettingsGroup(VSSolutionBuilder.VSSettingsGroup.ESettingsGroup.CustomBuild, include: source.InputPath, uniqueToProject: true);
             customBuild.AddSetting("Command", args.ToString(' '), condition: config.ConditionText);
-            customBuild.AddSetting("Message", System.String.Format("Moccing {0}", System.IO.Path.GetFileName(source.InputPath.Parse())), condition: config.ConditionText);
+            customBuild.AddSetting("Message", System.String.Format("Moccing {0}", System.IO.Path.GetFileName(source.InputPath.ToString())), condition: config.ConditionText);
             customBuild.AddSetting("Outputs", output, condition: config.ConditionText);
         }
     }

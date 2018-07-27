@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ namespace QtCommon
             Bam.Core.TokenizedString generatedMocSource,
             C.HeaderFile source)
         {
-            var mocOutputPath = generatedMocSource.Parse();
+            var mocOutputPath = generatedMocSource.ToString();
             var mocOutputDir = System.IO.Path.GetDirectoryName(mocOutputPath);
             if (!System.IO.Directory.Exists(mocOutputDir))
             {
@@ -50,7 +50,7 @@ namespace QtCommon
             var args = new Bam.Core.StringArray();
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
             args.Add(System.String.Format("-o {0}", mocOutputPath));
-            args.Add(source.InputPath.Parse());
+            args.Add(source.InputPath.ToString());
             CommandLineProcessor.Processor.Execute(context, mocCompiler, args);
         }
     }

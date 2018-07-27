@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -36,6 +36,18 @@ namespace QtCommon
             base("WebEngineCore")
         { }
 
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.WebChannel),
+                    typeof(Qt.Positioning),
+                    typeof(Qt.QtWebEngineProcess)
+                };
+            }
+        }
+
         protected override void
         Init(
             Bam.Core.Module parent)
@@ -46,6 +58,7 @@ namespace QtCommon
             this.Macros.Add("ResourcePak", this.CreateTokenizedString("$(QtInstallPath)/resources/qtwebengine_resources.pak"));
             this.Macros.Add("ResourcePak100p", this.CreateTokenizedString("$(QtInstallPath)/resources/qtwebengine_resources_100p.pak"));
             this.Macros.Add("ResourcePak200p", this.CreateTokenizedString("$(QtInstallPath)/resources/qtwebengine_resources_200p.pak"));
+            this.Macros.Add("Locales", this.CreateTokenizedString("$(QtInstallPath)/translations/qtwebengine_locales"));
         }
     }
 
@@ -56,38 +69,15 @@ namespace QtCommon
             base("WebEngineCore")
         { }
 
-        public override Bam.Core.Array<C.OSXFramework.Path> DirectoriesToPublish
+        protected override Bam.Core.TypeArray RuntimeDependentModules
         {
             get
             {
-                // ignore the base, as it's empty
-                var toPublish = new Bam.Core.Array<Path>();
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Helpers/QtWebEngineProcess.app")));
-                toPublish.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/qtwebengine_locales")));
-                return toPublish;
-            }
-        }
-
-        public override Bam.Core.Array<C.OSXFramework.Path> FilesToPublish
-        {
-            get
-            {
-                var files = base.FilesToPublish;
-                files.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/icudtl.dat")));
-                files.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/qtwebengine_resources.pak")));
-                files.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/qtwebengine_resources_100p.pak")));
-                files.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Versions/5/Resources/qtwebengine_resources_200p.pak")));
-                return files;
-            }
-        }
-
-        public override Bam.Core.Array<C.OSXFramework.Path> SymlinksToPublish
-        {
-            get
-            {
-                var symlinks = base.SymlinksToPublish;
-                symlinks.Add(new Path(this.CreateTokenizedString("$(QtFramework)/Helpers")));
-                return symlinks;
+                // QtWebEngineProcess is included as a Helper in the framework
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.WebChannelFramework),
+                    typeof(Qt.PositioningFramework)
+                };
             }
         }
     }

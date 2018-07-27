@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -35,6 +35,18 @@ namespace QtCommon
         public WebEngineWidgets() :
             base("WebEngineWidgets")
         { }
+
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.WebEngineCore),
+                    typeof(Qt.Quick),
+                    typeof(Qt.Network)
+                };
+            }
+        }
     }
 
     public abstract class WebEngineWidgetsFramework :
@@ -43,5 +55,17 @@ namespace QtCommon
         public WebEngineWidgetsFramework() :
             base("WebEngineWidgets")
         { }
+
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray {
+                    typeof(Qt.WebEngineCoreFramework),
+                    typeof(Qt.QuickFramework),
+                    typeof(Qt.NetworkFramework)
+                };
+            }
+        }
     }
 }

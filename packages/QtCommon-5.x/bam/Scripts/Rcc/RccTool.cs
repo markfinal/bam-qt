@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,6 +32,17 @@ namespace QtCommon
     public sealed class RccTool :
         Bam.Core.PreBuiltTool
     {
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            this.Macros.Add("rccExe", Bam.Core.TokenizedString.Create("$(0)/bin/rcc$(1)", null,
+                    new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath, QtCommon.Configure.ExecutableExtension)));
+            // since the rccExe macro is needed to evaluate the Executable property
+            // in the check for existence
+            base.Init(parent);
+        }
+
         public override Bam.Core.Settings
         CreateDefaultSettings<T>(
             T module)
@@ -43,8 +54,7 @@ namespace QtCommon
         {
             get
             {
-                return Bam.Core.TokenizedString.Create("$(0)/bin/rcc$(1)", null,
-                    new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath, QtCommon.Configure.ExecutableExtension));
+                return this.Macros["rccExe"];
             }
         }
     }

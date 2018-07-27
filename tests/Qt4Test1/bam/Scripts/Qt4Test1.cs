@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -93,10 +93,6 @@ namespace Qt4Test1
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
                 this.CreateWinResourceContainer("$(packagedir)/resources/*.rc");
-                if (this.Linker is VisualCCommon.LinkerBase)
-                {
-                    this.CompileAndLinkAgainst<WindowsSDK.WindowsSDK>(source);
-                }
             }
         }
     }
@@ -110,32 +106,8 @@ namespace Qt4Test1
         {
             base.Init(parent);
 
-            var app = this.Include<QtApplication>(C.ConsoleApplication.Key, EPublishingType.WindowedApplication);
-            if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
-            {
-                this.IncludeFramework<Qt.CoreFramework>("../Frameworks", app);
-                this.IncludeFramework<Qt.GuiFramework>("../Frameworks", app);
-            }
-            else
-            {
-                this.Include<Qt.Core>(C.DynamicLibrary.Key, ".", app);
-                this.Include<Qt.Gui>(C.DynamicLibrary.Key, ".", app);
-
-                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows) &&
-                    this.BuildEnvironment.Configuration != EConfiguration.Debug &&
-                    (app.SourceModule as QtApplication).Linker is VisualCCommon.LinkerBase)
-                {
-                    var visualCRuntimeLibrary = Bam.Core.Graph.Instance.PackageMetaData<VisualCCommon.IRuntimeLibraryPathMeta>("VisualC");
-                    foreach (var libpath in visualCRuntimeLibrary.CRuntimePaths((app.SourceModule as C.CModule).BitDepth))
-                    {
-                        this.IncludeFile(libpath, ".", app);
-                    }
-                    foreach (var libpath in visualCRuntimeLibrary.CxxRuntimePaths((app.SourceModule as C.CModule).BitDepth))
-                    {
-                        this.IncludeFile(libpath, ".", app);
-                    }
-                }
-            }
+            this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
+            this.Include<QtApplication>(C.ConsoleApplication.Key);
         }
     }
 

@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -27,21 +27,36 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-namespace QtCommon
+namespace QtCommon.UicExtension
 {
-    public abstract class UiTools :
-        CommonModule
+    public static class UicExtension
     {
-        public UiTools() :
-            base("UiTools")
-        { }
-    }
+        public static Bam.Core.Module
+        Uic(
+            this C.HeaderFileCollection collection,
+            QUIFile uiFile)
+        {
+            // uic the .ui file to generate the header file
+            var uicSourceFile = Bam.Core.Module.Create<UicGeneratedHeader>(collection);
 
-    public abstract class UiToolsFramework :
-        CommonFramework
-    {
-        public UiToolsFramework() :
-            base("UiTools")
-        { }
+            collection.AddFile(uicSourceFile);
+
+            uicSourceFile.UIFile = uiFile;
+
+            return uicSourceFile;
+        }
+
+        public static QUIFileCollection
+        CreateUicContainer(
+            this C.CModule module,
+            string wildcardPath = null,
+            Bam.Core.Module macroModuleOverride = null,
+            System.Text.RegularExpressions.Regex filter = null)
+        {
+            var source = Bam.Core.Module.Create<QUIFileCollection>(module);
+            module.Requires(source);
+            (source as C.IAddFiles).AddFiles(wildcardPath, macroModuleOverride: macroModuleOverride, filter: filter);
+            return source;
+        }
     }
 }

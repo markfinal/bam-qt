@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -46,17 +46,22 @@ namespace QtCommon
             var target = workspace.EnsureTargetExists(encapsulating);
             var configuration = target.GetConfiguration(encapsulating);
 
-            var output = generatedRccSource.Parse();
-            var sourcePath = source.InputPath.Parse();
+            var output = generatedRccSource.ToString();
+            var sourcePath = source.InputPath.ToString();
 
             var commands = new Bam.Core.StringArray();
-            commands.Add(System.String.Format("[[ ! -d {0} ]] && mkdir -p {0}", System.IO.Path.GetDirectoryName(output)));
+            commands.Add(
+                System.String.Format(
+                    "[[ ! -d {0} ]] && mkdir -p {0}",
+                    Bam.Core.IOWrapper.EscapeSpacesInPath(System.IO.Path.GetDirectoryName(output))
+                )
+            );
 
             var args = new Bam.Core.StringArray();
             args.Add(CommandLineProcessor.Processor.StringifyTool(rccCompiler));
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
-            args.Add(System.String.Format("-o {0}", output));
-            args.Add(sourcePath);
+            args.Add(System.String.Format("-o {0}", Bam.Core.IOWrapper.EscapeSpacesInPath(output)));
+            args.Add(Bam.Core.IOWrapper.EscapeSpacesInPath(sourcePath));
 
             target.EnsureFileOfTypeExists(source.InputPath, XcodeBuilder.FileReference.EFileType.TextFile,
                                           relativePath: target.Project.GetRelativePathToProject(source.InputPath),
@@ -64,7 +69,13 @@ namespace QtCommon
 
             var rcc_commandLine = args.ToString(' ');
 
-            commands.Add(System.String.Format("if [[ ! -e {0} || {1} -nt {0} ]]", output, sourcePath));
+            commands.Add(
+                System.String.Format(
+                    "if [[ ! -e {0} || {1} -nt {0} ]]",
+                    Bam.Core.IOWrapper.EscapeSpacesInPath(output),
+                    Bam.Core.IOWrapper.EscapeSpacesInPath(sourcePath)
+                )
+            );
             commands.Add("then");
             commands.Add(System.String.Format("\techo {0}", rcc_commandLine));
             commands.Add(System.String.Format("\t{0}", rcc_commandLine));

@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,8 @@ namespace QtCommon
     {
         protected CommonPlugin()
         {
-            this.Macros.Add("QtInstallPath", Configure.InstallPath);
+            var graph = Bam.Core.Graph.Instance;
+            graph.Macros.Add("QtInstallPath", Configure.InstallPath);
         }
 
         protected override void
@@ -46,14 +47,9 @@ namespace QtCommon
             base.Init(parent);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                if (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug)
-                {
-                    this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName)d.dll");
-                }
-                else
-                {
-                    this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName).dll");
-                }
+                this.GeneratedPaths[Key] = (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ?
+                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName)d.dll") :
+                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName).dll");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
@@ -61,14 +57,29 @@ namespace QtCommon
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                if (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug)
+                this.GeneratedPaths[Key] = (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ?
+                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName)_debug.dylib") :
+                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).dylib");
+            }
+
+            var dependentTypes = this.RuntimeDependentModules;
+            if (null != dependentTypes)
+            {
+                var requiredToExistMethod = this.GetType().GetMethod("RequiredToExist");
+                foreach (var depType in dependentTypes)
                 {
-                    this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName)_debug.dylib");
+                    var genericVersionForModuleType = requiredToExistMethod.MakeGenericMethod(depType);
+                    genericVersionForModuleType.Invoke(this, new [] { new C.CModule[0] });
                 }
-                else
-                {
-                    this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).dylib");
-                }
+            }
+        }
+
+        protected virtual Bam.Core.TypeArray
+        RuntimeDependentModules
+        {
+            get
+            {
+                return null;
             }
         }
     }

@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -56,11 +56,8 @@ namespace QtCommon
         {
             base.Init(parent);
 
-            // aliasing the packagedir to the real Qt installation directory allows headers in IDE projects to use more intuitive relative paths
-            if (!this.Macros["packagedir"].IsAliased)
-            {
-                this.Macros["packagedir"].Aliased(Configure.InstallPath);
-            }
+            // using the real Qt installation directory allows headers in IDE projects to use more intuitive relative paths
+            this.Macros["packagedir"] = Configure.InstallPath;
 
             var version = Configure.Version;
             this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim(version[0]);

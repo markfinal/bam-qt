@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -40,6 +40,17 @@ namespace QtCommon
             base.Init(parent);
             this.Macros.AddVerbatim("QtPluginDir", "mediaservice");
             this.Macros.AddVerbatim("QtPluginName", "gstmediaplayer");
+        }
+
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                return new Bam.Core.TypeArray
+                {
+                    typeof(Qt.GSTTools)
+                };
+            }
         }
     }
 }

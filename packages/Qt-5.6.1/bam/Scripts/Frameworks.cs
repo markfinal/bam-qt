@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -81,6 +81,10 @@ namespace Qt
         QtCommon.PhononFramework
     { }
 
+    public sealed class PositioningFramework :
+        QtCommon.PositioningFramework
+    { }
+
     public sealed class PrintSupportFramework :
         QtCommon.PrintSupportFramework
     { }
@@ -111,10 +115,6 @@ namespace Qt
 
     public sealed class TestFramework :
         QtCommon.TestFramework
-    { }
-
-    public sealed class UiToolsFramework :
-        QtCommon.UiToolsFramework
     { }
 
     public sealed class WebKitFramework :

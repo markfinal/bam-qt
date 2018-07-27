@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -50,6 +50,27 @@ namespace QtCommon
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
                 this.Macros.AddVerbatim("QtPluginName", "qcocoa");
+            }
+        }
+
+        protected override TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
+                {
+                    return new Bam.Core.TypeArray {
+                        typeof(Qt.XcbQpa),
+                        typeof(Qt.DBus)
+                    };
+                }
+                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
+                {
+                    return new Bam.Core.TypeArray {
+                        typeof(Qt.PrintSupportFramework)
+                    };
+                }
+                return base.RuntimeDependentModules;
             }
         }
     }

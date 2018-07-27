@@ -26,12 +26,30 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#include <QtCore/QCoreApplication>
+#include <QtCore/QLibraryInfo>
+
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 #include <QtCore/QDebug>
 
+#include <iostream>
+
 int main(int argc, char *argv[])
 {
+    QCoreApplication app(argc, argv);
+
+    QString appDirPath = QCoreApplication::applicationDirPath();
+    QString prefix = QLibraryInfo::location(QLibraryInfo::PrefixPath);
+    if (!appDirPath.startsWith(prefix))
+    {
+        std::cerr << "Mis-configured distribution: prefix does not match the application dir" << std::endl;
+        std::cerr << "Prefix : " << qPrintable(prefix) << std::endl;
+        std::cerr << "AppDir : " << qPrintable(appDirPath) << std::endl;
+        return -1;
+    }
+    std::cout << "Plugin path: '" << qPrintable(QLibraryInfo::location(QLibraryInfo::PluginsPath)) << "'" << std::endl;
+
     QFile embedded(":/embedded.txt");
     if (!embedded.open(QFile::ReadOnly | QFile::Text))
     {
