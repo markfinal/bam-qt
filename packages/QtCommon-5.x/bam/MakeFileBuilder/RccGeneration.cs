@@ -30,6 +30,40 @@
 namespace QtCommon
 {
 #if BAM_V2
+    public static partial class MakeFileSupport
+    {
+        public static void
+        Rcc(
+            RccGeneratedSource module)
+        {
+            var meta = new MakeFileBuilder.MakeFileMeta(module);
+            var rule = meta.AddRule();
+            rule.AddTarget(module.GeneratedPaths[RccGeneratedSource.SourceFileKey]);
+            foreach (var input in module.InputModules)
+            {
+                System.Diagnostics.Debug.Assert(input.Key == C.HeaderFile.HeaderFileKey);
+                rule.AddPrerequisite(input.Value, input.Key);
+            }
+
+            var tool = module.Tool as Bam.Core.ICommandLineTool;
+            meta.CommonMetaData.ExtendEnvironmentVariables(tool.EnvironmentVariables);
+
+            var command = new System.Text.StringBuilder();
+            command.AppendFormat("{0} {1} {2}",
+                CommandLineProcessor.Processor.StringifyTool(tool),
+                CommandLineProcessor.NativeConversion.Convert(
+                    module.Settings,
+                    module
+                ).ToString(' '),
+                CommandLineProcessor.Processor.TerminatingArgs(tool));
+            rule.AddShellCommand(command.ToString());
+
+            foreach (var dir in module.OutputDirectories)
+            {
+                meta.CommonMetaData.AddDirectory(dir.ToString());
+            }
+        }
+    }
 #else
     public sealed class MakeFileRccGeneration :
         IRccGenerationPolicy

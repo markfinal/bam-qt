@@ -91,7 +91,35 @@ namespace QtCommon
         ExecuteInternal(
             Bam.Core.ExecutionContext context)
         {
-            // TODO
+            switch (Bam.Core.Graph.Instance.Mode)
+            {
+#if D_PACKAGE_MAKEFILEBUILDER
+                case "MakeFile":
+                    MakeFileSupport.Rcc(this);
+                    break;
+#endif
+
+#if D_PACKAGE_NATIVEBUILDER
+                case "Native":
+                    NativeSupport.Rcc(this, context);
+                    break;
+#endif
+
+#if D_PACKAGE_VSSOLUTIONBUILDER
+                case "VSSolution":
+                    VSSolutionSupport.Rcc(this);
+                    break;
+#endif
+
+#if D_PACKAGE_XCODEBUILDER
+                case "Xcode":
+                    XcodeSupport.Rcc(this);
+                    break;
+#endif
+
+                default:
+                    throw new System.NotImplementedException();
+            }
         }
 
         private Bam.Core.PreBuiltTool Compiler
@@ -104,6 +132,17 @@ namespace QtCommon
             set
             {
                 this.Tool = value;
+            }
+        }
+
+        public override System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, Bam.Core.Module>> InputModules
+        {
+            get
+            {
+                yield return new System.Collections.Generic.KeyValuePair<string, Bam.Core.Module>(
+                    C.HeaderFile.HeaderFileKey,
+                    this.SourceQRCFile
+                );
             }
         }
     }
