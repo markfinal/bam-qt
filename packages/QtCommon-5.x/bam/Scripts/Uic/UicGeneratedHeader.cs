@@ -33,7 +33,6 @@ namespace QtCommon
         C.HeaderFile
     {
         private QUIFile SourceUIFile;
-        private IUicGenerationPolicy Policy = null;
 
         protected override void
         Init(
@@ -42,7 +41,9 @@ namespace QtCommon
             base.Init(parent);
             this.Compiler = Bam.Core.Graph.Instance.FindReferencedModule<UicTool>();
             this.Requires(this.Compiler);
-            this.InputPath = this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(QUIFilePath),$(packagedir)),../),.h)");
+            this.InputPath = this.CreateTokenizedString(
+                "$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(QUIFilePath),$(packagedir)),../),.h)"
+            );
         }
 
         public QUIFile UIFile
@@ -71,14 +72,19 @@ namespace QtCommon
             var generatedPath = this.GeneratedPaths[HeaderFileKey].ToString();
             if (!System.IO.File.Exists(generatedPath))
             {
-                this.ReasonToExecute = Bam.Core.ExecuteReasoning.FileDoesNotExist(this.GeneratedPaths[HeaderFileKey]);
+                this.ReasonToExecute = Bam.Core.ExecuteReasoning.FileDoesNotExist(
+                    this.GeneratedPaths[HeaderFileKey]
+                );
                 return;
             }
             var sourceFileWriteTime = System.IO.File.GetLastWriteTime(generatedPath);
             var headerFileWriteTime = System.IO.File.GetLastWriteTime(this.SourceUIFile.InputPath.ToString());
             if (headerFileWriteTime > sourceFileWriteTime)
             {
-                this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(this.GeneratedPaths[HeaderFileKey], this.SourceUIFile.InputPath);
+                this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(
+                    this.GeneratedPaths[HeaderFileKey],
+                    this.SourceUIFile.InputPath
+                );
                 return;
             }
         }
@@ -87,7 +93,35 @@ namespace QtCommon
         ExecuteInternal(
             Bam.Core.ExecutionContext context)
         {
-            this.Policy.Uic(this, context, this.Compiler, this.SourceUIFile);
+            switch (Bam.Core.Graph.Instance.Mode)
+            {
+#if D_PACKAGE_MAKEFILEBUILDER
+                case "MakeFile":
+                    MakeFileSupport.Uic(this);
+                    break;
+#endif
+
+#if D_PACKAGE_NATIVEBUILDER
+                case "Native":
+                    NativeSupport.Uic(this, context);
+                    break;
+#endif
+
+#if D_PACKAGE_VSSOLUTIONBUILDER
+                case "VSSolution":
+                    VSSolutionSupport.Uic(this);
+                    break;
+#endif
+
+#if D_PACKAGE_XCODEBUILDER
+                case "Xcode":
+                    XcodeSupport.Uic(this);
+                    break;
+#endif
+
+                default:
+                    throw new System.NotImplementedException();
+            }
         }
 
         private Bam.Core.PreBuiltTool Compiler
@@ -100,6 +134,17 @@ namespace QtCommon
             set
             {
                 this.Tool = value;
+            }
+        }
+
+        public override System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, Bam.Core.Module>> InputModules
+        {
+            get
+            {
+                yield return new System.Collections.Generic.KeyValuePair<string, Bam.Core.Module>(
+                    C.HeaderFile.HeaderFileKey,
+                    this.UIFile
+                );
             }
         }
     }
