@@ -29,6 +29,8 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+#else
     public sealed class VSSolutionRccGeneration :
         IRccGenerationPolicy
     {
@@ -62,4 +64,5 @@ namespace QtCommon
             customBuild.AddSetting("Outputs", output, condition: config.ConditionText);
         }
     }
+#endif
 }

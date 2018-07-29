@@ -108,14 +108,24 @@ namespace QtCommon
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
                 this.Macros["OutputName"] = this.CreateTokenizedString("$(QtModulePrefix)$(QtModuleName)$(QtConfig)");
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtBinaryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
-                this.GeneratedPaths[ImportLibraryKey] = this.CreateTokenizedString("$(QtLibraryPath)/$(libprefix)$(OutputName)$(libext)");
+                this.RegisterGeneratedFile(
+                    ExecutableKey,
+                    this.CreateTokenizedString("$(QtBinaryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)")
+                );
+                this.RegisterGeneratedFile(
+                    ImportLibraryKey,
+                    this.CreateTokenizedString("$(QtLibraryPath)/$(libprefix)$(OutputName)$(libext)")
+                );
             }
             else
             {
                 this.Macros["OutputName"] = this.CreateTokenizedString("$(QtModulePrefix)$(QtModuleName)");
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
+                this.RegisterGeneratedFile(
+                    ExecutableKey,
+                    this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)")
+                );
 
+                // TODO: note that these were not macros anymore
                 this.Macros.Add("SOName", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)"));
                 this.Macros.Add("LinkerName", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(linkernameext)"));
 

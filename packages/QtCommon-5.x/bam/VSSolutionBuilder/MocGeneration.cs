@@ -29,6 +29,66 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+    public static partial class VSSolutionSupport
+    {
+        public static void
+        Moc(
+            MocGeneratedSource module)
+        {
+            var encapsulating = module.GetEncapsulatingReferencedModule();
+
+            var solution = Bam.Core.Graph.Instance.MetaData as VSSolutionBuilder.VSSolution;
+            var project = solution.EnsureProjectExists(encapsulating);
+            var config = project.GetConfiguration(encapsulating);
+
+            var commands = new Bam.Core.StringArray();
+            foreach (var dir in module.OutputDirectories)
+            {
+                commands.Add(
+                    System.String.Format(
+                        "IF NOT EXIST {0} MKDIR {0}",
+                        dir.ToStringQuoteIfNecessary()
+                    )
+                );
+            }
+
+            var args = new Bam.Core.StringArray();
+            args.Add(CommandLineProcessor.Processor.StringifyTool(module.Tool as Bam.Core.ICommandLineTool));
+            args.AddRange(
+                CommandLineProcessor.NativeConversion.Convert(
+                    module.Settings,
+                    module
+                )
+            );
+            commands.Add(args.ToString(' '));
+
+            var customBuild = config.GetSettingsGroup(
+                VSSolutionBuilder.VSSettingsGroup.ESettingsGroup.CustomBuild,
+                include: module.SourceHeader.InputPath,
+                uniqueToProject: true
+            );
+            customBuild.AddSetting(
+                "Command",
+                args.ToString(' '),
+                condition: config.ConditionText
+            );
+            customBuild.AddSetting(
+                "Message",
+                System.String.Format(
+                    "Moccing {0}",
+                    System.IO.Path.GetFileName(module.SourceHeader.InputPath.ToString())
+                ),
+                condition: config.ConditionText
+            );
+            customBuild.AddSetting(
+                "Outputs",
+                module.GeneratedPaths[MocGeneratedSource.SourceFileKey],
+                condition: config.ConditionText
+            );
+        }
+    }
+#else
     public sealed class VSSolutionMocGeneration :
         IMocGenerationPolicy
     {
@@ -60,4 +120,5 @@ namespace QtCommon
             customBuild.AddSetting("Outputs", output, condition: config.ConditionText);
         }
     }
-}
+#endif
+        }

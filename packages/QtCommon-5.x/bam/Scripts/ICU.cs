@@ -64,7 +64,10 @@ namespace QtCommon
             var graph = Bam.Core.Graph.Instance;
             graph.Macros.Add("QtInstallPath", Configure.InstallPath);
 
-            this.GeneratedPaths[C.DynamicLibrary.Key] = this.CreateTokenizedString("$(ICUInstallPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
+            this.RegisterGeneratedFile(
+                ExecutableKey,
+                this.CreateTokenizedString("$(ICUInstallPath)/$(dynamicprefix)$(OutputName)$(dynamicext)")
+            );
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {

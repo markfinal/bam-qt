@@ -29,22 +29,16 @@
 #endregion // License
 namespace QtCommon
 {
+    [CommandLineProcessor.OutputPath(MocGeneratedSource.SourceFileKey, "-o ")]
+    [CommandLineProcessor.InputPaths(C.HeaderFile.HeaderFileKey, "")]
     public sealed class MocSettings :
         Bam.Core.Settings,
-        CommandLineProcessor.IConvertToCommandLine,
         IMocSettings
     {
         public MocSettings(
             Bam.Core.Module module)
         {
             this.InitializeAllInterfaces(module, true, true);
-        }
-
-        void
-        CommandLineProcessor.IConvertToCommandLine.Convert(
-            Bam.Core.StringArray commandLine)
-        {
-            (this as IMocSettings).Convert(commandLine);
         }
 
         C.PreprocessorDefinitions IMocSettings.PreprocessorDefinitions
@@ -75,6 +69,12 @@ namespace QtCommon
         {
             get;
             set;
+        }
+
+        public override void
+        AssignFileLayout()
+        {
+            this.FileLayout = ELayout.Cmds_Outputs_Inputs;
         }
     }
 }

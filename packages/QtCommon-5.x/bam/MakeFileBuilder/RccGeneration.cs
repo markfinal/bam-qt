@@ -29,6 +29,8 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+#else
     public sealed class MakeFileRccGeneration :
         IRccGenerationPolicy
     {
@@ -43,7 +45,7 @@ namespace QtCommon
             var meta = new MakeFileBuilder.MakeFileMeta(sender);
             var rule = meta.AddRule();
             rule.AddTarget(generatedRccSource);
-            rule.AddPrerequisite(source, C.HeaderFile.Key);
+            rule.AddPrerequisite(source, C.HeaderFile.HeaderFileKey);
 
             var rccOutputPath = generatedRccSource.ToString();
             var rccOutputDir = System.IO.Path.GetDirectoryName(rccOutputPath);
@@ -58,4 +60,5 @@ namespace QtCommon
             meta.CommonMetaData.AddDirectory(rccOutputDir);
         }
     }
+#endif
 }

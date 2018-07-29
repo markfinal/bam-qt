@@ -68,17 +68,17 @@ namespace QtCommon
         EvaluateInternal()
         {
             this.ReasonToExecute = null;
-            var generatedPath = this.GeneratedPaths[Key].ToString();
+            var generatedPath = this.GeneratedPaths[HeaderFileKey].ToString();
             if (!System.IO.File.Exists(generatedPath))
             {
-                this.ReasonToExecute = Bam.Core.ExecuteReasoning.FileDoesNotExist(this.GeneratedPaths[Key]);
+                this.ReasonToExecute = Bam.Core.ExecuteReasoning.FileDoesNotExist(this.GeneratedPaths[HeaderFileKey]);
                 return;
             }
             var sourceFileWriteTime = System.IO.File.GetLastWriteTime(generatedPath);
             var headerFileWriteTime = System.IO.File.GetLastWriteTime(this.SourceUIFile.InputPath.ToString());
             if (headerFileWriteTime > sourceFileWriteTime)
             {
-                this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(this.GeneratedPaths[Key], this.SourceUIFile.InputPath);
+                this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(this.GeneratedPaths[HeaderFileKey], this.SourceUIFile.InputPath);
                 return;
             }
         }
@@ -88,14 +88,6 @@ namespace QtCommon
             Bam.Core.ExecutionContext context)
         {
             this.Policy.Uic(this, context, this.Compiler, this.SourceUIFile);
-        }
-
-        protected override void
-        GetExecutionPolicy(
-            string mode)
-        {
-            var className = "QtCommon." + mode + "UicGeneration";
-            this.Policy = Bam.Core.ExecutionPolicyUtilities<IUicGenerationPolicy>.Create(className);
         }
 
         private Bam.Core.PreBuiltTool Compiler

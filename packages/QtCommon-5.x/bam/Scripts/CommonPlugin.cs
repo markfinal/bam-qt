@@ -47,19 +47,44 @@ namespace QtCommon
             base.Init(parent);
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.GeneratedPaths[Key] = (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ?
-                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName)d.dll") :
-                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName).dll");
+                if (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug)
+                {
+                    this.RegisterGeneratedFile(
+                        ExecutableKey,
+                        this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName)d.dll")
+                    );
+                }
+                else
+                {
+                    this.RegisterGeneratedFile(
+                        ExecutableKey,
+                        this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/$(QtPluginName).dll")
+                    );
+                }
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).so");
+                this.RegisterGeneratedFile(
+                    ExecutableKey,
+                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).so")
+                );
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                this.GeneratedPaths[Key] = (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ?
-                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName)_debug.dylib") :
-                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).dylib");
+                if (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug)
+                {
+                    this.RegisterGeneratedFile(
+                        ExecutableKey,
+                        this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName)_debug.dylib")
+                    );
+                }
+                else
+                {
+                    this.RegisterGeneratedFile(
+                        ExecutableKey,
+                        this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).dylib")
+                    );
+                }
             }
 
             var dependentTypes = this.RuntimeDependentModules;

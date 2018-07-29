@@ -29,6 +29,8 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+#else
     public sealed class VSSolutionUicGeneration :
         IUicGenerationPolicy
     {
@@ -61,4 +63,5 @@ namespace QtCommon
             customBuild.AddSetting("Outputs", output, condition: config.ConditionText);
         }
     }
+#endif
 }

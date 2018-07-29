@@ -29,6 +29,8 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+#else
     public sealed class XcodeUicGeneration :
         IUicGenerationPolicy
     {
@@ -45,7 +47,7 @@ namespace QtCommon
             var target = workspace.EnsureTargetExists(encapsulating);
             var configuration = target.GetConfiguration(encapsulating);
 
-            var output = sender.GeneratedPaths[C.HeaderFile.Key].ToString();
+            var output = sender.GeneratedPaths[C.HeaderFile.HeaderFileKey].ToString();
             var sourcePath = source.InputPath.ToString();
 
             var commands = new Bam.Core.StringArray();
@@ -83,4 +85,5 @@ namespace QtCommon
             target.AddPreBuildCommands(commands, configuration);
         }
     }
+#endif
 }

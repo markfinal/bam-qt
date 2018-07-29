@@ -76,12 +76,18 @@ namespace QtCommon
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
                 this.Macros["OutputName"] = this.CreateTokenizedString("$(QtModulePrefix)$(QtModuleName)$(QtConfig)");
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtLibraryPath)/$(libprefix)$(OutputName)$(libext)");
+                this.RegisterGeneratedFile(
+                    LibraryKey,
+                    this.CreateTokenizedString("$(QtLibraryPath)/$(libprefix)$(OutputName)$(libext)")
+                );
             }
             else
             {
                 this.Macros["OutputName"] = this.CreateTokenizedString("$(QtModulePrefix)$(QtModuleName)");
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtLibraryPath)/$(libprefix)$(OutputName)$(libext)");
+                this.RegisterGeneratedFile(
+                    LibraryKey,
+                    this.CreateTokenizedString("$(QtLibraryPath)/$(libprefix)$(OutputName)$(libext)")
+                );
             }
 
             this.PublicPatch((settings, appliedTo) =>

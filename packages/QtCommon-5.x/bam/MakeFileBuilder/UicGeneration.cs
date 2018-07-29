@@ -29,6 +29,8 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+#else
     public sealed class MakeFileUicGeneration :
         IUicGenerationPolicy
     {
@@ -41,9 +43,9 @@ namespace QtCommon
         {
             var meta = new MakeFileBuilder.MakeFileMeta(sender);
             var rule = meta.AddRule();
-            rule.AddTarget(sender.GeneratedPaths[C.HeaderFile.Key]);
+            rule.AddTarget(sender.GeneratedPaths[C.HeaderFile.HeaderFileKey]);
 
-            var uicOutputPath = sender.GeneratedPaths[C.HeaderFile.Key].ToString();
+            var uicOutputPath = sender.GeneratedPaths[C.HeaderFile.HeaderFileKey].ToString();
 
             var args = new Bam.Core.StringArray();
             args.Add(CommandLineProcessor.Processor.StringifyTool(uicCompiler));
@@ -56,4 +58,5 @@ namespace QtCommon
             meta.CommonMetaData.AddDirectory(uicOutputDir);
         }
     }
+#endif
 }

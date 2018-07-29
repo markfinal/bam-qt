@@ -29,6 +29,8 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+#else
     public sealed class XcodeRccGeneration :
         IRccGenerationPolicy
     {
@@ -84,4 +86,5 @@ namespace QtCommon
             target.AddPreBuildCommands(commands, configuration);
         }
     }
+#endif
 }

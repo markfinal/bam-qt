@@ -29,6 +29,8 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+#else
     public sealed class NativeUicGeneration :
         IUicGenerationPolicy
     {
@@ -39,7 +41,7 @@ namespace QtCommon
             Bam.Core.ICommandLineTool uicCompiler,
             QUIFile source)
         {
-            var uicOutputPath = sender.GeneratedPaths[C.HeaderFile.Key].ToString();
+            var uicOutputPath = sender.GeneratedPaths[C.HeaderFile.HeaderFileKey].ToString();
             var uicOutputDir = System.IO.Path.GetDirectoryName(uicOutputPath);
             if (!System.IO.Directory.Exists(uicOutputDir))
             {
@@ -48,9 +50,10 @@ namespace QtCommon
 
             var args = new Bam.Core.StringArray();
             (sender.Settings as CommandLineProcessor.IConvertToCommandLine).Convert(args);
-            args.Add(System.String.Format("-o {0}", sender.GeneratedPaths[C.HeaderFile.Key].ToStringQuoteIfNecessary()));
+            args.Add(System.String.Format("-o {0}", sender.GeneratedPaths[C.HeaderFile.HeaderFileKey].ToStringQuoteIfNecessary()));
             args.Add(source.InputPath.ToStringQuoteIfNecessary());
             CommandLineProcessor.Processor.Execute(context, uicCompiler, args);
         }
     }
+#endif
 }
