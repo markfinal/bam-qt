@@ -29,6 +29,8 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+#else
     public sealed class MakeFileMocGeneration :
         IMocGenerationPolicy
     {
@@ -58,4 +60,5 @@ namespace QtCommon
             meta.CommonMetaData.AddDirectory(mocOutputDir);
         }
     }
+#endif
 }

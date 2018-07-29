@@ -107,7 +107,7 @@ namespace Qt4Test1
             base.Init(parent);
 
             this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
-            this.Include<QtApplication>(C.ConsoleApplication.Key);
+            this.Include<QtApplication>(C.ConsoleApplication.ExecutableKey);
         }
     }
 
@@ -149,7 +149,7 @@ namespace Qt4Test1
         {
             base.Init(parent);
 
-            this.SourceFolder<Qt4Test1Stripped>(Publisher.StrippedBinaryCollation.Key);
+            this.SourceFolder<Qt4Test1Stripped>(Publisher.StrippedBinaryCollation.StripBinaryDirectoryKey);
         }
     }
 }

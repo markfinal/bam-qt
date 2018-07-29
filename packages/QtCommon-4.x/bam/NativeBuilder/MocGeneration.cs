@@ -29,6 +29,8 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+#else
     public sealed class NativeMocGeneration :
         IMocGenerationPolicy
     {
@@ -54,4 +56,5 @@ namespace QtCommon
             CommandLineProcessor.Processor.Execute(context, mocCompiler, args);
         }
     }
+#endif
 }
