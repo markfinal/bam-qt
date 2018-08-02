@@ -51,7 +51,7 @@ namespace QtCommon.DefaultSettings
             this IMocSettings settings)
         {
             settings.PreprocessorDefinitions = new C.PreprocessorDefinitions();
-            settings.IncludePaths = new Bam.Core.Array<Bam.Core.TokenizedString>();
+            settings.IncludePaths = new Bam.Core.TokenizedStringArray();
         }
     }
 }

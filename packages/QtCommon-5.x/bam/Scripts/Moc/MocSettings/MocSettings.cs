@@ -41,30 +41,35 @@ namespace QtCommon
             this.InitializeAllInterfaces(module, true, true);
         }
 
+        [CommandLineProcessor.PreprocessorDefines("-D ")]
         C.PreprocessorDefinitions IMocSettings.PreprocessorDefinitions
         {
             get;
             set;
         }
 
-        Bam.Core.Array<Bam.Core.TokenizedString> IMocSettings.IncludePaths
+        [CommandLineProcessor.PathArray("-I ")]
+        Bam.Core.TokenizedStringArray IMocSettings.IncludePaths
         {
             get;
             set;
         }
 
+        [CommandLineProcessor.Bool("-i", "")]
         bool IMocSettings.DoNotGenerateIncludeStatement
         {
             get;
             set;
         }
 
+        [CommandLineProcessor.Bool("--no-warnings", "")]
         bool IMocSettings.DoNotDisplayWarnings
         {
             get;
             set;
         }
 
+        [CommandLineProcessor.String("-p ")]
         string IMocSettings.PathPrefix
         {
             get;
