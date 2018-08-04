@@ -62,19 +62,19 @@ namespace QtCommon
                 )
             );
 
-            var flex_commandLine = args.ToString(' ');
-            var flex_source_path = module.InputPath.ToString();
-            var flex_output_path = module.GeneratedPaths[MocGeneratedSource.SourceFileKey].ToString();
+            var moc_command_line = args.ToString(' ');
+            var moc_source_path = module.SourceHeader.InputPath.ToString();
+            var moc_output_path = module.GeneratedPaths[MocGeneratedSource.SourceFileKey].ToString();
             commands.Add(
                 System.String.Format(
                     "if [[ ! -e {0} || {1} -nt {0} ]]",
-                    Bam.Core.IOWrapper.EscapeSpacesInPath(flex_output_path),
-                    Bam.Core.IOWrapper.EscapeSpacesInPath(flex_source_path)
+                    Bam.Core.IOWrapper.EscapeSpacesInPath(moc_output_path),
+                    Bam.Core.IOWrapper.EscapeSpacesInPath(moc_source_path)
                 )
             );
             commands.Add("then");
-            commands.Add(System.String.Format("\techo {0}", flex_commandLine));
-            commands.Add(System.String.Format("\t{0}", flex_commandLine));
+            commands.Add(System.String.Format("\techo {0}", moc_command_line));
+            commands.Add(System.String.Format("\t{0}", moc_command_line));
             commands.Add("fi");
 
             target.AddPreBuildCommands(commands, configuration);

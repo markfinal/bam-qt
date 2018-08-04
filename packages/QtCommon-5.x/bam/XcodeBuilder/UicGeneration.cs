@@ -62,25 +62,25 @@ namespace QtCommon
                 )
             );
 
-            var flex_commandLine = args.ToString(' ');
-            var flex_source_path = module.InputPath.ToString();
-            var flex_output_path = module.GeneratedPaths[UicGeneratedHeader.HeaderFileKey].ToString();
+            var uic_command_line = args.ToString(' ');
+            var uic_source_path = module.UIFile.InputPath.ToString();
+            var uic_output_path = module.GeneratedPaths[UicGeneratedHeader.HeaderFileKey].ToString();
             commands.Add(
                 System.String.Format(
                     "if [[ ! -e {0} || {1} -nt {0} ]]",
-                    Bam.Core.IOWrapper.EscapeSpacesInPath(flex_output_path),
-                    Bam.Core.IOWrapper.EscapeSpacesInPath(flex_source_path)
+                    Bam.Core.IOWrapper.EscapeSpacesInPath(uic_output_path),
+                    Bam.Core.IOWrapper.EscapeSpacesInPath(uic_source_path)
                 )
             );
             commands.Add("then");
-            commands.Add(System.String.Format("\techo {0}", flex_commandLine));
-            commands.Add(System.String.Format("\t{0}", flex_commandLine));
+            commands.Add(System.String.Format("\techo {0}", uic_command_line));
+            commands.Add(System.String.Format("\t{0}", uic_command_line));
             commands.Add("fi");
 
             target.AddPreBuildCommands(commands, configuration);
 
             target.EnsureFileOfTypeExists(
-                module.InputPath,
+                module.UIFile.InputPath,
                 XcodeBuilder.FileReference.EFileType.TextFile,
                 relativePath: target.Project.GetRelativePathToProject(module.InputPath),
                 explicitType: false

@@ -27,6 +27,7 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
+using System.Linq;
 namespace QtCommon
 {
 #if BAM_V2
@@ -62,25 +63,25 @@ namespace QtCommon
                 )
             );
 
-            var flex_commandLine = args.ToString(' ');
-            var flex_source_path = module.InputPath.ToString();
-            var flex_output_path = module.GeneratedPaths[RccGeneratedSource.SourceFileKey].ToString();
+            var rcc_command_line = args.ToString(' ');
+            var rcc_source_path = module.SourceHeader.InputPath.ToString();
+            var rcc_output_path = module.GeneratedPaths[RccGeneratedSource.SourceFileKey].ToString();
             commands.Add(
                 System.String.Format(
                     "if [[ ! -e {0} || {1} -nt {0} ]]",
-                    Bam.Core.IOWrapper.EscapeSpacesInPath(flex_output_path),
-                    Bam.Core.IOWrapper.EscapeSpacesInPath(flex_source_path)
+                    Bam.Core.IOWrapper.EscapeSpacesInPath(rcc_output_path),
+                    Bam.Core.IOWrapper.EscapeSpacesInPath(rcc_source_path)
                 )
             );
             commands.Add("then");
-            commands.Add(System.String.Format("\techo {0}", flex_commandLine));
-            commands.Add(System.String.Format("\t{0}", flex_commandLine));
+            commands.Add(System.String.Format("\techo {0}", rcc_command_line));
+            commands.Add(System.String.Format("\t{0}", rcc_command_line));
             commands.Add("fi");
 
             target.AddPreBuildCommands(commands, configuration);
 
             target.EnsureFileOfTypeExists(
-                module.InputPath,
+                module.SourceHeader.InputPath,
                 XcodeBuilder.FileReference.EFileType.TextFile,
                 relativePath: target.Project.GetRelativePathToProject(module.InputPath),
                 explicitType: false
