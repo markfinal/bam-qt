@@ -77,11 +77,14 @@ namespace QtCommon
             {
                 this.Macros.Add("ICUInstallPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
 
-                this.Macros.Add("SOName", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)"));
+                this.RegisterGeneratedFile(
+                    SONameKey,
+                    this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)")
+                );
 
                 var SOName = Bam.Core.Module.Create<ICUSharedObjectSymbolicLink>(preInitCallback:module=>
                     {
-                        module.Macros.AddVerbatim("SymlinkUsage", "SOName");
+                        module.Macros.AddVerbatim("SymlinkUsage", SONameKey);
                         module.SharedObject = this;
                     });
                 this.SONameSymbolicLink = SOName;
