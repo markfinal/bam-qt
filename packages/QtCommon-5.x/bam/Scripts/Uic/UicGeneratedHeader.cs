@@ -103,7 +103,7 @@ namespace QtCommon
 
 #if D_PACKAGE_NATIVEBUILDER
                 case "Native":
-                    NativeSupport.Uic(this, context);
+                    NativeBuilder.Support.RunCommandLineTool(this, context);
                     break;
 #endif
 
