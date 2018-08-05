@@ -109,7 +109,12 @@ namespace QtCommon
 
 #if D_PACKAGE_VSSOLUTIONBUILDER
                 case "VSSolution":
-                    VSSolutionSupport.Uic(this);
+                    VSSolutionBuilder.Support.AddCustomBuildStepForCommandLineTool(
+                        this,
+                        this.GeneratedPaths[HeaderFileKey],
+                        "Uic'ing",
+                        true // the .ui file
+                    );
                     break;
 #endif
 

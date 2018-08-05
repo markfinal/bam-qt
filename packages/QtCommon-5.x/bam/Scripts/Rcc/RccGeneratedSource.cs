@@ -107,7 +107,12 @@ namespace QtCommon
 
 #if D_PACKAGE_VSSOLUTIONBUILDER
                 case "VSSolution":
-                    VSSolutionSupport.Rcc(this);
+                    VSSolutionBuilder.Support.AddCustomBuildStepForCommandLineTool(
+                        this,
+                        this.GeneratedPaths[SourceFileKey],
+                        "Rcc'ing",
+                        true // the .qrc file
+                    );
                     break;
 #endif
 
