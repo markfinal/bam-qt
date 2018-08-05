@@ -107,7 +107,12 @@ namespace QtCommon
 
 #if D_PACKAGE_VSSOLUTIONBUILDER
                 case "VSSolution":
-                    VSSolutionSupport.Moc(this);
+                    VSSolutionBuilder.Support.AddCustomBuildStepForCommandLineTool(
+                        this,
+                        this.GeneratedPaths[SourceFileKey],
+                        "Moc'ing",
+                        false // headers already exist in the project
+                    );
                     break;
 #endif
 
