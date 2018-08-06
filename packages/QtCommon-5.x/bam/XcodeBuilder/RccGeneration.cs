@@ -43,48 +43,11 @@ namespace QtCommon
             var target = workspace.EnsureTargetExists(encapsulating);
             var configuration = target.GetConfiguration(encapsulating);
 
-            var commands = new Bam.Core.StringArray();
-            foreach (var dir in module.OutputDirectories)
-            {
-                commands.Add(
-                    System.String.Format(
-                        "[[ ! -d {0} ]] && mkdir -p {0}",
-                        Bam.Core.IOWrapper.EscapeSpacesInPath(dir.ToString())
-                    )
-                );
-            }
-
-            var args = new Bam.Core.StringArray();
-            args.Add(CommandLineProcessor.Processor.StringifyTool(module.Tool as Bam.Core.ICommandLineTool));
-            args.AddRange(
-                CommandLineProcessor.NativeConversion.Convert(
-                    module.Settings,
-                    module
-                )
-            );
-
-            var rcc_command_line = args.ToString(' ');
-            var rcc_source_path = module.SourceHeader.InputPath.ToString();
-            var rcc_output_path = module.GeneratedPaths[RccGeneratedSource.SourceFileKey].ToString();
-            commands.Add(
-                System.String.Format(
-                    "if [[ ! -e {0} || {1} -nt {0} ]]",
-                    Bam.Core.IOWrapper.EscapeSpacesInPath(rcc_output_path),
-                    Bam.Core.IOWrapper.EscapeSpacesInPath(rcc_source_path)
-                )
-            );
-            commands.Add("then");
-            commands.Add(System.String.Format("\techo {0}", rcc_command_line));
-            commands.Add(System.String.Format("\t{0}", rcc_command_line));
-            commands.Add("fi");
-
-            target.AddPreBuildCommands(commands, configuration);
-
-            target.EnsureFileOfTypeExists(
-                module.SourceHeader.InputPath,
-                XcodeBuilder.FileReference.EFileType.TextFile,
-                relativePath: target.Project.GetRelativePathToProject(module.InputPath),
-                explicitType: false
+            XcodeBuilder.Support.AddPreBuildStepForCommandLineTool(
+                module,
+                target,
+                configuration,
+                XcodeBuilder.FileReference.EFileType.TextFile
             );
         }
     }
