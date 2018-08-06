@@ -47,7 +47,9 @@ namespace QtCommon
                 module,
                 target,
                 configuration,
-                XcodeBuilder.FileReference.EFileType.TextFile
+                XcodeBuilder.FileReference.EFileType.TextFile,
+                true,
+                false
             );
         }
     }

@@ -45,7 +45,9 @@ namespace QtCommon
             XcodeBuilder.Support.AddPreBuildStepForCommandLineTool(
                 module,
                 target,
-                configuration
+                configuration,
+                true,
+                false
             );
         }
     }
