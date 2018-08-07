@@ -37,16 +37,12 @@ namespace QtCommon
         Rcc(
             RccGeneratedSource module)
         {
-            var encapsulating = module.GetEncapsulatingReferencedModule();
-
-            var workspace = Bam.Core.Graph.Instance.MetaData as XcodeBuilder.WorkspaceMeta;
-            var target = workspace.EnsureTargetExists(encapsulating);
-            var configuration = target.GetConfiguration(encapsulating);
-
+            XcodeBuilder.Target target;
+            XcodeBuilder.Configuration configuration;
             XcodeBuilder.Support.AddPreBuildStepForCommandLineTool(
                 module,
-                target,
-                configuration,
+                out target,
+                out configuration,
                 XcodeBuilder.FileReference.EFileType.TextFile,
                 true,
                 false
