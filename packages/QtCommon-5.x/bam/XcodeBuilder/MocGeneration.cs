@@ -30,6 +30,7 @@
 namespace QtCommon
 {
 #if BAM_V2
+#if false
     public static partial class XcodeSupport
     {
         public static void
@@ -47,6 +48,7 @@ namespace QtCommon
             );
         }
     }
+#endif
 #else
     public sealed class XcodeMocGeneration :
         IMocGenerationPolicy
