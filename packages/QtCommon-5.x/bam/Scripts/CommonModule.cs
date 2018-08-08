@@ -132,14 +132,9 @@ namespace QtCommon
                     });
                 this.LinkerNameSymbolicLink = linkerName;
 
-                this.RegisterGeneratedFile(
-                    SONameKey,
-                    this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)")
-                );
-
                 var SOName = Bam.Core.Module.Create<CommonModuleSymbolicLink>(preInitCallback:module=>
                     {
-                        module.Macros.Add("SymlinkFilename", this.GeneratedPaths[SONameKey]);
+                        module.Macros.Add("SymlinkFilename", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)"));
                         module.SharedObject = this;
                     });
                 this.SONameSymbolicLink = SOName;
