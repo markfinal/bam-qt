@@ -124,25 +124,22 @@ namespace QtCommon
                     ExecutableKey,
                     this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)")
                 );
-                this.RegisterGeneratedFile(
-                    LinkerNameKey,
-                    this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(linkernameext)")
-                );
+
+                var linkerName = Bam.Core.Module.Create<CommonModuleSymbolicLink>(preInitCallback:module=>
+                    {
+                        module.Macros.Add("SymlinkFilename", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(linkernameext)"));
+                        module.SharedObject = this;
+                    });
+                this.LinkerNameSymbolicLink = linkerName;
+
                 this.RegisterGeneratedFile(
                     SONameKey,
                     this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)")
                 );
 
-                var linkerName = Bam.Core.Module.Create<CommonModuleSymbolicLink>(preInitCallback:module=>
-                    {
-                        module.Macros.AddVerbatim("SymlinkUsage", LinkerNameKey);
-                        module.SharedObject = this;
-                    });
-                this.LinkerNameSymbolicLink = linkerName;
-
                 var SOName = Bam.Core.Module.Create<CommonModuleSymbolicLink>(preInitCallback:module=>
                     {
-                        module.Macros.AddVerbatim("SymlinkUsage", SONameKey);
+                        module.Macros.Add("SymlinkFilename", this.GeneratedPaths[SONameKey]);
                         module.SharedObject = this;
                     });
                 this.SONameSymbolicLink = SOName;

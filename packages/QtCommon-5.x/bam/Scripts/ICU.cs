@@ -84,7 +84,7 @@ namespace QtCommon
 
                 var SOName = Bam.Core.Module.Create<ICUSharedObjectSymbolicLink>(preInitCallback:module=>
                     {
-                        module.Macros.AddVerbatim("SymlinkUsage", SONameKey);
+                        module.Macros.Add("SymlinkFilename", this.GeneratedPaths[SONameKey]);
                         module.SharedObject = this;
                     });
                 this.SONameSymbolicLink = SOName;
