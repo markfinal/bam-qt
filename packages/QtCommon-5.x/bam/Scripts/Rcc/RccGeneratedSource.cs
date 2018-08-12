@@ -95,7 +95,7 @@ namespace QtCommon
             {
 #if D_PACKAGE_MAKEFILEBUILDER
                 case "MakeFile":
-                    MakeFileSupport.Rcc(this);
+                    MakeFileBuilder.Support.Add(this);
                     break;
 #endif
 

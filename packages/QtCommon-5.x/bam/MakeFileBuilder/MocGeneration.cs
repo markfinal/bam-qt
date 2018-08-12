@@ -30,6 +30,7 @@
 namespace QtCommon
 {
 #if BAM_V2
+#if false
     public static partial class MakeFileSupport
     {
         public static void
@@ -64,6 +65,7 @@ namespace QtCommon
             }
         }
     }
+#endif
 #else
     public sealed class MakeFileMocGeneration :
         IMocGenerationPolicy
