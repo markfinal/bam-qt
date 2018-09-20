@@ -29,9 +29,10 @@
 #endregion // License
 namespace QtCommon
 {
+    [CommandLineProcessor.OutputPath(RccGeneratedSource.SourceFileKey, "-o ")]
+    [CommandLineProcessor.InputPaths(C.HeaderFile.HeaderFileKey, "")]
     public sealed class RccSettings :
         Bam.Core.Settings,
-        CommandLineProcessor.IConvertToCommandLine,
         IRccSettings
     {
         public RccSettings(
@@ -40,11 +41,10 @@ namespace QtCommon
             this.InitializeAllInterfaces(module, true, true);
         }
 
-        void
-        CommandLineProcessor.IConvertToCommandLine.Convert(
-            Bam.Core.StringArray commandLine)
+        public override void
+        AssignFileLayout()
         {
-            (this as IRccSettings).Convert(commandLine);
+            this.FileLayout = ELayout.Cmds_Outputs_Inputs;
         }
     }
 }

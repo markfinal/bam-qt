@@ -33,7 +33,6 @@ namespace QtCommon
         C.SourceFile
     {
         private C.HeaderFile SourceHeaderModule;
-        private IMocGenerationPolicy Policy = null;
 
         protected override void
         Init(
@@ -68,17 +67,22 @@ namespace QtCommon
         EvaluateInternal()
         {
             this.ReasonToExecute = null;
-            var generatedPath = this.GeneratedPaths[Key].ToString();
+            var generatedPath = this.GeneratedPaths[SourceFileKey].ToString();
             if (!System.IO.File.Exists(generatedPath))
             {
-                this.ReasonToExecute = Bam.Core.ExecuteReasoning.FileDoesNotExist(this.GeneratedPaths[Key]);
+                this.ReasonToExecute = Bam.Core.ExecuteReasoning.FileDoesNotExist(
+                    this.GeneratedPaths[SourceFileKey]
+                );
                 return;
             }
             var sourceFileWriteTime = System.IO.File.GetLastWriteTime(generatedPath);
             var headerFileWriteTime = System.IO.File.GetLastWriteTime(this.SourceHeaderModule.InputPath.ToString());
             if (headerFileWriteTime > sourceFileWriteTime)
             {
-                this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(this.GeneratedPaths[Key], this.SourceHeaderModule.InputPath);
+                this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(
+                    this.GeneratedPaths[SourceFileKey],
+                    this.SourceHeaderModule.InputPath
+                );
                 return;
             }
         }
@@ -87,15 +91,7 @@ namespace QtCommon
         ExecuteInternal(
             Bam.Core.ExecutionContext context)
         {
-            this.Policy.Moc(this, context, this.Compiler, this.GeneratedPaths[Key], this.SourceHeader);
-        }
-
-        protected override void
-        GetExecutionPolicy(
-            string mode)
-        {
-            var className = "QtCommon." + mode + "MocGeneration";
-            this.Policy = Bam.Core.ExecutionPolicyUtilities<IMocGenerationPolicy>.Create(className);
+            throw new System.NotImplementedException();
         }
 
         private Bam.Core.PreBuiltTool Compiler

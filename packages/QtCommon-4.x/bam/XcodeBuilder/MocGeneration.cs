@@ -29,6 +29,8 @@
 #endregion // License
 namespace QtCommon
 {
+#if BAM_V2
+#else
     public sealed class XcodeMocGeneration :
         IMocGenerationPolicy
     {
@@ -69,4 +71,5 @@ namespace QtCommon
             target.AddPreBuildCommands(commands, configuration);
         }
     }
+#endif
 }

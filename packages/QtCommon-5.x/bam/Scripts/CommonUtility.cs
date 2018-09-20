@@ -48,15 +48,24 @@ namespace QtCommon
             // utilities don't come in debug flavours
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/bin/$(QtUtilityName).exe");
+                this.RegisterGeneratedFile(
+                    ExecutableKey,
+                    this.CreateTokenizedString("$(QtInstallPath)/bin/$(QtUtilityName).exe")
+                );
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/libexec/$(QtUtilityName)");
+                this.RegisterGeneratedFile(
+                    ExecutableKey,
+                    this.CreateTokenizedString("$(QtInstallPath)/libexec/$(QtUtilityName)")
+                );
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                this.GeneratedPaths[Key] = this.CreateTokenizedString("$(QtInstallPath)/bin/$(QtUtilityName)");
+                this.RegisterGeneratedFile(
+                    ExecutableKey,
+                    this.CreateTokenizedString("$(QtInstallPath)/bin/$(QtUtilityName)")
+                );
             }
         }
     }

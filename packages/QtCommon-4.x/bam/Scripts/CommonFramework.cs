@@ -109,13 +109,6 @@ namespace QtCommon
             // prebuilt - no execution
         }
 
-        protected override void
-        GetExecutionPolicy(
-            string mode)
-        {
-            // prebuilt - no execution policy
-        }
-
         public override Bam.Core.TokenizedString FrameworkPath
         {
             get

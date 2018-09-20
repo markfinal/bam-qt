@@ -15,11 +15,11 @@
     <Package name="Mingw" version="4.8.1" />
     <Package name="NativeBuilder" />
     <Package name="Publisher" />
-    <Package name="Qt" version="5.6.2" default="true" />
-    <Package name="Qt" version="5.6.1" />
-    <Package name="Qt" version="5.6.0" />
-    <Package name="Qt" version="5.5.1" />
     <Package name="Qt" version="5.3.2" />
+    <Package name="Qt" version="5.5.1" />
+    <Package name="Qt" version="5.6.0" />
+    <Package name="Qt" version="5.6.1" />
+    <Package name="Qt" version="5.6.2" default="true" />
     <Package name="VisualC" version="10.0" />
     <Package name="VisualC" version="11.0" />
     <Package name="VisualC" version="12.0" />
@@ -29,7 +29,7 @@
     <Package name="XcodeBuilder" />
   </Dependents>
   <BamAssemblies>
-    <BamAssembly name="Bam.Core" major="1" minor="2" patch="0" />
+    <BamAssembly name="Bam.Core" major="2" minor="0" patch="0" />
   </BamAssemblies>
   <DotNetAssemblies>
     <DotNetAssembly name="System" requiredTargetFramework="4.0.30319" />

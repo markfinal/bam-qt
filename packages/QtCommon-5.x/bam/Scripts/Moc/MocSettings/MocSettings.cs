@@ -29,9 +29,10 @@
 #endregion // License
 namespace QtCommon
 {
+    [CommandLineProcessor.OutputPath(MocGeneratedSource.SourceFileKey, "-o ")]
+    [CommandLineProcessor.InputPaths(C.HeaderFile.HeaderFileKey, "")]
     public sealed class MocSettings :
         Bam.Core.Settings,
-        CommandLineProcessor.IConvertToCommandLine,
         IMocSettings
     {
         public MocSettings(
@@ -40,41 +41,45 @@ namespace QtCommon
             this.InitializeAllInterfaces(module, true, true);
         }
 
-        void
-        CommandLineProcessor.IConvertToCommandLine.Convert(
-            Bam.Core.StringArray commandLine)
-        {
-            (this as IMocSettings).Convert(commandLine);
-        }
-
+        [CommandLineProcessor.PreprocessorDefines("-D ")]
         C.PreprocessorDefinitions IMocSettings.PreprocessorDefinitions
         {
             get;
             set;
         }
 
-        Bam.Core.Array<Bam.Core.TokenizedString> IMocSettings.IncludePaths
+        [CommandLineProcessor.PathArray("-I ")]
+        Bam.Core.TokenizedStringArray IMocSettings.IncludePaths
         {
             get;
             set;
         }
 
+        [CommandLineProcessor.Bool("-i", "")]
         bool IMocSettings.DoNotGenerateIncludeStatement
         {
             get;
             set;
         }
 
+        [CommandLineProcessor.Bool("--no-warnings", "")]
         bool IMocSettings.DoNotDisplayWarnings
         {
             get;
             set;
         }
 
+        [CommandLineProcessor.String("-p ")]
         string IMocSettings.PathPrefix
         {
             get;
             set;
+        }
+
+        public override void
+        AssignFileLayout()
+        {
+            this.FileLayout = ELayout.Cmds_Outputs_Inputs;
         }
     }
 }

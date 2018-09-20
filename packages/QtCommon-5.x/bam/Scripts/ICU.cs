@@ -64,7 +64,10 @@ namespace QtCommon
             var graph = Bam.Core.Graph.Instance;
             graph.Macros.Add("QtInstallPath", Configure.InstallPath);
 
-            this.GeneratedPaths[C.DynamicLibrary.Key] = this.CreateTokenizedString("$(ICUInstallPath)/$(dynamicprefix)$(OutputName)$(dynamicext)");
+            this.RegisterGeneratedFile(
+                ExecutableKey,
+                this.CreateTokenizedString("$(ICUInstallPath)/$(dynamicprefix)$(OutputName)$(dynamicext)")
+            );
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
@@ -74,11 +77,9 @@ namespace QtCommon
             {
                 this.Macros.Add("ICUInstallPath", this.CreateTokenizedString("$(QtInstallPath)/lib"));
 
-                this.Macros.Add("SOName", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)"));
-
                 var SOName = Bam.Core.Module.Create<ICUSharedObjectSymbolicLink>(preInitCallback:module=>
                     {
-                        module.Macros.AddVerbatim("SymlinkUsage", "SOName");
+                        module.Macros.Add("SymlinkFilename", this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)"));
                         module.SharedObject = this;
                     });
                 this.SONameSymbolicLink = SOName;

@@ -33,7 +33,6 @@ namespace QtCommon
         C.SourceFile
     {
         private QRCFile SourceQRCFile;
-        private IRccGenerationPolicy Policy = null;
 
         protected override void
         Init(
@@ -68,17 +67,22 @@ namespace QtCommon
         EvaluateInternal()
         {
             this.ReasonToExecute = null;
-            var generatedPath = this.GeneratedPaths[Key].ToString();
+            var generatedPath = this.GeneratedPaths[SourceFileKey].ToString();
             if (!System.IO.File.Exists(generatedPath))
             {
-                this.ReasonToExecute = Bam.Core.ExecuteReasoning.FileDoesNotExist(this.GeneratedPaths[Key]);
+                this.ReasonToExecute = Bam.Core.ExecuteReasoning.FileDoesNotExist(
+                    this.GeneratedPaths[SourceFileKey]
+                );
                 return;
             }
             var sourceFileWriteTime = System.IO.File.GetLastWriteTime(generatedPath);
             var headerFileWriteTime = System.IO.File.GetLastWriteTime(this.SourceQRCFile.InputPath.ToString());
             if (headerFileWriteTime > sourceFileWriteTime)
             {
-                this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(this.GeneratedPaths[Key], this.SourceQRCFile.InputPath);
+                this.ReasonToExecute = Bam.Core.ExecuteReasoning.InputFileNewer(
+                    this.GeneratedPaths[SourceFileKey],
+                    this.SourceQRCFile.InputPath
+                );
                 return;
             }
         }
@@ -87,15 +91,51 @@ namespace QtCommon
         ExecuteInternal(
             Bam.Core.ExecutionContext context)
         {
-            this.Policy.Rcc(this, context, this.Compiler, this.GeneratedPaths[Key], this.SourceHeader);
-        }
+            switch (Bam.Core.Graph.Instance.Mode)
+            {
+#if D_PACKAGE_MAKEFILEBUILDER
+                case "MakeFile":
+                    MakeFileBuilder.Support.Add(this);
+                    break;
+#endif
 
-        protected override void
-        GetExecutionPolicy(
-            string mode)
-        {
-            var className = "QtCommon." + mode + "RccGeneration";
-            this.Policy = Bam.Core.ExecutionPolicyUtilities<IRccGenerationPolicy>.Create(className);
+#if D_PACKAGE_NATIVEBUILDER
+                case "Native":
+                    NativeBuilder.Support.RunCommandLineTool(this, context);
+                    break;
+#endif
+
+#if D_PACKAGE_VSSOLUTIONBUILDER
+                case "VSSolution":
+                    VSSolutionBuilder.Support.AddCustomBuildStepForCommandLineTool(
+                        this,
+                        this.GeneratedPaths[SourceFileKey],
+                        "Rcc'ing",
+                        true // the .qrc file
+                    );
+                    break;
+#endif
+
+#if D_PACKAGE_XCODEBUILDER
+                case "Xcode":
+                    {
+                        XcodeBuilder.Target target;
+                        XcodeBuilder.Configuration configuration;
+                        XcodeBuilder.Support.AddPreBuildStepForCommandLineTool(
+                            this,
+                            out target,
+                            out configuration,
+                            XcodeBuilder.FileReference.EFileType.TextFile,
+                            true,
+                            false
+                        );
+                    }
+                    break;
+#endif
+
+                default:
+                    throw new System.NotImplementedException();
+            }
         }
 
         private Bam.Core.PreBuiltTool Compiler
@@ -108,6 +148,17 @@ namespace QtCommon
             set
             {
                 this.Tool = value;
+            }
+        }
+
+        public override System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, Bam.Core.Module>> InputModules
+        {
+            get
+            {
+                yield return new System.Collections.Generic.KeyValuePair<string, Bam.Core.Module>(
+                    C.HeaderFile.HeaderFileKey,
+                    this.SourceQRCFile
+                );
             }
         }
     }

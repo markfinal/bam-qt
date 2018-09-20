@@ -29,9 +29,10 @@
 #endregion // License
 namespace QtCommon
 {
+    [CommandLineProcessor.OutputPath(UicGeneratedHeader.HeaderFileKey, "-o ")]
+    [CommandLineProcessor.InputPaths(QUIFile.HeaderFileKey, "")]
     public sealed class UicSettings :
         Bam.Core.Settings,
-        CommandLineProcessor.IConvertToCommandLine,
         IUicSettings
     {
         public UicSettings(
@@ -40,11 +41,10 @@ namespace QtCommon
             this.InitializeAllInterfaces(module, true, true);
         }
 
-        void
-        CommandLineProcessor.IConvertToCommandLine.Convert(
-            Bam.Core.StringArray commandLine)
+        public override void
+        AssignFileLayout()
         {
-            (this as IUicSettings).Convert(commandLine);
+            this.FileLayout = ELayout.Cmds_Outputs_Inputs;
         }
     }
 }

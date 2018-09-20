@@ -117,7 +117,7 @@ namespace Qt5Test3
             base.Init(parent);
 
             this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
-            var appAnchor = this.Include<Qt5Application>(C.Cxx.GUIApplication.Key);
+            var appAnchor = this.Include<Qt5Application>(C.Cxx.GUIApplication.ExecutableKey);
 
             var qtPlatformPlugin = this.Find<QtCommon.PlatformPlugin>().First();
             (qtPlatformPlugin as Publisher.CollatedObject).SetPublishingDirectory("$(0)/platforms", this.PluginDir);
@@ -206,7 +206,7 @@ namespace Qt5Test3
         {
             base.Init(parent);
 
-            this.SourceFolder<Qt5Test3Stripped>(Publisher.StrippedBinaryCollation.Key);
+            this.SourceFolder<Qt5Test3Stripped>(Publisher.StrippedBinaryCollation.StripBinaryDirectoryKey);
         }
     }
 }
