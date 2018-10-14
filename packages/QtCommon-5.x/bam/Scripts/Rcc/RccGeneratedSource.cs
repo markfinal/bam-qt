@@ -127,7 +127,8 @@ namespace QtCommon
                             out configuration,
                             XcodeBuilder.FileReference.EFileType.TextFile,
                             true,
-                            false
+                            false,
+                            outputPaths: new Bam.Core.TokenizedStringArray(this.GeneratedPaths[SourceFileKey])
                         );
                     }
                     break;

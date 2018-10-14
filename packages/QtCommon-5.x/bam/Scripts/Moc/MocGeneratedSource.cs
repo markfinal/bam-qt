@@ -126,7 +126,8 @@ namespace QtCommon
                             out target,
                             out configuration,
                             true,
-                            false
+                            false,
+                            outputPaths: new Bam.Core.TokenizedStringArray(this.GeneratedPaths[SourceFileKey])
                         );
                     }
                     break;
