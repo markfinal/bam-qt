@@ -62,7 +62,7 @@ namespace Qt5Test3
                     var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
                     if (null != vcCompiler)
                     {
-                        if (source.Compiler.IsAtLeast(14))
+                        if (source.Compiler.Version.AtLeast(VisualCCommon.ToolchainVersion.VC2015))
                         {
                             var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
                             cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Synchronous; // C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iosfwd(343): warning C4577: 'noexcept' used with no exception handling mode specified; termination on exception is not guaranteed. Specify /EHsc
