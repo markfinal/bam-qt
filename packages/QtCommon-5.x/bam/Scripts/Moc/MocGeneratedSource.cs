@@ -41,7 +41,9 @@ namespace QtCommon
             base.Init(parent);
             this.Compiler = Bam.Core.Graph.Instance.FindReferencedModule<MocTool>();
             this.Requires(this.Compiler);
-            this.InputPath = this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(MOCHeaderPath),$(packagedir)),../),.moc.cpp)");
+            this.InputPath = this.CreateTokenizedString(
+                "$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@isrelative(@relativeto($(MOCHeaderPath),$(packagedir)),../),@filename($(MOCHeaderPath))),.moc.cpp)"
+            );
         }
 
         public C.HeaderFile SourceHeader

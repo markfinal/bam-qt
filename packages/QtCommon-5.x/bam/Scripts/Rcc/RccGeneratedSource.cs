@@ -41,7 +41,9 @@ namespace QtCommon
             base.Init(parent);
             this.Compiler = Bam.Core.Graph.Instance.FindReferencedModule<RccTool>();
             this.Requires(this.Compiler);
-            this.InputPath = this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(QRCHeaderPath),$(packagedir)),../),.rcc.cpp)");
+            this.InputPath = this.CreateTokenizedString(
+                "$(encapsulatingbuilddir)/$(config)/@changeextension(@isrelative(@trimstart(@relativeto($(QRCHeaderPath),$(packagedir)),../),@filename($(QRCHeaderPath))),.rcc.cpp)"
+            );
         }
 
         public QRCFile SourceHeader

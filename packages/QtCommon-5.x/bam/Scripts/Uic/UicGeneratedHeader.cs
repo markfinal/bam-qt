@@ -42,7 +42,7 @@ namespace QtCommon
             this.Compiler = Bam.Core.Graph.Instance.FindReferencedModule<UicTool>();
             this.Requires(this.Compiler);
             this.InputPath = this.CreateTokenizedString(
-                "$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(QUIFilePath),$(packagedir)),../),.h)"
+                "$(encapsulatingbuilddir)/$(config)/@changeextension(@isrelative(@trimstart(@relativeto($(QUIFilePath),$(packagedir)),../),@filename($(QUIFilePath))),.h)"
             );
         }
 
