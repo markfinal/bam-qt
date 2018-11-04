@@ -55,7 +55,10 @@ namespace QtCommon.UicExtension
         {
             var source = Bam.Core.Module.Create<QUIFileCollection>(module);
             module.Requires(source);
-            (source as C.IAddFiles).AddFiles(wildcardPath, macroModuleOverride: macroModuleOverride, filter: filter);
+            if (null != wildcardPath)
+            {
+                (source as C.IAddFiles).AddFiles(wildcardPath, macroModuleOverride: macroModuleOverride, filter: filter);
+            }
             return source;
         }
     }

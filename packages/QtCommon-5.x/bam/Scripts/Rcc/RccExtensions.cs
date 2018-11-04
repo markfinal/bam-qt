@@ -59,7 +59,10 @@ namespace QtCommon.RccExtension
         {
             var source = Bam.Core.Module.Create<QRCFileCollection>(module);
             module.Requires(source);
-            (source as C.IAddFiles).AddFiles(wildcardPath, macroModuleOverride: macroModuleOverride, filter: filter);
+            if (null != wildcardPath)
+            {
+                (source as C.IAddFiles).AddFiles(wildcardPath, macroModuleOverride: macroModuleOverride, filter: filter);
+            }
             return source;
         }
     }
