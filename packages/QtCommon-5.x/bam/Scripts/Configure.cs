@@ -46,7 +46,7 @@ namespace QtCommon
             var qtInstallDir = Bam.Core.CommandLineProcessor.Evaluate(new Options.QtInstallPath());
             if (!System.IO.Directory.Exists(qtInstallDir))
             {
-                throw new Bam.Core.Exception("Qt install dir, {0}, does not exist", qtInstallDir);
+                throw new Bam.Core.Exception($"Qt install dir, {qtInstallDir}, does not exist");
             }
             InstallPath = Bam.Core.TokenizedString.CreateVerbatim(qtInstallDir);
 
@@ -60,22 +60,8 @@ namespace QtCommon
             }
         }
 
-        public static Bam.Core.TokenizedString InstallPath
-        {
-            get;
-            private set;
-        }
-
-        public static Bam.Core.StringArray Version
-        {
-            get;
-            private set;
-        }
-
-        public static Bam.Core.TokenizedString ExecutableExtension
-        {
-            get;
-            private set;
-        }
+        public static Bam.Core.TokenizedString InstallPath { get; private set; }
+        public static Bam.Core.StringArray Version { get; private set; }
+        public static Bam.Core.TokenizedString ExecutableExtension { get; private set; }
     }
 }

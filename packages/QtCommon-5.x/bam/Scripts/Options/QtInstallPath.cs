@@ -34,30 +34,9 @@ namespace QtCommon.Options
         Bam.Core.IStringCommandLineArgument,
         Bam.Core.ICommandLineArgumentDefault<string>
     {
-        string Bam.Core.ICommandLineArgument.ContextHelp
-        {
-            get
-            {
-                return "Define the Qt install location";
-            }
-        }
-
-        string Bam.Core.ICommandLineArgument.LongName
-        {
-            get
-            {
-                return "--Qt.installPath";
-            }
-        }
-
-        string Bam.Core.ICommandLineArgument.ShortName
-        {
-            get
-            {
-                return null;
-            }
-        }
-
+        string Bam.Core.ICommandLineArgument.ContextHelp => "Define the Qt install location";
+        string Bam.Core.ICommandLineArgument.LongName => "--Qt.installPath";
+        string Bam.Core.ICommandLineArgument.ShortName => null;
         string Bam.Core.ICommandLineArgumentDefault<string>.Default
         {
             get
@@ -77,7 +56,7 @@ namespace QtCommon.Options
                         return GetOSXInstallPath(qtVersion);
                 }
 
-                throw new Bam.Core.Exception("Unable to determine default Qt {0} installation", qtVersion);
+                throw new Bam.Core.Exception($"Unable to determine default Qt {qtVersion} installation");
             }
         }
 
@@ -94,7 +73,9 @@ namespace QtCommon.Options
             {
                 if (null == key)
                 {
-                    throw new Bam.Core.Exception(@"Could not detect if Qt {0} libraries were installed; checked registry at HKEY_CURRENT_USER\Software\{1}", qtVersion, uninstallKey);
+                    throw new Bam.Core.Exception(
+                        $@"Could not detect if Qt {qtVersion} libraries were installed; checked registry at HKEY_CURRENT_USER\Software\{uninstallKey}"
+                    );
                 }
 
                 foreach (var subKey in key.SubKeys)
@@ -110,33 +91,22 @@ namespace QtCommon.Options
                                 if (!System.IO.Directory.Exists(installDir))
                                 {
                                     throw new Bam.Core.Exception(
-                                        "Qt {0} installation directory, {1}, does not exist",
-                                        qtVersion,
-                                        installDir
+                                        $"Qt {qtVersion} installation directory, {installDir}, does not exist"
                                     );
                                 }
 
                                 var qtVersionSplit = qtVersion.Split('.');
 
-                                var qtInstallPath = System.String.Format(
-                                    @"{0}\{1}.{2}\{3}",
-                                    installDir,
-                                    qtVersionSplit[0],
-                                    qtVersionSplit[1],
-                                    msvcFlavour
-                                );
+                                var qtInstallPath = $@"{installDir}\{qtVersionSplit[0]}.{qtVersionSplit[1]}\{msvcFlavour}";
 
-                                Bam.Core.Log.DebugMessage("Qt installation folder is {0}", qtInstallPath);
+                                Bam.Core.Log.DebugMessage($"Qt installation folder is {qtInstallPath}");
                                 return qtInstallPath;
                             }
                             catch (Bam.Core.Exception exception)
                             {
                                 throw new Bam.Core.Exception(
                                     exception,
-                                    @"InstallLocation registry key for Qt {0} at HKEY_CURRENT_USER\Software\{1}\{2}\InstallationLocation is invalid",
-                                    qtVersion,
-                                    uninstallKey,
-                                    subKey.Name
+                                    $@"InstallLocation registry key for Qt {qtVersion} at HKEY_CURRENT_USER\Software\{uninstallKey}\{subKey.Name}\InstallationLocation is invalid"
                                 );
                             }
                         }
@@ -144,7 +114,7 @@ namespace QtCommon.Options
                 }
             }
 
-            throw new Bam.Core.Exception("Unable to detect from the Windows registry whether Qt {0} was installed", qtVersion);
+            throw new Bam.Core.Exception($"Unable to detect from the Windows registry whether Qt {qtVersion} was installed");
         }
 
         private static string
@@ -159,7 +129,7 @@ namespace QtCommon.Options
 
             var qtVersionSplit = qtVersion.Split('.');
 
-            var installPath = System.String.Format("{0}/Qt{1}/{2}.{3}/gcc_64", homeDir, qtVersion, qtVersionSplit[0], qtVersionSplit[1]);
+            var installPath = $"{homeDir}/Qt{qtVersion}/{qtVersionSplit[0]}.{qtVersionSplit[1]}/gcc_64";
             return installPath;
         }
 
@@ -175,7 +145,7 @@ namespace QtCommon.Options
 
             var qtVersionSplit = qtVersion.Split('.');
 
-            var installPath = System.String.Format("{0}/Qt{1}/{2}.{3}/clang_64", homeDir, qtVersion, qtVersionSplit[0], qtVersionSplit[1]);
+            var installPath = $"{homeDir}/Qt{qtVersion}/{qtVersionSplit[0]}.{qtVersionSplit[1]}/clang_64";
             return installPath;
         }
     }

@@ -45,14 +45,7 @@ namespace QtCommon
             this.Macros.Add("QtFramework", this.CreateTokenizedString("Qt$(QtModuleName).framework"));
         }
 
-        protected virtual Bam.Core.TypeArray
-        RuntimeDependentModules
-        {
-            get
-            {
-                return null;
-            }
-        }
+        protected virtual Bam.Core.TypeArray RuntimeDependentModules => null;
 
         protected override void
         Init(
@@ -62,14 +55,12 @@ namespace QtCommon
 
             this.PublicPatch((settings, appliedTo) =>
                 {
-                    var osxCompiler = settings as C.ICommonCompilerSettingsOSX;
-                    if (null != osxCompiler)
+                    if (settings is C.ICommonCompilerSettingsOSX osxCompiler)
                     {
                         osxCompiler.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
                     }
 
-                    var osxLinker = settings as C.ICommonLinkerSettingsOSX;
-                    if (null != osxLinker)
+                    if (settings is C.ICommonLinkerSettingsOSX osxLinker)
                     {
                         osxLinker.Frameworks.AddUnique(this.CreateTokenizedString("$(QtFrameworkPath)/$(QtFramework)"));
                         osxLinker.FrameworkSearchPaths.AddUnique(this.Macros["QtFrameworkPath"]);
@@ -103,39 +94,20 @@ namespace QtCommon
             // prebuilt - no execution
         }
 
-        public override Bam.Core.TokenizedString FrameworkPath
-        {
-            get
-            {
-                return this.Macros["QtFrameworkPath"];
-            }
-        }
-
-        protected override Bam.Core.TokenizedString FrameworkBundleName
-        {
-            get
-            {
-                return this.Macros["QtFramework"];
-            }
-        }
-
-        protected override Bam.Core.TokenizedString FrameworkLibraryPath
-        {
-            get
-            {
-                return this.CreateTokenizedString("$(QtFramework)/Versions/5/Qt$(QtModuleName)");
-            }
-        }
-
+        public override Bam.Core.TokenizedString FrameworkPath => this.Macros["QtFrameworkPath"];
+        protected override Bam.Core.TokenizedString FrameworkBundleName => this.Macros["QtFramework"];
+        protected override Bam.Core.TokenizedString FrameworkLibraryPath => this.CreateTokenizedString("$(QtFramework)/Versions/5/Qt$(QtModuleName)");
         public virtual Bam.Core.TokenizedStringArray PublishingExclusions
         {
             get
             {
-                var exclusions = new Bam.Core.TokenizedStringArray();
-                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("Headers/"));
-                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("Headers"));
-                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("*_debug"));
-                exclusions.Add(Bam.Core.TokenizedString.CreateVerbatim("*.prl"));
+                var exclusions = new Bam.Core.TokenizedStringArray
+                {
+                    Bam.Core.TokenizedString.CreateVerbatim("Headers/"),
+                    Bam.Core.TokenizedString.CreateVerbatim("Headers"),
+                    Bam.Core.TokenizedString.CreateVerbatim("*_debug"),
+                    Bam.Core.TokenizedString.CreateVerbatim("*.prl")
+                };
                 return exclusions;
             }
         }

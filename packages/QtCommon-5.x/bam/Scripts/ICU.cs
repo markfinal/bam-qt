@@ -33,17 +33,13 @@ namespace QtCommon
 {
     public interface IICUMeta
     {
-        string Version
-        {
-            get;
-        }
+        string Version { get; }
     }
 
     [C.Prebuilt]
     public class ICUSharedObjectSymbolicLink :
         C.SharedObjectSymbolicLink
-    {
-    }
+    {}
 
     [C.Prebuilt]
     public abstract class ICUBase :

@@ -58,7 +58,7 @@ namespace Qt
                 }
                 else
                 {
-                    throw new Bam.Core.Exception("VisualC version {0} not supported by this Qt installation", visualcVersion);
+                    throw new Bam.Core.Exception($"VisualC version {visualcVersion} not supported by this Qt installation");
                 }
             }
             else
@@ -67,27 +67,12 @@ namespace Qt
             }
         }
 
-        public override object this[string index]
-        {
-            get
-            {
-                return this.Meta[index];
-            }
-        }
+        public override object this[string index] => this.Meta[index];
 
         public override bool
         Contains(
-            string index)
-        {
-            return this.Meta.ContainsKey(index);
-        }
+            string index) => this.Meta.ContainsKey(index);
 
-        string QtCommon.IICUMeta.Version
-        {
-            get
-            {
-                return this.Meta["ICUVersion"] as string;
-            }
-        }
+        string QtCommon.IICUMeta.Version => this.Meta["ICUVersion"] as string;
     }
 }

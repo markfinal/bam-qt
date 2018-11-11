@@ -44,12 +44,11 @@ namespace Qt
             {
                 this.PublicPatch((settings, appliedTo) =>
                     {
-                        var linker = settings as GccCommon.ICommonLinkerSettings;
-                        if (linker != null)
+                        if (settings is GccCommon.ICommonLinkerSettings gccLinker)
                         {
                             // New in Qt 5.5
                             // required to link against Qt5Core, which depend on the icu shared libraries
-                            linker.RPathLink.AddUnique(this.CreateTokenizedString("$(0)/lib", QtCommon.Configure.InstallPath));
+                            gccLinker.RPathLink.AddUnique(this.CreateTokenizedString("$(0)/lib", QtCommon.Configure.InstallPath));
                         }
                     });
             }
