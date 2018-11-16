@@ -48,11 +48,7 @@ namespace QtCommon
             this.HasHeaders = hasHeaders;
         }
 
-        private bool HasHeaders
-        {
-            get;
-            set;
-        }
+        private bool HasHeaders { get; set; }
 
         protected override void
         Init(
@@ -92,14 +88,12 @@ namespace QtCommon
 
             this.PublicPatch((settings, appliedTo) =>
                 {
-                    var compiler = settings as C.ICommonCompilerSettings;
-                    if (null != compiler)
+                    if (settings is C.ICommonCompilerSettings compiler)
                     {
                         compiler.IncludePaths.AddUnique(this.Macros["QtIncludePath"]);
                     }
 
-                    var linker = settings as C.ICommonLinkerSettings;
-                    if (null != linker)
+                    if (settings is C.ICommonLinkerSettings linker)
                     {
                         linker.LibraryPaths.AddUnique(this.Macros["QtLibraryPath"]);
                     }

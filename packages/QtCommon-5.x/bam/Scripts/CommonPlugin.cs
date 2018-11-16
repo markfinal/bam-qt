@@ -99,13 +99,6 @@ namespace QtCommon
             }
         }
 
-        protected virtual Bam.Core.TypeArray
-        RuntimeDependentModules
-        {
-            get
-            {
-                return null;
-            }
-        }
+        protected virtual Bam.Core.TypeArray RuntimeDependentModules => null;
     }
 }

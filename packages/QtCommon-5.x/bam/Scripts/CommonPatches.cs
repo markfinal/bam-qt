@@ -41,8 +41,7 @@ namespace QtCommon
             {
                 return;
             }
-            var compiler = settings as C.ICommonCompilerSettings;
-            if (null != compiler)
+            if (settings is C.ICommonCompilerSettings compiler)
             {
                 compiler.IncludePaths.AddUnique(
                     Bam.Core.TokenizedString.Create("$(0)/include", null,

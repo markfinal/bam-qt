@@ -121,12 +121,10 @@ namespace QtCommon
 #if D_PACKAGE_XCODEBUILDER
                 case "Xcode":
                     {
-                        XcodeBuilder.Target target;
-                        XcodeBuilder.Configuration configuration;
                         XcodeBuilder.Support.AddPreBuildStepForCommandLineTool(
                             this,
-                            out target,
-                            out configuration,
+                            out XcodeBuilder.Target target,
+                            out XcodeBuilder.Configuration configuration,
                             XcodeBuilder.FileReference.EFileType.TextFile,
                             true,
                             false,

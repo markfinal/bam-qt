@@ -45,17 +45,8 @@ namespace QtCommon
 
         public override Bam.Core.Settings
         CreateDefaultSettings<T>(
-            T module)
-        {
-            return new RccSettings(module);
-        }
+            T module) => new RccSettings(module);
 
-        public override Bam.Core.TokenizedString Executable
-        {
-            get
-            {
-                return this.Macros["rccExe"];
-            }
-        }
+        public override Bam.Core.TokenizedString Executable => this.Macros["rccExe"];
     }
 }

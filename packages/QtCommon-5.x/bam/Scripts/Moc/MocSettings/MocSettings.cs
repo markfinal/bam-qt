@@ -36,45 +36,22 @@ namespace QtCommon
         IMocSettings
     {
         public MocSettings(
-            Bam.Core.Module module)
-        {
-            this.InitializeAllInterfaces(module, true, true);
-        }
+            Bam.Core.Module module) => this.InitializeAllInterfaces(module, true, true);
 
         [CommandLineProcessor.PreprocessorDefines("-D ")]
-        C.PreprocessorDefinitions IMocSettings.PreprocessorDefinitions
-        {
-            get;
-            set;
-        }
+        C.PreprocessorDefinitions IMocSettings.PreprocessorDefinitions { get; set; }
 
         [CommandLineProcessor.PathArray("-I ")]
-        Bam.Core.TokenizedStringArray IMocSettings.IncludePaths
-        {
-            get;
-            set;
-        }
+        Bam.Core.TokenizedStringArray IMocSettings.IncludePaths { get; set; }
 
         [CommandLineProcessor.Bool("-i", "")]
-        bool IMocSettings.DoNotGenerateIncludeStatement
-        {
-            get;
-            set;
-        }
+        bool IMocSettings.DoNotGenerateIncludeStatement { get; set; }
 
         [CommandLineProcessor.Bool("--no-warnings", "")]
-        bool IMocSettings.DoNotDisplayWarnings
-        {
-            get;
-            set;
-        }
+        bool IMocSettings.DoNotDisplayWarnings { get; set; }
 
         [CommandLineProcessor.String("-p ")]
-        string IMocSettings.PathPrefix
-        {
-            get;
-            set;
-        }
+        string IMocSettings.PathPrefix { get; set; }
 
         public override void
         AssignFileLayout()
