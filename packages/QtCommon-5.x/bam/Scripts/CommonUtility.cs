@@ -31,6 +31,7 @@ using Bam.Core;
 namespace QtCommon
 {
     [C.Prebuilt]
+    [Bam.Core.ModuleGroup("Thirdparty/Qt5")]
     public abstract class CommonUtility :
         C.Cxx.ConsoleApplication
     {
