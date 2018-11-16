@@ -27,7 +27,6 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using System.Linq;
 namespace QtCommon.DefaultSettings
 {
     public static partial class DefaultSettingsExtensions
@@ -36,13 +35,11 @@ namespace QtCommon.DefaultSettings
         Defaults(
             this IUicSettings settings,
             Bam.Core.Module module)
-        {
-        }
+        {}
 
         public static void
         Empty(
             this IUicSettings settings)
-        {
-        }
+        {}
     }
 }

@@ -45,17 +45,8 @@ namespace QtCommon
 
         public override Bam.Core.Settings
         CreateDefaultSettings<T>(
-            T module)
-        {
-            return new UicSettings(module);
-        }
+            T module) => new UicSettings(module);
 
-        public override Bam.Core.TokenizedString Executable
-        {
-            get
-            {
-                return this.Macros["uicExe"];
-            }
-        }
+        public override Bam.Core.TokenizedString Executable => this.Macros["uicExe"];
     }
 }

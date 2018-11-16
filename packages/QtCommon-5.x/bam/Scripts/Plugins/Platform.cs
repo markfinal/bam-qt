@@ -53,7 +53,7 @@ namespace QtCommon
             }
         }
 
-        protected override TypeArray RuntimeDependentModules
+        protected override Bam.Core.TypeArray RuntimeDependentModules
         {
             get
             {

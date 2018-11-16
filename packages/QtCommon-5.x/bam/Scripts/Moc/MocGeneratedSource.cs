@@ -41,7 +41,9 @@ namespace QtCommon
             base.Init(parent);
             this.Compiler = Bam.Core.Graph.Instance.FindReferencedModule<MocTool>();
             this.Requires(this.Compiler);
-            this.InputPath = this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(MOCHeaderPath),$(packagedir)),../),.moc.cpp)");
+            this.InputPath = this.CreateTokenizedString(
+                "$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@isrelative(@relativeto($(MOCHeaderPath),$(packagedir)),../),@filename($(MOCHeaderPath))),.moc.cpp)"
+            );
         }
 
         public C.HeaderFile SourceHeader
@@ -119,12 +121,10 @@ namespace QtCommon
 #if D_PACKAGE_XCODEBUILDER
                 case "Xcode":
                     {
-                        XcodeBuilder.Target target;
-                        XcodeBuilder.Configuration configuration;
                         XcodeBuilder.Support.AddPreBuildStepForCommandLineTool(
                             this,
-                            out target,
-                            out configuration,
+                            out XcodeBuilder.Target target,
+                            out XcodeBuilder.Configuration configuration,
                             true,
                             false,
                             outputPaths: new Bam.Core.TokenizedStringArray(this.GeneratedPaths[SourceFileKey])

@@ -45,17 +45,8 @@ namespace QtCommon
 
         public override Bam.Core.Settings
         CreateDefaultSettings<T>(
-            T module)
-        {
-            return new MocSettings(module);
-        }
+            T module) => new MocSettings(module);
 
-        public override Bam.Core.TokenizedString Executable
-        {
-            get
-            {
-                return this.Macros["mocExe"];
-            }
-        }
+        public override Bam.Core.TokenizedString Executable => this.Macros["mocExe"];
     }
 }

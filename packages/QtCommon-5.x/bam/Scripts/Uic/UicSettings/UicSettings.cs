@@ -36,10 +36,7 @@ namespace QtCommon
         IUicSettings
     {
         public UicSettings(
-            Bam.Core.Module module)
-        {
-            this.InitializeAllInterfaces(module, true, true);
-        }
+            Bam.Core.Module module) => this.InitializeAllInterfaces(module, true, true);
 
         public override void
         AssignFileLayout()

@@ -50,26 +50,9 @@ namespace QtCommon
             this.CustomVersionNumber = customVersionNumber;
         }
 
-        private bool HasHeaders
-        {
-            get;
-            set;
-        }
-
-        private System.Tuple<string,string,string> CustomVersionNumber
-        {
-            get;
-            set;
-        }
-
-        protected virtual Bam.Core.TypeArray
-        RuntimeDependentModules
-        {
-            get
-            {
-                return null;
-            }
-        }
+        private bool HasHeaders { get; set; }
+        private System.Tuple<string,string,string> CustomVersionNumber { get; set; }
+        protected virtual Bam.Core.TypeArray RuntimeDependentModules => null;
 
         protected override void
         Init(
@@ -142,14 +125,12 @@ namespace QtCommon
 
             this.PublicPatch((settings, appliedTo) =>
                 {
-                    var compiler = settings as C.ICommonCompilerSettings;
-                    if (null != compiler)
+                    if (settings is C.ICommonCompilerSettings compiler)
                     {
                         compiler.IncludePaths.AddUnique(this.Macros["QtIncludePath"]);
                     }
 
-                    var linker = settings as C.ICommonLinkerSettings;
-                    if (null != linker)
+                    if (settings is C.ICommonLinkerSettings linker)
                     {
                         linker.LibraryPaths.AddUnique(this.Macros["QtLibraryPath"]);
                     }

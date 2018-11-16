@@ -33,34 +33,10 @@ namespace QtCommon
     public interface IMocSettings :
         Bam.Core.ISettingsBase
     {
-        C.PreprocessorDefinitions PreprocessorDefinitions
-        {
-            get;
-            set;
-        }
-
-        Bam.Core.TokenizedStringArray IncludePaths
-        {
-            get;
-            set;
-        }
-
-        bool DoNotGenerateIncludeStatement
-        {
-            get;
-            set;
-        }
-
-        bool DoNotDisplayWarnings
-        {
-            get;
-            set;
-        }
-
-        string PathPrefix
-        {
-            get;
-            set;
-        }
+        C.PreprocessorDefinitions PreprocessorDefinitions { get; set; }
+        Bam.Core.TokenizedStringArray IncludePaths { get; set; }
+        bool DoNotGenerateIncludeStatement { get; set; }
+        bool DoNotDisplayWarnings { get; set; }
+        string PathPrefix { get; set; }
     }
 }
