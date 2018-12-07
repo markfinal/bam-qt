@@ -71,20 +71,11 @@ namespace QtCommon
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                if (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug)
-                {
-                    this.RegisterGeneratedFile(
-                        ExecutableKey,
-                        this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName)_debug.dylib")
-                    );
-                }
-                else
-                {
-                    this.RegisterGeneratedFile(
-                        ExecutableKey,
-                        this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).dylib")
-                    );
-                }
+                // the *_debug.dylibs don't seem to work all the time
+                this.RegisterGeneratedFile(
+                    ExecutableKey,
+                    this.CreateTokenizedString("$(QtInstallPath)/plugins/$(QtPluginDir)/lib$(QtPluginName).dylib")
+                );
             }
 
             var dependentTypes = this.RuntimeDependentModules;

@@ -67,7 +67,8 @@ namespace QtCommon
                 if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
                 {
                     return new Bam.Core.TypeArray {
-                        typeof(Qt.PrintSupportFramework)
+                        typeof(Qt.PrintSupportFramework),
+                        typeof(Qt.DBusFramework)
                     };
                 }
                 return base.RuntimeDependentModules;
