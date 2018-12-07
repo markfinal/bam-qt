@@ -59,8 +59,10 @@ namespace Qt5WebBrowsingTest
 
             this.PrivatePatch(settings =>
                 {
-                    var cxxLinker = settings as C.ICxxOnlyLinkerSettings;
-                    cxxLinker.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
+                    if (settings is C.ICxxOnlyLinkerSettings cxxLinker)
+                    {
+                        cxxLinker.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
+                    }
 
                     if (settings is GccCommon.ICommonLinkerSettings gccLinker)
                     {
