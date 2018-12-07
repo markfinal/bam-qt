@@ -45,31 +45,30 @@ namespace Qt5WebBrowsingTest
 
             source.PrivatePatch(settings =>
                 {
-                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
-                    if (null != gccCompiler)
+                    var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
+                    cxxCompiler.LanguageStandard = C.Cxx.ELanguageStandard.Cxx11;
+                    cxxCompiler.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
+                    cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
+
+                    if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
                     {
                         // because Qt5.6.0/5.6/gcc_64/include/QtCore/qglobal.h:1090:4: error: #error "You must build your code with position independent code if Qt was built with -reduce-relocations. " "Compile your code with -fPIC (-fPIE is not enough)."
                         gccCompiler.PositionIndependentCode = true;
-                    }
-
-                    var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
-                    if (null != cxxCompiler)
-                    {
-                        cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
                     }
                 });
 
             this.PrivatePatch(settings =>
                 {
-                    var gccLinker = settings as GccCommon.ICommonLinkerSettings;
-                    if (null != gccLinker)
+                    var cxxLinker = settings as C.ICxxOnlyLinkerSettings;
+                    cxxLinker.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
+
+                    if (settings is GccCommon.ICommonLinkerSettings gccLinker)
                     {
                         gccLinker.CanUseOrigin = true;
                         gccLinker.RPath.AddUnique("$ORIGIN/../lib");
                     }
 
-                    var clangLinker = settings as ClangCommon.ICommonLinkerSettings;
-                    if (null != clangLinker)
+                    if (settings is ClangCommon.ICommonLinkerSettings clangLinker)
                     {
                         clangLinker.RPath.AddUnique("@executable_path/../Frameworks");
                     }
