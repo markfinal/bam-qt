@@ -145,7 +145,12 @@ namespace QtCommon.Options
 
             var qtVersionSplit = qtVersion.Split('.');
 
-            var installPath = $"{homeDir}/Qt{qtVersion}/{qtVersionSplit[0]}.{qtVersionSplit[1]}/clang_64";
+            var installPath = $"{homeDir}/Qt{qtVersion}/{qtVersionSplit[0]}.{qtVersionSplit[1]}.{qtVersionSplit[2]}/clang_64";
+            if (!System.IO.Directory.Exists(installPath))
+            {
+                // older versions didn't use the patch versioin in the subdirectory
+                installPath = $"{homeDir}/Qt{qtVersion}/{qtVersionSplit[0]}.{qtVersionSplit[1]}/clang_64";
+            }
             return installPath;
         }
     }

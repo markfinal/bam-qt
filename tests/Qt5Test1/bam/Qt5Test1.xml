@@ -15,6 +15,7 @@
     <Package name="Mingw" version="4.8.1" />
     <Package name="NativeBuilder" />
     <Package name="Publisher" />
+    <Package name="Qt" version="5.12.0" />
     <Package name="Qt" version="5.6.2" default="true" />
     <Package name="VisualC" version="10.0" />
     <Package name="VisualC" version="11.0" />
