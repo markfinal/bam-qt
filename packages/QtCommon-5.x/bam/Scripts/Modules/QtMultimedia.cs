@@ -33,7 +33,7 @@ namespace QtCommon
     public abstract class Multimedia :
         CommonModule
     {
-        public Multimedia() :
+        protected Multimedia() :
             base("Multimedia")
         { }
 
@@ -63,7 +63,7 @@ namespace QtCommon
     public abstract class MultimediaFramework :
         CommonFramework
     {
-        public MultimediaFramework() :
+        protected MultimediaFramework() :
             base("Multimedia")
         { }
 

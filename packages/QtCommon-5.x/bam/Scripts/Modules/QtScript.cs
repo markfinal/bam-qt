@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Script :
         CommonModule
     {
-        public Script() :
+        protected Script() :
             base("Script")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class ScriptFramework :
         CommonFramework
     {
-        public ScriptFramework() :
+        protected ScriptFramework() :
             base("Script")
         { }
     }

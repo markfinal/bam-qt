@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Help :
         CommonModule
     {
-        public Help() :
+        protected Help() :
             base("Help")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class HelpFramework :
         CommonFramework
     {
-        public HelpFramework() :
+        protected HelpFramework() :
             base("Help")
         { }
     }

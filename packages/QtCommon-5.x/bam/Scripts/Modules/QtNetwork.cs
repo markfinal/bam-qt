@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Network :
         CommonModule
     {
-        public Network() :
+        protected Network() :
             base("Network")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class NetworkFramework :
         CommonFramework
     {
-        public NetworkFramework() :
+        protected NetworkFramework() :
             base("Network")
         { }
     }

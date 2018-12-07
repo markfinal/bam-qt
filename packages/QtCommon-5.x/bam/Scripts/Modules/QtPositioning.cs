@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Positioning :
         CommonModule
     {
-        public Positioning() :
+        protected Positioning() :
             base("Positioning")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class PositioningFramework :
         CommonFramework
     {
-        public PositioningFramework() :
+        protected PositioningFramework() :
             base("Positioning")
         { }
     }

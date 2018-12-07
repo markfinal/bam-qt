@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Sql :
         CommonModule
     {
-        public Sql() :
+        protected Sql() :
             base("Sql")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class SqlFramework :
         CommonFramework
     {
-        public SqlFramework() :
+        protected SqlFramework() :
             base("Sql")
         { }
     }

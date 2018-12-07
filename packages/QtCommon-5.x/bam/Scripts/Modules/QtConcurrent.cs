@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Concurrent :
         CommonModule
     {
-        public Concurrent() :
+        protected Concurrent() :
             base("Concurrent")
         {}
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class ConcurrentFramework :
         CommonFramework
     {
-        public ConcurrentFramework() :
+        protected ConcurrentFramework() :
             base("Concurrent")
         {}
     }

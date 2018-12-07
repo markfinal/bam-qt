@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class MultimediaWidgets :
         CommonModule
     {
-        public MultimediaWidgets() :
+        protected MultimediaWidgets() :
             base("MultimediaWidgets")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class MultimediaWidgetsFramework :
         CommonFramework
     {
-        public MultimediaWidgetsFramework() :
+        protected MultimediaWidgetsFramework() :
             base("MultimediaWidgets")
         { }
     }

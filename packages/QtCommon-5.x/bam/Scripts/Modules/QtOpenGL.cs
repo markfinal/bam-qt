@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class OpenGL :
         CommonModule
     {
-        public OpenGL() :
+        protected OpenGL() :
             base("OpenGL")
         {}
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class OpenGLFramework :
         CommonFramework
     {
-        public OpenGLFramework() :
+        protected OpenGLFramework() :
             base("OpenGL")
         {}
     }

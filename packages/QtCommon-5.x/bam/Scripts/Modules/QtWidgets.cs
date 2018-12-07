@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Widgets :
         CommonModule
     {
-        public Widgets() :
+        protected Widgets() :
             base("Widgets")
         {}
 
@@ -50,7 +50,7 @@ namespace QtCommon
     public abstract class WidgetsFramework :
         CommonFramework
     {
-        public WidgetsFramework() :
+        protected WidgetsFramework() :
             base("Widgets")
         {}
 

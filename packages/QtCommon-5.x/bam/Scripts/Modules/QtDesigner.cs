@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Designer :
         CommonModule
     {
-        public Designer() :
+        protected Designer() :
             base("Designer")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class DesignerFramework :
         CommonFramework
     {
-        public DesignerFramework() :
+        protected DesignerFramework() :
             base("Designer")
         { }
     }

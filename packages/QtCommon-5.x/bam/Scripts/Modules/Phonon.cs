@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Phonon :
         CommonModule
     {
-        public Phonon() :
+        protected Phonon() :
             base("Phonon")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class PhononFramework :
         CommonFramework
     {
-        public PhononFramework() :
+        protected PhononFramework() :
             base("Phonon")
         { }
     }

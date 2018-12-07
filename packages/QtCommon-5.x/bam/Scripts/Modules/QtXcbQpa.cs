@@ -33,7 +33,7 @@ namespace QtCommon
     public abstract class XcbQpa :
         CommonModule
     {
-        public XcbQpa() :
+        protected XcbQpa() :
             base("XcbQpa", hasHeaders: false)
         { }
 

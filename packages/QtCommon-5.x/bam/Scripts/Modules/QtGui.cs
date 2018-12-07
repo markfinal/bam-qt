@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Gui :
         CommonModule
     {
-        public Gui() :
+        protected Gui() :
             base("Gui")
         {}
 
@@ -51,7 +51,7 @@ namespace QtCommon
     public abstract class GuiFramework :
         CommonFramework
     {
-        public GuiFramework() :
+        protected GuiFramework() :
             base("Gui")
         {}
 

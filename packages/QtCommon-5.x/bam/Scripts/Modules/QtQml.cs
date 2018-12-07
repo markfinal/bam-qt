@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Qml :
         CommonModule
     {
-        public Qml() :
+        protected Qml() :
             base("Qml")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class QmlFramework :
         CommonFramework
     {
-        public QmlFramework() :
+        protected QmlFramework() :
             base("Qml")
         { }
     }

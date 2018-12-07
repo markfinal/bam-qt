@@ -32,7 +32,7 @@ namespace QtCommon
     public abstract class Svg :
         CommonModule
     {
-        public Svg() :
+        protected Svg() :
             base("Svg")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     public abstract class SvgFramework :
         CommonFramework
     {
-        public SvgFramework() :
+        protected SvgFramework() :
             base("Svg")
         { }
     }
