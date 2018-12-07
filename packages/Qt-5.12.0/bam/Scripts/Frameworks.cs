@@ -97,6 +97,10 @@ namespace Qt
         QtCommon.QuickFramework
     { }
 
+    public sealed class QuickWidgetsFramework :
+        QtCommon.QuickWidgetsFramework
+    { }
+
     public sealed class ScriptFramework :
         QtCommon.ScriptFramework
     { }
@@ -131,7 +135,17 @@ namespace Qt
 
     public sealed class WebEngineWidgetsFramework :
         QtCommon.WebEngineWidgetsFramework
-    { }
+    {
+        protected override Bam.Core.TypeArray RuntimeDependentModules
+        {
+            get
+            {
+                var deps = base.RuntimeDependentModules;
+                deps.Add(typeof(QuickWidgetsFramework));
+                return deps;
+            }
+        }
+    }
 
     public sealed class WidgetsFramework :
         QtCommon.WidgetsFramework
