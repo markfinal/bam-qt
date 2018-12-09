@@ -97,7 +97,12 @@ namespace QtCommon.Options
 
                                 var qtVersionSplit = qtVersion.Split('.');
 
-                                var qtInstallPath = $@"{installDir}\{qtVersionSplit[0]}.{qtVersionSplit[1]}\{msvcFlavour}";
+                                var qtInstallPath = $@"{installDir}\{qtVersionSplit[0]}.{qtVersionSplit[1]}.{qtVersionSplit[2]}\{msvcFlavour}";
+                                if (!System.IO.Directory.Exists(qtInstallPath))
+                                {
+                                    // older versions didn't use the patch version in the subdirectory
+                                    qtInstallPath = $@"{installDir}\{qtVersionSplit[0]}.{qtVersionSplit[1]}\{msvcFlavour}";
+                                }
 
                                 Bam.Core.Log.DebugMessage($"Qt installation folder is {qtInstallPath}");
                                 return qtInstallPath;
