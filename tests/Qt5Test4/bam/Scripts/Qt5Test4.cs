@@ -51,8 +51,8 @@ namespace Qt5Test4
                 source.DependsOn(uicGeneratedHeader); // must be generated first
                 source.PrivatePatch(settings =>
                     {
-                        var compiler = settings as C.ICommonCompilerSettings;
-                        compiler.IncludePaths.AddUnique(
+                        var preprocessor = settings as C.ICommonPreprocessorSettings;
+                        preprocessor.IncludePaths.AddUnique(
                             this.CreateTokenizedString(
                                 "@dir($(0))",
                                 new[] { uicGeneratedHeader.GeneratedPaths[C.HeaderFile.HeaderFileKey]}
@@ -63,15 +63,13 @@ namespace Qt5Test4
 
             source.PrivatePatch(settings =>
                 {
-                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
-                    if (null != gccCompiler)
+                    if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
                     {
                         // because Qt5.6.0/5.6/gcc_64/include/QtCore/qglobal.h:1090:4: error: #error "You must build your code with position independent code if Qt was built with -reduce-relocations. " "Compile your code with -fPIC (-fPIE is not enough)."
                         gccCompiler.PositionIndependentCode = true;
                     }
 
-                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
-                    if (null != vcCompiler)
+                    if (settings is VisualCCommon.ICommonCompilerSettings vcCompiler)
                     {
                         if (source.Compiler.Version.AtLeast(VisualCCommon.ToolchainVersion.VC2015))
                         {
@@ -83,15 +81,13 @@ namespace Qt5Test4
 
             this.PrivatePatch(settings =>
                 {
-                    var gccLinker = settings as GccCommon.ICommonLinkerSettings;
-                    if (null != gccLinker)
+                    if (settings is GccCommon.ICommonLinkerSettings gccLinker)
                     {
                         gccLinker.CanUseOrigin = true;
                         gccLinker.RPath.AddUnique("$ORIGIN/../lib");
                     }
 
-                    var clangLinker = settings as ClangCommon.ICommonLinkerSettings;
-                    if (null != clangLinker)
+                    if (settings is ClangCommon.ICommonLinkerSettings clangLinker)
                     {
                         clangLinker.RPath.AddUnique("@executable_path/../Frameworks");
                     }

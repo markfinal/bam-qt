@@ -41,9 +41,9 @@ namespace QtCommon
             {
                 return;
             }
-            if (settings is C.ICommonCompilerSettings compiler)
+            if (settings is C.ICommonPreprocessorSettings preprocessor)
             {
-                compiler.IncludePaths.AddUnique(
+                preprocessor.IncludePaths.AddUnique(
                     Bam.Core.TokenizedString.Create("$(0)/include", null,
                                                     new Bam.Core.TokenizedStringArray { Configure.InstallPath }));
             }

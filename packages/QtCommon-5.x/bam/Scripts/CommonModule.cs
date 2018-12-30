@@ -125,9 +125,9 @@ namespace QtCommon
 
             this.PublicPatch((settings, appliedTo) =>
                 {
-                    if (settings is C.ICommonCompilerSettings compiler)
+                    if (settings is C.ICommonPreprocessorSettings preprocessor)
                     {
-                        compiler.IncludePaths.AddUnique(this.Macros["QtIncludePath"]);
+                        preprocessor.IncludePaths.AddUnique(this.Macros["QtIncludePath"]);
                     }
 
                     if (settings is C.ICommonLinkerSettings linker)
