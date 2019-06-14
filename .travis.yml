@@ -71,7 +71,7 @@ matrix:
   #    - BAM_TOOLCHAIN_VERSION=Xcode10
   #    - EXTRA_TEST_ARGS="-T WindowLibrary --C.bitdepth=64" # 32-bit support removed
   #    - TRAVIS_PREFIX=travis_wait # because the VulkanTriangle test seems to cause travis to appear to stop responding
-  #- os: osx
+  - os: osx
     osx_image: xcode9.4
     mono: none
     dotnet: 2.1.401
