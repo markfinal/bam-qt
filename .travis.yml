@@ -18,7 +18,7 @@ before_script:
   - dotnet --version
 env:
   global:
-    - EXTRA_TEST_ARGS: "-t Qt5Test1"
+    - EXTRA_TEST_ARGS="-t Qt5Test1"
 matrix:
   include:
   - os: linux
