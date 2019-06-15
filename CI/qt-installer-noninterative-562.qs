@@ -30,7 +30,18 @@ Controller.prototype.ComponentSelectionPageCallback = function() {
     var widget = gui.currentPageWidget();
 
     widget.deselectAll();
-    widget.selectComponent("qt.56.gcc_64");
+    if (systemInfo.kernelType === "winnt")
+    {
+        widget.selectComponent("qt.56.msvc2015_64");
+    }
+    else if (systemInfo.kernelType === "darwin")
+    {
+        widget.selectComponent("qt.56.clang_64");
+    }
+    else
+    {
+        widget.selectComponent("qt.56.gcc_64");
+    }
 
     gui.clickButton(buttons.NextButton);
 }
