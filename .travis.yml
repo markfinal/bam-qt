@@ -14,6 +14,7 @@ install:
   - if [ $TRAVIS_OS_NAME = osx ]; then wget -O qt-opensource-mac-x64-clang-5.6.2.dmg https://download.qt.io/official_releases/qt/5.6/5.6.2/qt-opensource-mac-x64-clang-5.6.2.dmg; fi
   - if [ $TRAVIS_OS_NAME = osx ]; then defaults write com.apple.frameworks.diskimages skip-verify TRUE; fi
   - if [ $TRAVIS_OS_NAME = osx ]; then open qt-opensource-mac-x64-clang-5.6.2.dmg; fi
+  - if [ $TRAVIS_OS_NAME = osx ]; then ls /Volumes; fi
   - if [ $TRAVIS_OS_NAME = osx ]; then /Volumes/qt-opensource-mac-x64-clang-5.6.2/qt-opensource-mac-x64-clang-5.6.2.app/Contents/MacOS/qt-opensource-mac-x64-clang-5.6.2 --script CI/qt-installer-noninterative-562.qs; fi
   - if [ $TRAVIS_OS_NAME = osx ]; then defaults write com.apple.frameworks.diskimages skip-verify FALSE; fi
   - wget 'https://ci.appveyor.com/api/projects/markfinal/buildamation/artifacts/bam.tar?branch=master&job=Image%3A%20Visual%20Studio%202017' -O /tmp/bam.tar
