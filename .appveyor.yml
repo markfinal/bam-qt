@@ -15,7 +15,7 @@ install:
   - sh: tar xf ubuntu_install_scripts.tar -C ~
 environment:
   global:
-    EXTRA_TEST_ARGS: "-t Qt5Test1"
+    EXTRA_TEST_ARGS: "--C.bitdepth=64 -t Qt5Test1"
   matrix:
   #- job_name: Ubuntu 18 (GCC 9) Native
   #  APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu1804
