@@ -52,7 +52,7 @@ namespace Qt
                 {
                     this.Meta.Add("MSVCFlavour", "msvc2013_64");
                 }
-                else if (visualcVersion == "14.0" || visualcVersion == "15.0")
+                else if (visualcVersion == "14.0" || visualcVersion == "15.0" || visualcVersion == "16")
                 {
                     this.Meta.Add("MSVCFlavour", "msvc2015_64");
                 }
