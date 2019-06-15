@@ -32,7 +32,7 @@ Controller.prototype.ComponentSelectionPageCallback = function() {
     widget.deselectAll();
     if (systemInfo.kernelType === "winnt")
     {
-        widget.selectComponent("qt.56.msvc2015_64");
+        widget.selectComponent("qt.56.win64_msvc2015_64");
     }
     else if (systemInfo.kernelType === "darwin")
     {
