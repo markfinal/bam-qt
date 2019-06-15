@@ -37,14 +37,14 @@ environment:
   #  APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu1604
   #- job_name: Ubuntu 16 (GCC 5) MakeFile
   #  APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu1604
-  #- job_name: Visual Studio 2019 Native
-  #  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+  - job_name: Visual Studio 2019 Native
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
   #- job_name: Visual Studio 2019 MakeFile
   #  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
   #- job_name: Visual Studio 2019 VSSolution
   #  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-  #- job_name: Visual Studio 2017 Native
-  #  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+  - job_name: Visual Studio 2017 Native
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
   #- job_name: Visual Studio 2017 MakeFile
   #  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
   #- job_name: Visual Studio 2017 VSSolution
