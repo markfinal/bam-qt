@@ -49,6 +49,7 @@ Controller.prototype.ComponentSelectionPageCallback = function() {
     {
         widget.selectComponent("qt.56.gcc_64");
     }
+    widget.selectComponent("qt.56.qtwebengine");
 
     gui.clickButton(buttons.NextButton);
 }
