@@ -22,7 +22,14 @@ Controller.prototype.IntroductionPageCallback = function() {
 
 Controller.prototype.TargetDirectoryPageCallback = function()
 {
-    gui.currentPageWidget().TargetDirectoryLineEdit.setText(installer.value("HomeDir") + "/Qt5.6.2");
+    if (systemInfo.kernelType === "winnt")
+    {
+        gui.currentPageWidget().TargetDirectoryLineEdit.setText("C:/Qt/Qt5.6.2");
+    }
+    else
+    {
+        gui.currentPageWidget().TargetDirectoryLineEdit.setText(installer.value("HomeDir") + "/Qt5.6.2");
+    }
     gui.clickButton(buttons.NextButton);
 }
 
