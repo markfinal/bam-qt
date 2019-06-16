@@ -45,7 +45,24 @@ namespace QtCommon
 
             this.Macros.AddVerbatim("QtModulePrefix", hasPrefix ? "Qt5" : string.Empty);
             this.Macros.AddVerbatim("QtModuleName", moduleName);
+            this.SetQtConfig();
             this.HasHeaders = hasHeaders;
+        }
+
+        private void
+        SetQtConfig()
+        {
+            var vcMeta = Bam.Core.Graph.Instance.PackageMetaData<VisualC.MetaData>("VisualC");
+            if (null != vcMeta)
+            {
+                if (vcMeta.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebug ||
+                    vcMeta.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebugDLL)
+                {
+                    this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim("d"));
+                    return;
+                }
+            }
+            this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim(string.Empty));
         }
 
         private bool HasHeaders { get; set; }
@@ -61,7 +78,6 @@ namespace QtCommon
 
             this.Macros.Add("QtIncludePath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/include", null));
             this.Macros.Add("QtLibraryPath", Bam.Core.TokenizedString.Create("$(QtInstallPath)/lib", null));
-            this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim((this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug) ? "d" : string.Empty));
 
             if (this.HasHeaders)
             {
