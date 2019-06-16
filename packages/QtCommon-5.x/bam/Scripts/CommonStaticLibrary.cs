@@ -52,17 +52,30 @@ namespace QtCommon
         private void
         SetQtConfig()
         {
-            var vcMeta = Bam.Core.Graph.Instance.PackageMetaData<VisualC.MetaData>("VisualC");
-            if (null != vcMeta)
+            try
             {
-                if (vcMeta.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebug ||
-                    vcMeta.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebugDLL)
+                var vcMeta = Bam.Core.Graph.Instance.PackageMetaData<VisualC.MetaData>("VisualC");
+                if (null != vcMeta)
                 {
-                    this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim("d"));
-                    return;
+                    if (vcMeta.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebug ||
+                        vcMeta.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebugDLL)
+                    {
+                        this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim("d"));
+                        return;
+                    }
                 }
             }
-            this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim(string.Empty));
+            catch (System.Collections.Generic.KeyNotFoundException)
+            {
+                // silently fail and fall through to finally
+            }
+            finally
+            {
+                if (!this.Macros.Contains("QtConfig"))
+                {
+                    this.Macros.Add("QtConfig", Bam.Core.TokenizedString.CreateVerbatim(string.Empty));
+                }
+            }
         }
 
         private bool HasHeaders { get; set; }
