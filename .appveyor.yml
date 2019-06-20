@@ -2,7 +2,7 @@ clone_depth: 10
 configuration: Release
 platform: AnyCPU
 install:
-  - cmd: curl -L --output qt-opensource-windows-x86-msvc2015_64-5.6.2.exe https://download.qt.io/official_releases/qt/5.6/5.6.2/qt-opensource-windows-x86-msvc2015_64-5.6.2.exe
+  - cmd: curl -L --output qt-opensource-windows-x86-msvc2015_64-5.6.2.exe https://download.qt.io/archive/qt/5.6/5.6.2/qt-opensource-windows-x86-msvc2015_64-5.6.2.exe
   - cmd: qt-opensource-windows-x86-msvc2015_64-5.6.2.exe --script CI\qt-installer-noninteractive-562.qs
   - ps: Start-FileDownload 'https://ci.appveyor.com/api/projects/markfinal/buildamation/artifacts/bam.tar?branch=master&job=Image%3A%20Visual%20Studio%202017'
   - cmd: 7z x bam.tar -oc:\BuildAMation
