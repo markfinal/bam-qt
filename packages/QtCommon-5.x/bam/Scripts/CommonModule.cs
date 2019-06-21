@@ -127,7 +127,7 @@ namespace QtCommon
                 {
                     if (settings is C.ICommonPreprocessorSettings preprocessor)
                     {
-                        preprocessor.IncludePaths.AddUnique(this.Macros["QtIncludePath"]);
+                        preprocessor.SystemIncludePaths.AddUnique(this.Macros["QtIncludePath"]);
                     }
 
                     if (settings is C.ICommonLinkerSettings linker)
