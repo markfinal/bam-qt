@@ -27,7 +27,7 @@ before_script:
   - dotnet --version
 env:
   global:
-    - EXTRA_TEST_ARGS="--C.bitdepth=64"
+    EXTRA_TEST_ARGS: "'--C.bitdepth=64'"
 matrix:
   include:
   - os: linux
