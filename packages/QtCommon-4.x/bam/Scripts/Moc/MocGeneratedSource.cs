@@ -39,9 +39,16 @@ namespace QtCommon
             Bam.Core.Module parent)
         {
             base.Init(parent);
-            this.Compiler = Bam.Core.Graph.Instance.FindReferencedModule<MocTool>();
+
+            var graph = Bam.Core.Graph.Instance;
+            this.Compiler = graph.FindReferencedModule<MocTool>();
             this.Requires(this.Compiler);
-            this.InputPath = this.CreateTokenizedString("$(encapsulatingbuilddir)/$(config)/@changeextension(@trimstart(@relativeto($(MOCHeaderPath),$(packagedir)),../),.moc.cpp)");
+
+            var encapsulatingModule = graph.ModuleStack.Peek();
+            this.InputPath = this.CreateTokenizedString(
+                "$(0)/$(config)/@changeextension(@trimstart(@relativeto($(MOCHeaderPath),$(packagedir)),../),.moc.cpp)",
+                new[] { encapsulatingModule.Macros["packagebuilddir"] }
+            );
         }
 
         public C.HeaderFile SourceHeader

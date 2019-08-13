@@ -39,10 +39,15 @@ namespace QtCommon
             Bam.Core.Module parent)
         {
             base.Init(parent);
-            this.Compiler = Bam.Core.Graph.Instance.FindReferencedModule<UicTool>();
+
+            var graph = Bam.Core.Graph.Instance;
+            this.Compiler = graph.FindReferencedModule<UicTool>();
             this.Requires(this.Compiler);
+
+            var encapsulatingModule = graph.ModuleStack.Peek();
             this.InputPath = this.CreateTokenizedString(
-                "$(encapsulatingbuilddir)/$(config)/@changeextension(@isrelative(@trimstart(@relativeto($(QUIFilePath),$(packagedir)),../),@filename($(QUIFilePath))),.h)"
+                "$(0)/$(config)/@changeextension(@isrelative(@trimstart(@relativeto($(QUIFilePath),$(packagedir)),../),@filename($(QUIFilePath))),.h)",
+                new[] { encapsulatingModule.Macros["packagebuilddir"] }
             );
         }
 
