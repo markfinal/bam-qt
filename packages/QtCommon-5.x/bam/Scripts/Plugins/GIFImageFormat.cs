@@ -33,10 +33,9 @@ namespace QtCommon
         CommonPlugin
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
             this.Macros.AddVerbatim("QtPluginDir", "imageformats");
             this.Macros.AddVerbatim("QtPluginName", "qgif");
         }

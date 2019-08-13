@@ -55,10 +55,9 @@ namespace QtCommon
         protected virtual Bam.Core.TypeArray RuntimeDependentModules => null;
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             // using the real Qt installation directory allows headers in IDE projects to use more intuitive relative paths
             this.Macros["packagedir"] = Configure.InstallPath;

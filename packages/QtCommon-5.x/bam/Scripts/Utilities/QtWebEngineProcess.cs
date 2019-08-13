@@ -33,10 +33,9 @@ namespace QtCommon
         CommonUtility
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
             this.Macros.AddVerbatim("QtUtilityName", "QtWebEngineProcess");
         }
     }

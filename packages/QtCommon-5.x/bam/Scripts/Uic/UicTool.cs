@@ -33,14 +33,13 @@ namespace QtCommon
         Bam.Core.PreBuiltTool
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
             this.Macros.Add("uicExe", Bam.Core.TokenizedString.Create("$(0)/bin/uic$(1)", null,
                     new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath, QtCommon.Configure.ExecutableExtension)));
             // since the uicExe macro is needed to evaluate the Executable property
             // in the check for existence
-            base.Init(parent);
+            base.Init();
         }
 
         public override Bam.Core.Settings

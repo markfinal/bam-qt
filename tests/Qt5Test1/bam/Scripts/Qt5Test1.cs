@@ -39,7 +39,7 @@ namespace Qt5Test1
         Init(
             Module parent)
         {
-            base.Init(parent);
+            base.Init();
 
             var mocHeaders = this.CreateHeaderContainer("$(packagedir)/source/*.h");
             var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
@@ -116,10 +116,9 @@ namespace Qt5Test1
         Publisher.Collation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
             var appAnchor = this.Include<Qt5Application>(C.Cxx.GUIApplication.ExecutableKey);
@@ -178,10 +177,9 @@ namespace Qt5Test1
         Publisher.DebugSymbolCollation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.CreateSymbolsFrom<Qt5Test1Runtime>();
         }
@@ -192,10 +190,9 @@ namespace Qt5Test1
         Publisher.StrippedBinaryCollation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.StripBinariesFrom<Qt5Test1Runtime, Qt5Test1DebugSymbols>();
         }
@@ -206,10 +203,9 @@ namespace Qt5Test1
         Installer.TarBall
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.SourceFolder<Qt5Test1Stripped>(Publisher.StrippedBinaryCollation.StripBinaryDirectoryKey);
         }

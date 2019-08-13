@@ -49,10 +49,9 @@ namespace QtCommon
         }
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.Macros.Add("ICUDTL", this.CreateTokenizedString("$(QtInstallPath)/resources/icudtl.dat"));
             this.Macros.Add("ResourcePak", this.CreateTokenizedString("$(QtInstallPath)/resources/qtwebengine_resources.pak"));

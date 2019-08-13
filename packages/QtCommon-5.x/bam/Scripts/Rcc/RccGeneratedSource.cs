@@ -35,10 +35,9 @@ namespace QtCommon
         private QRCFile SourceQRCFile;
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             var graph = Bam.Core.Graph.Instance;
             this.Compiler = graph.FindReferencedModule<RccTool>();

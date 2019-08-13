@@ -33,14 +33,13 @@ namespace QtCommon
         Bam.Core.PreBuiltTool
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
             this.Macros.Add("rccExe", Bam.Core.TokenizedString.Create("$(0)/bin/rcc$(1)", null,
                     new Bam.Core.TokenizedStringArray(QtCommon.Configure.InstallPath, QtCommon.Configure.ExecutableExtension)));
             // since the rccExe macro is needed to evaluate the Executable property
             // in the check for existence
-            base.Init(parent);
+            base.Init();
         }
 
         public override Bam.Core.Settings

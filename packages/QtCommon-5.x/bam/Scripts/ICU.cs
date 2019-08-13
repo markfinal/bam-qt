@@ -46,10 +46,9 @@ namespace QtCommon
         C.Cxx.DynamicLibrary
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             var qtPackage = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "Qt");
             var qtMeta = qtPackage.MetaData as IICUMeta;
@@ -87,8 +86,7 @@ namespace QtCommon
         ICUBase
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
@@ -98,7 +96,7 @@ namespace QtCommon
             {
                 this.Macros["OutputName"] = Bam.Core.TokenizedString.CreateVerbatim("icui18n");
             }
-            base.Init(parent);
+            base.Init();
         }
     }
 
@@ -106,8 +104,7 @@ namespace QtCommon
         ICUBase
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
@@ -117,7 +114,7 @@ namespace QtCommon
             {
                 this.Macros["OutputName"] = Bam.Core.TokenizedString.CreateVerbatim("icuuc");
             }
-            base.Init(parent);
+            base.Init();
         }
     }
 
@@ -125,8 +122,7 @@ namespace QtCommon
         ICUBase
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
@@ -136,7 +132,7 @@ namespace QtCommon
             {
                 this.Macros["OutputName"] = Bam.Core.TokenizedString.CreateVerbatim("icudata");
             }
-            base.Init(parent);
+            base.Init();
         }
     }
 }

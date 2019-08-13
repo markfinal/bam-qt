@@ -34,10 +34,9 @@ namespace QtCommon
         CommonPlugin
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
             this.Macros.AddVerbatim("QtPluginDir", "platforms");
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {

@@ -46,7 +46,7 @@ namespace Qt4Test1
         Init(
             Module parent)
         {
-            base.Init(parent);
+            base.Init();
 
             var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
             var mocHeaders = this.CreateHeaderContainer("$(packagedir)/source/myobject*.h");
@@ -101,10 +101,9 @@ namespace Qt4Test1
         Publisher.Collation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
             this.Include<QtApplication>(C.ConsoleApplication.ExecutableKey);
@@ -116,10 +115,9 @@ namespace Qt4Test1
         Publisher.DebugSymbolCollation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.CreateSymbolsFrom<Qt4Test1Runtime>();
         }
@@ -130,10 +128,9 @@ namespace Qt4Test1
         Publisher.StrippedBinaryCollation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.StripBinariesFrom<Qt4Test1Runtime, Qt4Test1DebugSymbols>();
         }
@@ -144,10 +141,9 @@ namespace Qt4Test1
         Installer.TarBall
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.SourceFolder<Qt4Test1Stripped>(Publisher.StrippedBinaryCollation.StripBinaryDirectoryKey);
         }

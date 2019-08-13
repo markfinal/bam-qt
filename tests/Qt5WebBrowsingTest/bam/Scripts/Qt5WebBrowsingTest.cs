@@ -39,7 +39,7 @@ namespace Qt5WebBrowsingTest
         Init(
             Module parent)
         {
-            base.Init(parent);
+            base.Init();
 
             var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
 
@@ -99,10 +99,9 @@ namespace Qt5WebBrowsingTest
         Publisher.Collation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
             var appAnchor = this.Include<WebBrowser>(C.Cxx.GUIApplication.ExecutableKey);
@@ -179,10 +178,9 @@ namespace Qt5WebBrowsingTest
         Publisher.DebugSymbolCollation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.CreateSymbolsFrom<Qt5WebBrowsingTestRuntime>();
         }
@@ -193,10 +191,9 @@ namespace Qt5WebBrowsingTest
         Publisher.StrippedBinaryCollation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.StripBinariesFrom<Qt5WebBrowsingTestRuntime, Qt5WebBrowsingTestDebugSymbols>();
         }
@@ -207,10 +204,9 @@ namespace Qt5WebBrowsingTest
         Installer.TarBall
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.SourceFolder<Qt5WebBrowsingTestStripped>(Publisher.StrippedBinaryCollation.StripBinaryDirectoryKey);
         }

@@ -41,10 +41,9 @@ namespace QtCommon
         }
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
                 if (this.BuildEnvironment.Configuration == Bam.Core.EConfiguration.Debug)

@@ -39,7 +39,7 @@ namespace Qt5Test2
         Init(
             Module parent)
         {
-            base.Init(parent);
+            base.Init();
 
             var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
 
@@ -105,10 +105,9 @@ namespace Qt5Test2
         Publisher.Collation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.SetDefaultMacrosAndMappings(EPublishingType.WindowedApplication);
             var appAnchor = this.Include<Qt5Application>(C.Cxx.GUIApplication.ExecutableKey);
@@ -164,10 +163,9 @@ namespace Qt5Test2
         Publisher.DebugSymbolCollation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.CreateSymbolsFrom<Qt5Test2Runtime>();
         }
@@ -178,10 +176,9 @@ namespace Qt5Test2
         Publisher.StrippedBinaryCollation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.StripBinariesFrom<Qt5Test2Runtime, Qt5Test2DebugSymbols>();
         }
@@ -192,10 +189,9 @@ namespace Qt5Test2
         Installer.TarBall
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.SourceFolder<Qt5Test2Stripped>(Publisher.StrippedBinaryCollation.StripBinaryDirectoryKey);
         }

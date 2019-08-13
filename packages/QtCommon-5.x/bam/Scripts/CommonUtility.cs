@@ -42,10 +42,9 @@ namespace QtCommon
         }
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
             // utilities don't come in debug flavours
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
