@@ -43,8 +43,7 @@ namespace Qt4Test1
         }
 
         protected override void
-        Init(
-            Module parent)
+        Init()
         {
             base.Init();
 

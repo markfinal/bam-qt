@@ -36,8 +36,7 @@ namespace Qt5Test2
         C.Cxx.ConsoleApplication
     {
         protected override void
-        Init(
-            Module parent)
+        Init()
         {
             base.Init();
 

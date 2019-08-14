@@ -36,8 +36,7 @@ namespace Qt5WebBrowsingTest
         C.Cxx.GUIApplication
     {
         protected override void
-        Init(
-            Module parent)
+        Init()
         {
             base.Init();
 
