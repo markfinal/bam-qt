@@ -43,10 +43,10 @@ namespace QtCommon
             this.Compiler = graph.FindReferencedModule<RccTool>();
             this.Requires(this.Compiler);
 
-            var encapsulatingModule = graph.ModuleStack.Peek();
+            var parentModule = graph.ModuleStack.Peek();
             this.InputPath = this.CreateTokenizedString(
                 "$(0)/$(config)/@changeextension(@isrelative(@trimstart(@relativeto($(QRCHeaderPath),$(packagedir)),../),@filename($(QRCHeaderPath))),.rcc.cpp)",
-                new[] { encapsulatingModule.Macros["packagebuilddir"] }
+                new[] { parentModule.Macros["packagebuilddir"] }
             );
         }
 
