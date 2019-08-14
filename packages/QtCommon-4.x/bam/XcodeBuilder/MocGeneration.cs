@@ -42,7 +42,7 @@ namespace QtCommon
             Bam.Core.TokenizedString generatedMocSource,
             C.HeaderFile source)
         {
-            var encapsulating = sender.GetEncapsulatingReferencedModule();
+            var encapsulating = sender.EncapsulatingModule;
 
             var workspace = Bam.Core.Graph.Instance.MetaData as XcodeBuilder.WorkspaceMeta;
             var target = workspace.EnsureTargetExists(encapsulating);

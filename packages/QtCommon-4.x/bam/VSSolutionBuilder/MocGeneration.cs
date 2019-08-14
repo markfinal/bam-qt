@@ -42,7 +42,7 @@ namespace QtCommon
             Bam.Core.TokenizedString generatedMocSource,
             C.HeaderFile source)
         {
-            var encapsulating = sender.GetEncapsulatingReferencedModule();
+            var encapsulating = sender.EncapsulatingModule;
 
             var solution = Bam.Core.Graph.Instance.MetaData as VSSolutionBuilder.VSSolution;
             var project = solution.EnsureProjectExists(encapsulating);

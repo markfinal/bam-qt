@@ -65,7 +65,6 @@ namespace QtCommon
                 this.SourceUIFile = value;
                 this.DependsOn(value);
                 this.Macros.Add("QUIFilePath", value.InputPath);
-                this.GetEncapsulatingReferencedModule(); // or the path above won't be parsable prior to all modules having been created
             }
         }
 
