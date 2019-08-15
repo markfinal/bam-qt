@@ -42,9 +42,10 @@ namespace QtCommon
             base.Init();
         }
 
-        public override Bam.Core.Settings
-        CreateDefaultSettings<T>(
-            T module) => new MocSettings(module);
+        /// <summary>
+        /// \copydoc Bam.Core.ITool.SettingsType
+        /// </summary>
+        public override System.Type SettingsType => typeof(MocSettings);
 
         public override Bam.Core.TokenizedString Executable => this.Macros["mocExe"];
     }

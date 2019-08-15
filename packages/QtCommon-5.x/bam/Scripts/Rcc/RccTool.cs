@@ -42,9 +42,10 @@ namespace QtCommon
             base.Init();
         }
 
-        public override Bam.Core.Settings
-        CreateDefaultSettings<T>(
-            T module) => new RccSettings(module);
+        /// <summary>
+        /// \copydoc Bam.Core.ITool.SettingsType
+        /// </summary>
+        public override System.Type SettingsType => typeof(RccSettings);
 
         public override Bam.Core.TokenizedString Executable => this.Macros["rccExe"];
     }
