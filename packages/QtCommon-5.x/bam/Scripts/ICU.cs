@@ -90,11 +90,11 @@ namespace QtCommon
         {
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.Macros["OutputName"] = this.CreateTokenizedString("icuin$(ICUVersion)");
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = this.CreateTokenizedString("icuin$(ICUVersion)");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
-                this.Macros["OutputName"] = Bam.Core.TokenizedString.CreateVerbatim("icui18n");
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = Bam.Core.TokenizedString.CreateVerbatim("icui18n");
             }
             base.Init();
         }
@@ -108,11 +108,11 @@ namespace QtCommon
         {
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.Macros["OutputName"] = this.CreateTokenizedString("icuuc$(ICUVersion)");
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = this.CreateTokenizedString("icuuc$(ICUVersion)");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
-                this.Macros["OutputName"] = Bam.Core.TokenizedString.CreateVerbatim("icuuc");
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = Bam.Core.TokenizedString.CreateVerbatim("icuuc");
             }
             base.Init();
         }
@@ -126,11 +126,11 @@ namespace QtCommon
         {
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.Macros["OutputName"] = this.CreateTokenizedString("icudt$(ICUVersion)");
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = this.CreateTokenizedString("icudt$(ICUVersion)");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
-                this.Macros["OutputName"] = Bam.Core.TokenizedString.CreateVerbatim("icudata");
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = Bam.Core.TokenizedString.CreateVerbatim("icudata");
             }
             base.Init();
         }

@@ -46,7 +46,7 @@ namespace QtCommon
             var parentModule = graph.ModuleStack.Peek();
             this.InputPath = this.CreateTokenizedString(
                 "$(0)/$(config)/@changeextension(@isrelative(@trimstart(@relativeto($(QRCHeaderPath),$(packagedir)),../),@filename($(QRCHeaderPath))),.rcc.cpp)",
-                new[] { parentModule.Macros["packagebuilddir"] }
+                new[] { parentModule.Macros[Bam.Core.ModuleMacroNames.PackageBuildDirectory] }
             );
         }
 

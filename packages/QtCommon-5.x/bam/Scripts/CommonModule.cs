@@ -60,7 +60,7 @@ namespace QtCommon
             base.Init();
 
             // using the real Qt installation directory allows headers in IDE projects to use more intuitive relative paths
-            this.Macros["packagedir"] = Configure.InstallPath;
+            this.Macros[Bam.Core.ModuleMacroNames.PackageDirectory] = Configure.InstallPath;
 
             if (null == this.CustomVersionNumber)
             {
@@ -89,7 +89,7 @@ namespace QtCommon
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.Macros["OutputName"] = this.CreateTokenizedString("$(QtModulePrefix)$(QtModuleName)$(QtConfig)");
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = this.CreateTokenizedString("$(QtModulePrefix)$(QtModuleName)$(QtConfig)");
                 this.RegisterGeneratedFile(
                     ExecutableKey,
                     this.CreateTokenizedString("$(QtBinaryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)")
@@ -101,7 +101,7 @@ namespace QtCommon
             }
             else
             {
-                this.Macros["OutputName"] = this.CreateTokenizedString("$(QtModulePrefix)$(QtModuleName)");
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = this.CreateTokenizedString("$(QtModulePrefix)$(QtModuleName)");
                 this.RegisterGeneratedFile(
                     ExecutableKey,
                     this.CreateTokenizedString("$(QtLibraryPath)/$(dynamicprefix)$(OutputName)$(dynamicext)")
