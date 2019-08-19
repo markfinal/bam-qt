@@ -155,14 +155,11 @@ namespace QtCommon
             }
         }
 
-        public override System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, Bam.Core.Module>> InputModules
+        public override System.Collections.Generic.IEnumerable<(Bam.Core.Module, string)> InputModulePaths
         {
             get
             {
-                yield return new System.Collections.Generic.KeyValuePair<string, Bam.Core.Module>(
-                    C.HeaderFile.HeaderFileKey,
-                    this.UIFile
-                );
+                yield return (this.UIFile, C.HeaderFile.HeaderFileKey);
             }
         }
     }
