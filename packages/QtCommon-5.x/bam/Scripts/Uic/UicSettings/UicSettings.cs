@@ -36,12 +36,11 @@ namespace QtCommon
         IUicSettings
     {
         public UicSettings(
-            Bam.Core.Module module) => this.InitializeAllInterfaces(module, true, true);
-
-        public override void
-        AssignFileLayout()
+            Bam.Core.Module module)
+            :
+            base(ELayout.Cmds_Outputs_Inputs)
         {
-            this.FileLayout = ELayout.Cmds_Outputs_Inputs;
+            this.InitializeAllInterfaces(module, true, true);
         }
     }
 }

@@ -36,7 +36,12 @@ namespace QtCommon
         IMocSettings
     {
         public MocSettings(
-            Bam.Core.Module module) => this.InitializeAllInterfaces(module, true, true);
+            Bam.Core.Module module)
+            :
+            base(ELayout.Cmds_Outputs_Inputs)
+        {
+            this.InitializeAllInterfaces(module, true, true);
+        }
 
         [CommandLineProcessor.PreprocessorDefines("-D ")]
         C.PreprocessorDefinitions IMocSettings.PreprocessorDefinitions { get; set; }
@@ -52,11 +57,5 @@ namespace QtCommon
 
         [CommandLineProcessor.String("-p ")]
         string IMocSettings.PathPrefix { get; set; }
-
-        public override void
-        AssignFileLayout()
-        {
-            this.FileLayout = ELayout.Cmds_Outputs_Inputs;
-        }
     }
 }
