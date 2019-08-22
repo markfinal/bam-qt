@@ -43,14 +43,8 @@ namespace QtCommon.DefaultSettings
                 System.Convert.ToInt32(qtVersion[0]).ToString("00"),
                 System.Convert.ToInt32(qtVersion[1]).ToString("00"),
                 System.Convert.ToInt32(qtVersion[2]).ToString("00"));
-            settings.PreprocessorDefinitions.Add("QT_VERSION", paddedQtVersion);
-        }
-
-        public static void
-        Empty(
-            this IMocSettings settings)
-        {
             settings.PreprocessorDefinitions = new C.PreprocessorDefinitions();
+            settings.PreprocessorDefinitions.Add("QT_VERSION", paddedQtVersion);
             settings.IncludePaths = new Bam.Core.Array<Bam.Core.TokenizedString>();
         }
     }

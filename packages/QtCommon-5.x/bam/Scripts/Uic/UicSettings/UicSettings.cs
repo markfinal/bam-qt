@@ -35,12 +35,9 @@ namespace QtCommon
         Bam.Core.Settings,
         IUicSettings
     {
-        public UicSettings(
-            Bam.Core.Module module)
+        public UicSettings()
             :
             base(ELayout.Cmds_Outputs_Inputs)
-        {
-            this.InitializeAllInterfaces(module, false, true);
-        }
+        {}
     }
 }

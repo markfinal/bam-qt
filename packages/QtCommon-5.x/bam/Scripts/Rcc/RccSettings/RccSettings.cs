@@ -35,12 +35,9 @@ namespace QtCommon
         Bam.Core.Settings,
         IRccSettings
     {
-        public RccSettings(
-            Bam.Core.Module module)
+        public RccSettings()
             :
             base(ELayout.Cmds_Outputs_Inputs)
-        {
-            this.InitializeAllInterfaces(module, false, true);
-        }
+        {}
     }
 }

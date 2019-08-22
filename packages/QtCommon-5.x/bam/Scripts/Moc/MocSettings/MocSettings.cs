@@ -35,13 +35,10 @@ namespace QtCommon
         Bam.Core.Settings,
         IMocSettings
     {
-        public MocSettings(
-            Bam.Core.Module module)
+        public MocSettings()
             :
             base(ELayout.Cmds_Outputs_Inputs)
-        {
-            this.InitializeAllInterfaces(module, true, true);
-        }
+        {}
 
         [CommandLineProcessor.PreprocessorDefines("-D ")]
         C.PreprocessorDefinitions IMocSettings.PreprocessorDefinitions { get; set; }
