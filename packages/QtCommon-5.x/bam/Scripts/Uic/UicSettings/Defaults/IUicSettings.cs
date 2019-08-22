@@ -36,10 +36,5 @@ namespace QtCommon.DefaultSettings
             this IUicSettings settings,
             Bam.Core.Module module)
         {}
-
-        public static void
-        Empty(
-            this IUicSettings settings)
-        {}
     }
 }

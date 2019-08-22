@@ -36,10 +36,5 @@ namespace QtCommon.DefaultSettings
             this IRccSettings settings,
             Bam.Core.Module module)
         {}
-
-        public static void
-        Empty(
-            this IRccSettings settings)
-        {}
     }
 }
