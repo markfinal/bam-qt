@@ -33,8 +33,7 @@ namespace QtCommon.DefaultSettings
     {
         public static void
         Defaults(
-            this IRccSettings settings,
-            Bam.Core.Module module)
+            this IRccSettings settings)
         {}
     }
 }

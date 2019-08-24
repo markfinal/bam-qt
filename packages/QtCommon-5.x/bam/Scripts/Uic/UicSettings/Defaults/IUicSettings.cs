@@ -33,8 +33,7 @@ namespace QtCommon.DefaultSettings
     {
         public static void
         Defaults(
-            this IUicSettings settings,
-            Bam.Core.Module module)
+            this IUicSettings settings)
         {}
     }
 }
