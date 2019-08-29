@@ -47,7 +47,7 @@ namespace QtCommon.UicExtension
         }
 
         public static QUIFileCollection
-        CreateUicContainer(
+        CreateUicCollection(
             this C.CModule module,
             string wildcardPath = null,
             Bam.Core.Module macroModuleOverride = null,

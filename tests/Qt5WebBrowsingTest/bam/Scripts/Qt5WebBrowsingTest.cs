@@ -40,7 +40,7 @@ namespace Qt5WebBrowsingTest
         {
             base.Init();
 
-            var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
+            var source = this.CreateCxxSourceCollection("$(packagedir)/source/*.cpp");
 
             source.PrivatePatch(settings =>
                 {
@@ -89,7 +89,7 @@ namespace Qt5WebBrowsingTest
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.CreateWinResourceContainer("$(packagedir)/resources/*.rc");
+                this.CreateWinResourceCollection("$(packagedir)/resources/*.rc");
             }
         }
     }

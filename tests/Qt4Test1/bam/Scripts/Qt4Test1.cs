@@ -47,8 +47,8 @@ namespace Qt4Test1
         {
             base.Init();
 
-            var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
-            var mocHeaders = this.CreateHeaderContainer("$(packagedir)/source/myobject*.h");
+            var source = this.CreateCxxSourceCollection("$(packagedir)/source/*.cpp");
+            var mocHeaders = this.CreateHeaderCollection("$(packagedir)/source/myobject*.h");
             foreach (var mocHeader in mocHeaders.Children)
             {
                 var myObjectMocTuple = source.MocHeader(mocHeader as C.HeaderFile);
@@ -91,7 +91,7 @@ namespace Qt4Test1
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.CreateWinResourceContainer("$(packagedir)/resources/*.rc");
+                this.CreateWinResourceCollection("$(packagedir)/resources/*.rc");
             }
         }
     }

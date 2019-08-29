@@ -69,7 +69,7 @@ namespace QtCommon
             if (this.HasHeaders)
             {
                 // note the wildcard, to capture headers without extensions too
-                this.CreateHeaderContainer("$(QtIncludePath)/Qt$(QtModuleName)/**.*", this);
+                this.CreateHeaderCollection("$(QtIncludePath)/Qt$(QtModuleName)/**.*", this);
             }
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))

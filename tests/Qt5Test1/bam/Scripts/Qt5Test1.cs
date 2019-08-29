@@ -40,8 +40,8 @@ namespace Qt5Test1
         {
             base.Init();
 
-            var mocHeaders = this.CreateHeaderContainer("$(packagedir)/source/*.h");
-            var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
+            var mocHeaders = this.CreateHeaderCollection("$(packagedir)/source/*.h");
+            var source = this.CreateCxxSourceCollection("$(packagedir)/source/*.cpp");
             foreach (var mocHeader in mocHeaders.Children)
             {
                 var myObjectMocTuple = source.MocHeader(mocHeader as C.HeaderFile);
@@ -106,7 +106,7 @@ namespace Qt5Test1
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.CreateWinResourceContainer("$(packagedir)/resources/*.rc");
+                this.CreateWinResourceCollection("$(packagedir)/resources/*.rc");
             }
         }
     }

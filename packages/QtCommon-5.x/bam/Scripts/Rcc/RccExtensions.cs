@@ -51,7 +51,7 @@ namespace QtCommon.RccExtension
         }
 
         public static QRCFileCollection
-        CreateQrcContainer(
+        CreateQrcCollection(
             this C.CModule module,
             string wildcardPath = null,
             Bam.Core.Module macroModuleOverride = null,

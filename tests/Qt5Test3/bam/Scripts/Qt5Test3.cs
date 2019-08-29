@@ -40,9 +40,9 @@ namespace Qt5Test3
         {
             base.Init();
 
-            var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
+            var source = this.CreateCxxSourceCollection("$(packagedir)/source/*.cpp");
 
-            var qrcResources = this.CreateQrcContainer("$(packagedir)/resources/*.qrc");
+            var qrcResources = this.CreateQrcCollection("$(packagedir)/resources/*.qrc");
             foreach (var rccFile in qrcResources.Children)
             {
                 /*var rccMocTuple = */
@@ -101,7 +101,7 @@ namespace Qt5Test3
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                this.CreateWinResourceContainer("$(packagedir)/resources/*.rc");
+                this.CreateWinResourceCollection("$(packagedir)/resources/*.rc");
             }
         }
     }
