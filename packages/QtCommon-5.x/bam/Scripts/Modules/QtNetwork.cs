@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Network :
+    abstract class Network :
         CommonModule
     {
         public Network() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class NetworkFramework :
+    abstract class NetworkFramework :
         CommonFramework
     {
         public NetworkFramework() :

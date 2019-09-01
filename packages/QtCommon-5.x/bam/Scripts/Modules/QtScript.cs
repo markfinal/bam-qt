@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Script :
+    abstract class Script :
         CommonModule
     {
         public Script() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class ScriptFramework :
+    abstract class ScriptFramework :
         CommonFramework
     {
         public ScriptFramework() :

@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class ScriptTools :
+    abstract class ScriptTools :
         CommonModule
     {
         public ScriptTools() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class ScriptToolsFramework :
+    abstract class ScriptToolsFramework :
         CommonFramework
     {
         public ScriptToolsFramework() :

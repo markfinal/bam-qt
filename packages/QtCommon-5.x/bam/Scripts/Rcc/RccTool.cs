@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public sealed class RccTool :
+    sealed class RccTool :
         Bam.Core.PreBuiltTool
     {
         protected override void

@@ -29,119 +29,119 @@
 #endregion // License
 namespace Qt
 {
-    public sealed class CoreFramework :
+    sealed class CoreFramework :
         QtCommon.CoreFramework
     { }
 
-    public sealed class ConcurrentFramework :
+    sealed class ConcurrentFramework :
         QtCommon.ConcurrentFramework
     { }
 
-    public sealed class DBusFramework :
+    sealed class DBusFramework :
         QtCommon.DBusFramework
     { }
 
-    public sealed class DeclarativeFramework :
+    sealed class DeclarativeFramework :
         QtCommon.DeclarativeFramework
     { }
 
-    public sealed class DesignerFramework :
+    sealed class DesignerFramework :
         QtCommon.DesignerFramework
     { }
 
-    public sealed class GuiFramework :
+    sealed class GuiFramework :
         QtCommon.GuiFramework
     { }
 
-    public sealed class HelpFramework :
+    sealed class HelpFramework :
         QtCommon.HelpFramework
     { }
 
-    public sealed class MultimediaFramework :
+    sealed class MultimediaFramework :
         QtCommon.MultimediaFramework
     { }
 
-    public sealed class MultimediaWidgetsFramework :
+    sealed class MultimediaWidgetsFramework :
         QtCommon.MultimediaWidgetsFramework
     { }
 
-    public sealed class NetworkFramework :
+    sealed class NetworkFramework :
         QtCommon.NetworkFramework
     { }
 
-    public sealed class OpenGLFramework :
+    sealed class OpenGLFramework :
         QtCommon.OpenGLFramework
     { }
 
-    public sealed class OpenVGFramework :
+    sealed class OpenVGFramework :
         QtCommon.OpenVGFramework
     { }
 
-    public sealed class PhononFramework :
+    sealed class PhononFramework :
         QtCommon.PhononFramework
     { }
 
-    public sealed class PositioningFramework :
+    sealed class PositioningFramework :
         QtCommon.PositioningFramework
     { }
 
-    public sealed class PrintSupportFramework :
+    sealed class PrintSupportFramework :
         QtCommon.PrintSupportFramework
     { }
 
-    public sealed class QmlFramework :
+    sealed class QmlFramework :
         QtCommon.QmlFramework
     { }
 
-    public sealed class QuickFramework :
+    sealed class QuickFramework :
         QtCommon.QuickFramework
     { }
 
-    public sealed class ScriptFramework :
+    sealed class ScriptFramework :
         QtCommon.ScriptFramework
     { }
 
-    public sealed class ScriptToolsFramework :
+    sealed class ScriptToolsFramework :
         QtCommon.ScriptToolsFramework
     { }
 
-    public sealed class SqlFramework :
+    sealed class SqlFramework :
         QtCommon.SqlFramework
     { }
 
-    public sealed class SvgFramework :
+    sealed class SvgFramework :
         QtCommon.SvgFramework
     { }
 
-    public sealed class TestFramework :
+    sealed class TestFramework :
         QtCommon.TestFramework
     { }
 
-    public sealed class WebKitFramework :
+    sealed class WebKitFramework :
         QtCommon.WebKitFramework
     { }
 
-    public sealed class WebEngineCoreFramework :
+    sealed class WebEngineCoreFramework :
         QtCommon.WebEngineCoreFramework
     { }
 
-    public sealed class WebChannelFramework :
+    sealed class WebChannelFramework :
         QtCommon.WebChannelFramework
     { }
 
-    public sealed class WebEngineWidgetsFramework :
+    sealed class WebEngineWidgetsFramework :
         QtCommon.WebEngineWidgetsFramework
     { }
 
-    public sealed class WidgetsFramework :
+    sealed class WidgetsFramework :
         QtCommon.WidgetsFramework
     { }
 
-    public sealed class XmlFramework :
+    sealed class XmlFramework :
         QtCommon.XmlFramework
     { }
 
-    public sealed class XmlPatternsFramework :
+    sealed class XmlPatternsFramework :
         QtCommon.XmlPatternsFramework
     { }
 }

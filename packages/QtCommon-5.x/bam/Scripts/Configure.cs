@@ -30,7 +30,7 @@
 using System.Linq;
 namespace QtCommon
 {
-    public static class Configure
+    static class Configure
     {
         static Configure()
         {

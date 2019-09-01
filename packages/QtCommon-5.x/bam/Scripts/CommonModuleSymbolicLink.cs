@@ -31,7 +31,7 @@ namespace QtCommon
 {
     [C.Prebuilt]
     [Bam.Core.ModuleGroup("Thirdparty/Qt5")]
-    public class CommonModuleSymbolicLink :
+    class CommonModuleSymbolicLink :
         C.SharedObjectSymbolicLink
     {}
 }

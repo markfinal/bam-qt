@@ -29,7 +29,7 @@
 #endregion // License
 namespace Qt
 {
-    public sealed class UiTools :
+    sealed class UiTools :
         QtCommon.UiTools
     { }
 }

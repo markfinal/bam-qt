@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class QtWebEngineProcess :
+    abstract class QtWebEngineProcess :
         CommonUtility
     {
         protected override void

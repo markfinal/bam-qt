@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Svg :
+    abstract class Svg :
         CommonModule
     {
         public Svg() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class SvgFramework :
+    abstract class SvgFramework :
         CommonFramework
     {
         public SvgFramework() :

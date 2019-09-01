@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class MultimediaWidgets :
+    abstract class MultimediaWidgets :
         CommonModule
     {
         public MultimediaWidgets() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class MultimediaWidgetsFramework :
+    abstract class MultimediaWidgetsFramework :
         CommonFramework
     {
         public MultimediaWidgetsFramework() :

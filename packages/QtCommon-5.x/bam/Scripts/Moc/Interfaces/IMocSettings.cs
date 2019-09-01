@@ -30,7 +30,7 @@
 namespace QtCommon
 {
     [Bam.Core.SettingsExtensions(typeof(DefaultSettings.DefaultSettingsExtensions))]
-    public interface IMocSettings :
+    interface IMocSettings :
         Bam.Core.ISettingsBase
     {
         C.PreprocessorDefinitions PreprocessorDefinitions { get; set; }

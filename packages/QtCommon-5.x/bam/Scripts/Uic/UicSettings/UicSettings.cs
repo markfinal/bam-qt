@@ -31,7 +31,7 @@ namespace QtCommon
 {
     [CommandLineProcessor.OutputPath(UicGeneratedHeader.HeaderFileKey, "-o ")]
     [CommandLineProcessor.InputPaths(QUIFile.HeaderFileKey, "")]
-    public sealed class UicSettings :
+    sealed class UicSettings :
         Bam.Core.Settings,
         IUicSettings
     {

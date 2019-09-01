@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class XCBGLIntegrations :
+    abstract class XCBGLIntegrations :
         CommonPlugin
     {
         protected override void

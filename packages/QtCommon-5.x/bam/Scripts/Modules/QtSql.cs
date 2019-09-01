@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Sql :
+    abstract class Sql :
         CommonModule
     {
         public Sql() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class SqlFramework :
+    abstract class SqlFramework :
         CommonFramework
     {
         public SqlFramework() :

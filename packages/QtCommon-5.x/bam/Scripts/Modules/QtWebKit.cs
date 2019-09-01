@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class WebKit :
+    abstract class WebKit :
         CommonModule
     {
         public WebKit() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class WebKitFramework :
+    abstract class WebKitFramework :
         CommonFramework
     {
         public WebKitFramework() :

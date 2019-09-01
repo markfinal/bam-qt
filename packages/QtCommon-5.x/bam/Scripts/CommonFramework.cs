@@ -30,7 +30,7 @@
 namespace QtCommon
 {
     [C.Prebuilt]
-    public abstract class CommonFramework :
+    abstract class CommonFramework :
         C.OSXFramework
     {
         protected CommonFramework(

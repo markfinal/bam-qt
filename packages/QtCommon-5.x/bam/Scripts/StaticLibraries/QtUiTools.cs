@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class UiTools :
+    abstract class UiTools :
         CommonStaticLibrary
     {
         public UiTools() :

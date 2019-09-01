@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class GIFImageFormatPlugin :
+    abstract class GIFImageFormatPlugin :
         CommonPlugin
     {
         protected override void

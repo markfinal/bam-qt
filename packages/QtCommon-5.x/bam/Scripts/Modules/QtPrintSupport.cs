@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class PrintSupport :
+    abstract class PrintSupport :
         CommonModule
     {
         public PrintSupport() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class PrintSupportFramework :
+    abstract class PrintSupportFramework :
         CommonFramework
     {
         public PrintSupportFramework() :

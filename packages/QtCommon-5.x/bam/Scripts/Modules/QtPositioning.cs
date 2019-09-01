@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Positioning :
+    abstract class Positioning :
         CommonModule
     {
         public Positioning() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class PositioningFramework :
+    abstract class PositioningFramework :
         CommonFramework
     {
         public PositioningFramework() :

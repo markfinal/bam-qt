@@ -30,7 +30,7 @@
 namespace QtCommon
 {
     [Bam.Core.SettingsExtensions(typeof(DefaultSettings.DefaultSettingsExtensions))]
-    public interface IRccSettings :
+    interface IRccSettings :
         Bam.Core.ISettingsBase
     {}
 }

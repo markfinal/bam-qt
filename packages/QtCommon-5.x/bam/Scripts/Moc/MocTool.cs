@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public sealed class MocTool :
+    sealed class MocTool :
         Bam.Core.PreBuiltTool
     {
         protected override void

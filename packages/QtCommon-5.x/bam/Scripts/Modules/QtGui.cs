@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Gui :
+    abstract class Gui :
         CommonModule
     {
         public Gui() :
@@ -48,7 +48,7 @@ namespace QtCommon
         }
     }
 
-    public abstract class GuiFramework :
+    abstract class GuiFramework :
         CommonFramework
     {
         public GuiFramework() :

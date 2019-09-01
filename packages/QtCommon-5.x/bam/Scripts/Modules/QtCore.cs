@@ -30,7 +30,7 @@
 using Bam.Core;
 namespace QtCommon
 {
-    public abstract class Core :
+    abstract class Core :
         CommonModule
     {
         public Core() :
@@ -57,7 +57,7 @@ namespace QtCommon
         }
     }
 
-    public abstract class CoreFramework :
+    abstract class CoreFramework :
         CommonFramework
     {
         public CoreFramework() :

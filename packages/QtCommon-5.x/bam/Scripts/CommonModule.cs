@@ -32,7 +32,7 @@ namespace QtCommon
 {
     [C.Prebuilt]
     [Bam.Core.ModuleGroup("Thirdparty/Qt5")]
-    public abstract class CommonModule :
+    abstract class CommonModule :
         C.Cxx.DynamicLibrary
     {
         protected CommonModule(

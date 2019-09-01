@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class WebEngineCore :
+    abstract class WebEngineCore :
         CommonModule
     {
         public WebEngineCore() :
@@ -61,7 +61,7 @@ namespace QtCommon
         }
     }
 
-    public abstract class WebEngineCoreFramework :
+    abstract class WebEngineCoreFramework :
         CommonFramework
     {
         public WebEngineCoreFramework() :

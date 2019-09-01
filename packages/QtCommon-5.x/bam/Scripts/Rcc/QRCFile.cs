@@ -29,14 +29,14 @@
 #endregion // License
 namespace QtCommon
 {
-    public class QRCFile :
+    class QRCFile :
         C.HeaderFile
     {
         // override the name of the Key from HeaderFile
         //new static public Bam.Core.PathKey Key = Bam.Core.PathKey.Generate("QRC File");
     }
 
-    public class QRCFileCollection :
+    class QRCFileCollection :
         C.CModuleCollection<QRCFile>
     {
         public void

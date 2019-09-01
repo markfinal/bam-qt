@@ -30,7 +30,7 @@
 using Bam.Core;
 namespace QtCommon
 {
-    public abstract class Multimedia :
+    abstract class Multimedia :
         CommonModule
     {
         public Multimedia() :
@@ -60,7 +60,7 @@ namespace QtCommon
         }
     }
 
-    public abstract class MultimediaFramework :
+    abstract class MultimediaFramework :
         CommonFramework
     {
         public MultimediaFramework() :

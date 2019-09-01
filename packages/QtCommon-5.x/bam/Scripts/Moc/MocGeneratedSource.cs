@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public class MocGeneratedSource :
+    class MocGeneratedSource :
         C.SourceFile
     {
         private C.HeaderFile SourceHeaderModule;

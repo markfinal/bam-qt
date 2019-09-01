@@ -32,7 +32,7 @@ namespace QtCommon
 {
     [C.Prebuilt]
     [Bam.Core.ModuleGroup("Thirdparty/Qt5")]
-    public abstract class CommonUtility :
+    abstract class CommonUtility :
         C.Cxx.ConsoleApplication
     {
         protected CommonUtility()

@@ -31,7 +31,7 @@ namespace QtCommon
 {
     [CommandLineProcessor.OutputPath(RccGeneratedSource.SourceFileKey, "-o ")]
     [CommandLineProcessor.InputPaths(C.HeaderFile.HeaderFileKey, "")]
-    public sealed class RccSettings :
+    sealed class RccSettings :
         Bam.Core.Settings,
         IRccSettings
     {

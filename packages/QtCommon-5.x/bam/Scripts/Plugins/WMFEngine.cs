@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class WMFEngineMediaServicePlugin :
+    abstract class WMFEngineMediaServicePlugin :
         CommonPlugin
     {
         protected override void

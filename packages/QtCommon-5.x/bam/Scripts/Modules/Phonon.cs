@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Phonon :
+    abstract class Phonon :
         CommonModule
     {
         public Phonon() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class PhononFramework :
+    abstract class PhononFramework :
         CommonFramework
     {
         public PhononFramework() :

@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon.RccExtension
 {
-    public static class RccExtension
+    static class RccExtension
     {
         public static System.Tuple<Bam.Core.Module, Bam.Core.Module>
         Rcc(

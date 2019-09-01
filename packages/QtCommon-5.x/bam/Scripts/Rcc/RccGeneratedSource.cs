@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public class RccGeneratedSource :
+    class RccGeneratedSource :
         C.SourceFile
     {
         private QRCFile SourceQRCFile;

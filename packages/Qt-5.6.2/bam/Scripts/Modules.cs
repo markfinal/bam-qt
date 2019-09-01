@@ -30,7 +30,7 @@
 using Bam.Core;
 namespace Qt
 {
-    public sealed class Core :
+    sealed class Core :
         QtCommon.Core
     {
         protected override void
@@ -55,127 +55,127 @@ namespace Qt
         }
     }
 
-    public sealed class Concurrent :
+    sealed class Concurrent :
         QtCommon.Concurrent
     { }
 
-    public sealed class DBus :
+    sealed class DBus :
         QtCommon.DBus
     { }
 
-    public sealed class Declarative :
+    sealed class Declarative :
         QtCommon.Declarative
     { }
 
-    public sealed class Designer :
+    sealed class Designer :
         QtCommon.Designer
     { }
 
-    public sealed class Gui :
+    sealed class Gui :
         QtCommon.Gui
     { }
 
-    public sealed class Help :
+    sealed class Help :
         QtCommon.Help
     { }
 
-    public sealed class Multimedia :
+    sealed class Multimedia :
         QtCommon.Multimedia
     { }
 
-    public sealed class MultimediaWidgets :
+    sealed class MultimediaWidgets :
         QtCommon.MultimediaWidgets
     { }
 
-    public sealed class Network :
+    sealed class Network :
         QtCommon.Network
     { }
 
-    public sealed class OpenGL :
+    sealed class OpenGL :
         QtCommon.OpenGL
     { }
 
-    public sealed class OpenVG :
+    sealed class OpenVG :
         QtCommon.OpenVG
     { }
 
-    public sealed class Phonon :
+    sealed class Phonon :
         QtCommon.Phonon
     { }
 
-    public sealed class Positioning :
+    sealed class Positioning :
         QtCommon.Positioning
     { }
 
-    public sealed class PrintSupport :
+    sealed class PrintSupport :
         QtCommon.PrintSupport
     { }
 
-    public sealed class Qml :
+    sealed class Qml :
         QtCommon.Qml
     { }
 
-    public sealed class Quick :
+    sealed class Quick :
         QtCommon.Quick
     { }
 
-    public sealed class Script :
+    sealed class Script :
         QtCommon.Script
     { }
 
-    public sealed class ScriptTools :
+    sealed class ScriptTools :
         QtCommon.ScriptTools
     { }
 
-    public sealed class Sql :
+    sealed class Sql :
         QtCommon.Sql
     { }
 
-    public sealed class Svg :
+    sealed class Svg :
         QtCommon.Svg
     { }
 
-    public sealed class Test :
+    sealed class Test :
         QtCommon.Test
     { }
 
-    public sealed class WebKit :
+    sealed class WebKit :
         QtCommon.WebKit
     { }
 
-    public sealed class WebEngineCore :
+    sealed class WebEngineCore :
         QtCommon.WebEngineCore
     { }
 
-    public sealed class WebChannel :
+    sealed class WebChannel :
         QtCommon.WebChannel
     { }
 
-    public sealed class WebEngineWidgets :
+    sealed class WebEngineWidgets :
         QtCommon.WebEngineWidgets
     { }
 
-    public sealed class Widgets :
+    sealed class Widgets :
         QtCommon.Widgets
     { }
 
-    public sealed class Xml :
+    sealed class Xml :
         QtCommon.Xml
     { }
 
-    public sealed class XmlPatterns :
+    sealed class XmlPatterns :
         QtCommon.XmlPatterns
     { }
 
     // specific to this version
 
     [Bam.Core.PlatformFilter(Bam.Core.EPlatform.Linux)]
-    public sealed class XcbQpa :
+    sealed class XcbQpa :
         QtCommon.XcbQpa
     { }
 
     [Bam.Core.PlatformFilter(Bam.Core.EPlatform.Linux)]
-    public sealed class GSTTools :
+    sealed class GSTTools :
         QtCommon.GSTTools
     { }
 }

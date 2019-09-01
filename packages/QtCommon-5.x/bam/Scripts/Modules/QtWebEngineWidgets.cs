@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class WebEngineWidgets :
+    abstract class WebEngineWidgets :
         CommonModule
     {
         public WebEngineWidgets() :
@@ -49,7 +49,7 @@ namespace QtCommon
         }
     }
 
-    public abstract class WebEngineWidgetsFramework :
+    abstract class WebEngineWidgetsFramework :
         CommonFramework
     {
         public WebEngineWidgetsFramework() :

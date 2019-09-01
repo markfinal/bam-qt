@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Concurrent :
+    abstract class Concurrent :
         CommonModule
     {
         public Concurrent() :
@@ -37,7 +37,7 @@ namespace QtCommon
         {}
     }
 
-    public abstract class ConcurrentFramework :
+    abstract class ConcurrentFramework :
         CommonFramework
     {
         public ConcurrentFramework() :

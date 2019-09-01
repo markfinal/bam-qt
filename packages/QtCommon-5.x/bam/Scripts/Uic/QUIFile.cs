@@ -29,14 +29,14 @@
 #endregion // License
 namespace QtCommon
 {
-    public class QUIFile :
+    class QUIFile :
         C.HeaderFile
     {
         // override the name of the Key from HeaderFile
         //new static public Bam.Core.PathKey Key = Bam.Core.PathKey.Generate("Qt .ui File");
     }
 
-    public class QUIFileCollection :
+    class QUIFileCollection :
         C.CModuleCollection<QUIFile>
     {
         public void

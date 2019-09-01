@@ -30,7 +30,7 @@
 using Bam.Core;
 namespace QtCommon
 {
-    public static class Patches
+    static class Patches
     {
         // since there are headers that exist outside of the Frameworks on OSX
         public static void

@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class DBus :
+    abstract class DBus :
         CommonModule
     {
         public DBus() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class DBusFramework :
+    abstract class DBusFramework :
         CommonFramework
     {
         public DBusFramework() :

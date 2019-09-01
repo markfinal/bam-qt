@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Test :
+    abstract class Test :
         CommonModule
     {
         public Test() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class TestFramework :
+    abstract class TestFramework :
         CommonFramework
     {
         public TestFramework() :

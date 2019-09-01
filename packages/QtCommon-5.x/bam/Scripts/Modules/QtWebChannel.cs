@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class WebChannel :
+    abstract class WebChannel :
         CommonModule
     {
         public WebChannel() :
@@ -47,7 +47,7 @@ namespace QtCommon
         }
     }
 
-    public abstract class WebChannelFramework :
+    abstract class WebChannelFramework :
         CommonFramework
     {
         public WebChannelFramework() :

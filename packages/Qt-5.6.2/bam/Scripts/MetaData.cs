@@ -30,7 +30,7 @@
 using System.Linq;
 namespace Qt
 {
-    public class MetaData :
+    class MetaData :
         Bam.Core.PackageMetaData,
         QtCommon.IICUMeta
     {

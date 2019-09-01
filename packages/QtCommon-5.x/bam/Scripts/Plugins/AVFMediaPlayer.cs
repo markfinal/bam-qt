@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class AVFMediaPlayerPlugin :
+    abstract class AVFMediaPlayerPlugin :
         CommonPlugin
     {
         protected override void

@@ -31,7 +31,7 @@ namespace QtCommon
 {
     [CommandLineProcessor.OutputPath(MocGeneratedSource.SourceFileKey, "-o ")]
     [CommandLineProcessor.InputPaths(C.HeaderFile.HeaderFileKey, "")]
-    public sealed class MocSettings :
+    sealed class MocSettings :
         Bam.Core.Settings,
         IMocSettings
     {

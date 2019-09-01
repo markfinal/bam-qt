@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Xml :
+    abstract class Xml :
         CommonModule
     {
         public Xml() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class XmlFramework :
+    abstract class XmlFramework :
         CommonFramework
     {
         public XmlFramework() :

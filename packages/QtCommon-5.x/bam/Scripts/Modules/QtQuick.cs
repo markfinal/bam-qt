@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Quick :
+    abstract class Quick :
         CommonModule
     {
         public Quick() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class QuickFramework :
+    abstract class QuickFramework :
         CommonFramework
     {
         public QuickFramework() :

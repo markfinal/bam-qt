@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon.MocExtension
 {
-    public static class MocExtension
+    static class MocExtension
     {
         public static System.Tuple<Bam.Core.Module, Bam.Core.Module>
         MocHeader(

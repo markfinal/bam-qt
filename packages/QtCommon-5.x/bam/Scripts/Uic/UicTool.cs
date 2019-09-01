@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public sealed class UicTool :
+    sealed class UicTool :
         Bam.Core.PreBuiltTool
     {
         protected override void

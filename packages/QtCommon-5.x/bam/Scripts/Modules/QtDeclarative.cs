@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Declarative :
+    abstract class Declarative :
         CommonModule
     {
         public Declarative() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class DeclarativeFramework :
+    abstract class DeclarativeFramework :
         CommonFramework
     {
         public DeclarativeFramework() :

@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Designer :
+    abstract class Designer :
         CommonModule
     {
         public Designer() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class DesignerFramework :
+    abstract class DesignerFramework :
         CommonFramework
     {
         public DesignerFramework() :

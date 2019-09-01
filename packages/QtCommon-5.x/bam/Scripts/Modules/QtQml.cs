@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Qml :
+    abstract class Qml :
         CommonModule
     {
         public Qml() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class QmlFramework :
+    abstract class QmlFramework :
         CommonFramework
     {
         public QmlFramework() :

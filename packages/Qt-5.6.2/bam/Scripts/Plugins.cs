@@ -29,28 +29,28 @@
 #endregion // License
 namespace Qt
 {
-    public sealed class PlatformPlugin :
+    sealed class PlatformPlugin :
         QtCommon.PlatformPlugin
     { }
 
-    public sealed class XCBGLIntegrationsPlugin : // new in Qt5.5
+    sealed class XCBGLIntegrationsPlugin : // new in Qt5.5
         QtCommon.XCBGLIntegrations
     { }
 
-    public sealed class GIFImageFormatPlugin :
+    sealed class GIFImageFormatPlugin :
         QtCommon.GIFImageFormatPlugin
     { }
 
     // Note: Qt 5.6.0+ prebuilt binaries no longer contain the wmfengine plugin, only DirectShow
-    public sealed class DirectShowEngineMediaServicePlugin :
+    sealed class DirectShowEngineMediaServicePlugin :
         QtCommon.DirectShowEngineMediaServicePlugin
     { }
 
-    public sealed class GSTMediaPlayerPlugin :
+    sealed class GSTMediaPlayerPlugin :
         QtCommon.GSTMediaPlayerPlugin
     { }
 
-    public sealed class AVFMediaPlayerPlugin :
+    sealed class AVFMediaPlayerPlugin :
         QtCommon.AVFMediaPlayerPlugin
     { }
 }

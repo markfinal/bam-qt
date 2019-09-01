@@ -30,7 +30,7 @@
 namespace QtCommon
 {
     [Bam.Core.PlatformFilter(Bam.Core.EPlatform.Linux)]
-    public abstract class XcbQpa :
+    abstract class XcbQpa :
         CommonModule
     {
         public XcbQpa() :

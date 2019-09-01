@@ -31,18 +31,18 @@ using Bam.Core;
 using System.Linq;
 namespace QtCommon
 {
-    public interface IICUMeta
+    interface IICUMeta
     {
         string Version { get; }
     }
 
     [C.Prebuilt]
-    public class ICUSharedObjectSymbolicLink :
+    class ICUSharedObjectSymbolicLink :
         C.SharedObjectSymbolicLink
     {}
 
     [C.Prebuilt]
-    public abstract class ICUBase :
+    abstract class ICUBase :
         C.Cxx.DynamicLibrary
     {
         protected override void
@@ -82,7 +82,7 @@ namespace QtCommon
         }
     }
 
-    public sealed class ICUIN :
+    sealed class ICUIN :
         ICUBase
     {
         protected override void
@@ -100,7 +100,7 @@ namespace QtCommon
         }
     }
 
-    public sealed class ICUUC :
+    sealed class ICUUC :
         ICUBase
     {
         protected override void
@@ -118,7 +118,7 @@ namespace QtCommon
         }
     }
 
-    public sealed class ICUDT :
+    sealed class ICUDT :
         ICUBase
     {
         protected override void

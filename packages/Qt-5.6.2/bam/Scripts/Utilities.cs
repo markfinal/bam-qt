@@ -29,7 +29,7 @@
 #endregion // License
 namespace Qt
 {
-    public sealed class QtWebEngineProcess :
+    sealed class QtWebEngineProcess :
         QtCommon.QtWebEngineProcess
     { }
 }

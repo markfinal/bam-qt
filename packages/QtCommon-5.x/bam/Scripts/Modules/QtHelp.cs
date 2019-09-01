@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class Help :
+    abstract class Help :
         CommonModule
     {
         public Help() :
@@ -37,7 +37,7 @@ namespace QtCommon
         { }
     }
 
-    public abstract class HelpFramework :
+    abstract class HelpFramework :
         CommonFramework
     {
         public HelpFramework() :

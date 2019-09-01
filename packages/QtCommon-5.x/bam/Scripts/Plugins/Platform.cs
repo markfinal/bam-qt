@@ -30,7 +30,7 @@
 using Bam.Core;
 namespace QtCommon
 {
-    public abstract class PlatformPlugin :
+    abstract class PlatformPlugin :
         CommonPlugin
     {
         protected override void

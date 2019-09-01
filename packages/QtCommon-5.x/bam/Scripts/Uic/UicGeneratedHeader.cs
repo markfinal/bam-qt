@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public class UicGeneratedHeader :
+    class UicGeneratedHeader :
         C.HeaderFile
     {
         private QUIFile SourceUIFile;

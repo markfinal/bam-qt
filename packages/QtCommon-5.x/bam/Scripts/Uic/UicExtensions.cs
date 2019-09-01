@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon.UicExtension
 {
-    public static class UicExtension
+    static class UicExtension
     {
         public static Bam.Core.Module
         Uic(

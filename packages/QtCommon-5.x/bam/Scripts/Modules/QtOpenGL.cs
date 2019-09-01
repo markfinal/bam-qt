@@ -29,7 +29,7 @@
 #endregion // License
 namespace QtCommon
 {
-    public abstract class OpenGL :
+    abstract class OpenGL :
         CommonModule
     {
         public OpenGL() :
@@ -37,7 +37,7 @@ namespace QtCommon
         {}
     }
 
-    public abstract class OpenGLFramework :
+    abstract class OpenGLFramework :
         CommonFramework
     {
         public OpenGLFramework() :
