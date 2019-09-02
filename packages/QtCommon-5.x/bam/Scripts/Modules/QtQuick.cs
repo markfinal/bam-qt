@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class Quick :
         CommonModule
     {
-        public Quick() :
+        protected Quick() :
             base("Quick")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     abstract class QuickFramework :
         CommonFramework
     {
-        public QuickFramework() :
+        protected QuickFramework() :
             base("Quick")
         { }
     }

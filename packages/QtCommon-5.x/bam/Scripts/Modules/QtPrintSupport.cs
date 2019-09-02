@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class PrintSupport :
         CommonModule
     {
-        public PrintSupport() :
+        protected PrintSupport() :
             base("PrintSupports")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     abstract class PrintSupportFramework :
         CommonFramework
     {
-        public PrintSupportFramework() :
+        protected PrintSupportFramework() :
             base("PrintSupport")
         { }
     }

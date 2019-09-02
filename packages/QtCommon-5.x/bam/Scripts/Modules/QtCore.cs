@@ -33,7 +33,7 @@ namespace QtCommon
     abstract class Core :
         CommonModule
     {
-        public Core() :
+        protected Core() :
             base("Core")
         {}
 
@@ -60,7 +60,7 @@ namespace QtCommon
     abstract class CoreFramework :
         CommonFramework
     {
-        public CoreFramework() :
+        protected CoreFramework() :
             base("Core")
         {}
     }

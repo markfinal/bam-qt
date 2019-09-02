@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class DBus :
         CommonModule
     {
-        public DBus() :
+        protected DBus() :
             base("DBus")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     abstract class DBusFramework :
         CommonFramework
     {
-        public DBusFramework() :
+        protected DBusFramework() :
             base("DBus")
         { }
     }

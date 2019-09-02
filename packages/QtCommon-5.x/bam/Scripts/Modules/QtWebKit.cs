@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class WebKit :
         CommonModule
     {
-        public WebKit() :
+        protected WebKit() :
             base("WebKit")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     abstract class WebKitFramework :
         CommonFramework
     {
-        public WebKitFramework() :
+        protected WebKitFramework() :
             base("WebKit")
         { }
     }

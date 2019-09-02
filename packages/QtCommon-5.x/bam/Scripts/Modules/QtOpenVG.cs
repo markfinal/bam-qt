@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class OpenVG :
         CommonModule
     {
-        public OpenVG() :
+        protected OpenVG() :
             base("OpenVG")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     abstract class OpenVGFramework :
         CommonFramework
     {
-        public OpenVGFramework() :
+        protected OpenVGFramework() :
             base("OpenVG")
         { }
     }

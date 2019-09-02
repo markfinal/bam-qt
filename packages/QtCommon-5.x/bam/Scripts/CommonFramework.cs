@@ -34,8 +34,7 @@ namespace QtCommon
         C.OSXFramework
     {
         protected CommonFramework(
-            string moduleName) :
-            base()
+            string moduleName)
         {
             var graph = Bam.Core.Graph.Instance;
             graph.Macros.Add("QtInstallPath", Configure.InstallPath);

@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class Xml :
         CommonModule
     {
-        public Xml() :
+        protected Xml() :
             base("Xml")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     abstract class XmlFramework :
         CommonFramework
     {
-        public XmlFramework() :
+        protected XmlFramework() :
             base("Xml")
         { }
     }

@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class WebChannel :
         CommonModule
     {
-        public WebChannel() :
+        protected WebChannel() :
             base("WebChannel")
         { }
 
@@ -50,7 +50,7 @@ namespace QtCommon
     abstract class WebChannelFramework :
         CommonFramework
     {
-        public WebChannelFramework() :
+        protected WebChannelFramework() :
             base("WebChannel")
         { }
 

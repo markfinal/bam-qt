@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class Declarative :
         CommonModule
     {
-        public Declarative() :
+        protected Declarative() :
             base("Declarative")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     abstract class DeclarativeFramework :
         CommonFramework
     {
-        public DeclarativeFramework() :
+        protected DeclarativeFramework() :
             base("Declarative")
         { }
     }

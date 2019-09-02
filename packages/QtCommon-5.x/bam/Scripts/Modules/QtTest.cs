@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class Test :
         CommonModule
     {
-        public Test() :
+        protected Test() :
             base("Test")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     abstract class TestFramework :
         CommonFramework
     {
-        public TestFramework() :
+        protected TestFramework() :
             base("Test")
         { }
     }

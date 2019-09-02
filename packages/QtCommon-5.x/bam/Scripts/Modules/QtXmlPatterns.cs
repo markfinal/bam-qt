@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class XmlPatterns :
         CommonModule
     {
-        public XmlPatterns() :
+        protected XmlPatterns() :
             base("XmlPatterns")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     abstract class XmlPatternsFramework :
         CommonFramework
     {
-        public XmlPatternsFramework() :
+        protected XmlPatternsFramework() :
             base("XmlPatterns")
         { }
     }

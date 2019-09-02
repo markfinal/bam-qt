@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class WebEngineCore :
         CommonModule
     {
-        public WebEngineCore() :
+        protected WebEngineCore() :
             base("WebEngineCore")
         { }
 
@@ -64,7 +64,7 @@ namespace QtCommon
     abstract class WebEngineCoreFramework :
         CommonFramework
     {
-        public WebEngineCoreFramework() :
+        protected WebEngineCoreFramework() :
             base("WebEngineCore")
         { }
 

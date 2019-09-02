@@ -33,7 +33,7 @@ namespace QtCommon
     abstract class GSTTools :
         CommonModule
     {
-        public GSTTools() :
+        protected GSTTools() :
             base("qgsttools_p", // TODO: does the _p mean private?
                  hasHeaders: false,
                  hasPrefix: false,

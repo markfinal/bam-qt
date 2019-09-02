@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class ScriptTools :
         CommonModule
     {
-        public ScriptTools() :
+        protected ScriptTools() :
             base("ScriptTools")
         { }
     }
@@ -40,7 +40,7 @@ namespace QtCommon
     abstract class ScriptToolsFramework :
         CommonFramework
     {
-        public ScriptToolsFramework() :
+        protected ScriptToolsFramework() :
             base("ScriptTools")
         { }
     }

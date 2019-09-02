@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class WebEngineWidgets :
         CommonModule
     {
-        public WebEngineWidgets() :
+        protected WebEngineWidgets() :
             base("WebEngineWidgets")
         { }
 
@@ -52,7 +52,7 @@ namespace QtCommon
     abstract class WebEngineWidgetsFramework :
         CommonFramework
     {
-        public WebEngineWidgetsFramework() :
+        protected WebEngineWidgetsFramework() :
             base("WebEngineWidgets")
         { }
 

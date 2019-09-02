@@ -32,7 +32,7 @@ namespace QtCommon
     abstract class UiTools :
         CommonStaticLibrary
     {
-        public UiTools() :
+        protected UiTools() :
             base("UiTools")
         { }
     }
