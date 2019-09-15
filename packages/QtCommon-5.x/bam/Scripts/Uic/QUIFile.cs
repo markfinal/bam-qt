@@ -37,7 +37,7 @@ namespace QtCommon
     }
 
     class QUIFileCollection :
-        C.CModuleCollection<QUIFile>
+        C.InputPathFileCollection<QUIFile>
     {
         public void
         AddFile(

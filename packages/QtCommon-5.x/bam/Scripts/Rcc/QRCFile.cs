@@ -37,7 +37,7 @@ namespace QtCommon
     }
 
     class QRCFileCollection :
-        C.CModuleCollection<QRCFile>
+        C.InputPathFileCollection<QRCFile>
     {
         public void
         AddFile(
