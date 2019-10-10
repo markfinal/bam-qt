@@ -139,28 +139,28 @@ matrix:
       - BAM_TOOLCHAIN_NAME=Gcc
       - BAM_TOOLCHAIN_VERSION=4.8
   - os: osx
-    osx_image: xcode11
+    osx_image: xcode11.1
     mono: none
     dotnet: 2.1.401
-    name: MacOS (Xcode 11) Native
+    name: MacOS (Xcode 11.1) Native
     env:
       - BAM_BUILD_MODE=Native
       - BAM_TOOLCHAIN_NAME=Clang
       - BAM_TOOLCHAIN_VERSION=Xcode11
   - os: osx
-    osx_image: xcode11
+    osx_image: xcode11.1
     mono: none
     dotnet: 2.1.401
-    name: MacOS (Xcode 11) MakeFile
+    name: MacOS (Xcode 11.1) MakeFile
     env:
       - BAM_BUILD_MODE=MakeFile
       - BAM_TOOLCHAIN_NAME=Clang
       - BAM_TOOLCHAIN_VERSION=Xcode11
   - os: osx
-    osx_image: xcode11
+    osx_image: xcode11.1
     mono: none
     dotnet: 2.1.401
-    name: MacOS (Xcode 11) Xcode
+    name: MacOS (Xcode 11.1) Xcode
     env:
       - BAM_BUILD_MODE=Xcode
       - BAM_TOOLCHAIN_NAME=Clang
